@@ -19,6 +19,7 @@ emoticon = 0  # 监听表情包     → “【用户名】说【表情】”    
 gift     = 0  # 监听礼物       → “【用户名】赠送【数量】个【礼物名】”          gift_id=自定义礼物id      gift_price=礼物价格*     gift_num=礼物数量*
 sc       = 0  # 监听醒目留言   → “【用户名】发送【价格】说【内容】”             gift_id=sc对应礼物id      gift_price=sc价格*       gift_num=sc颜色
 guard    = 0  # 监听大航海     → “【用户名】开通【数量】个月【大航海等级】”     gift_id=大航海对应礼物id  gift_price=大航海等级   gift_num=舰长月数
+WARNING  = 0  # 监听超管警告   → “【警告信息】”
 # *1. 超出 255 的 gift_id / gift_price / gift_num 都会被当作 255  
 # *2. gift_id 为程序自定义的，并非 bilibili gift_id，详见 Data/Gift_id_compress.toml
 
@@ -34,8 +35,8 @@ guard    = 0  # 监听大航海     → “【用户名】开通【数量】个�
 # guard    = 5
 
 # ============================
-# 关键词设置, id为在列表中的位置（从1开始数）
+# 关键词设置, id为在列表中的位置（从1开始数），留空为任意词都触发
 # ============================
 [keywords]
-danmaku_key = ["穿","脱"]
+danmaku_key = []
 emoticon_key = ["可以","不可以"]

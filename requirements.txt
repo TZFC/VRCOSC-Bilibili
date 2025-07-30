@@ -1,3 +1,4 @@
+aiohttp
 bilibili-api-python
 browser-cookie3
 python-osc
