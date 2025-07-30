@@ -1,2 +1,2 @@
-async def handle_gift():
+async def handle_gift(event: dict, update_chatbox: bool, update_osc_param: bool):
     ...

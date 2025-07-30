@@ -1,2 +1,2 @@
-async def handle_sc():
+async def handle_sc(event: dict, update_chatbox: bool, update_osc_param: bool):
     ...

@@ -1,2 +1,2 @@
-async def handle_enter():
+async def handle_enter(event: dict, update_chatbox: bool, update_osc_param: bool):
     ...

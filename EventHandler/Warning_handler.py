@@ -1,2 +1,2 @@
-async def handle_warning():
+async def handle_warning(event: dict, update_chatbox: bool, update_osc_param: bool):
     ...

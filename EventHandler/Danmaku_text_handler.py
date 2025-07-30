@@ -1,2 +1,2 @@
-async def handle_text():
+async def handle_text(event: dict, update_chatbox: bool, update_osc_param: bool):
     ...

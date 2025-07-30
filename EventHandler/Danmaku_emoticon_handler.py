@@ -1,2 +1,2 @@
-async def handle_emoticon():
+async def handle_emoticon(event: dict, update_chatbox: bool, update_osc_param: bool):
     ...

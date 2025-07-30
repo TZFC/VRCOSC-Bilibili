@@ -1,2 +1,2 @@
-async def handle_guard():
+async def handle_guard(event: dict, update_chatbox: bool, update_osc_param: bool):
     ...
