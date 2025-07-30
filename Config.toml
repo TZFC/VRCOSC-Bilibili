@@ -1,26 +1,41 @@
+# ============================
+# 房间配置
+# ============================
 # 需要监听的房间号
 room_id = 870004
 
-# 需要监听的事件类型  
+
+# ============================
+# 事件类型设置 （event_id自动更新）
+# ============================
 # 0 = 不监听  
 # 1 = 发送至聊天框
 # 2 = 更新参数 (gift_id, gift_price, gift_num)
 # 3 = 前两者都做
 [events]
-enter    = 0  # 监听进场       → “欢迎【用户名】进入直播间”
-danmaku  = 0  # 监听弹幕       → “【用户名】说【内容】”
-emoticon = 0  # 监听表情包     → “【用户名】说【表情】”
-gift     = 0  # 监听礼物       → “【用户名】赠送【数量】个【礼物名】”
-sc       = 0  # 监听醒目留言   → “【用户名】发送【价格】说【内容】”
-guard    = 0  # 监听大航海     → “【用户名】开通【数量】个月【大航海等级】”
+enter    = 0  # 监听进场       → “欢迎【用户名】进入直播间”                    gift_id=荣誉等级        gift_price=大航海等级     gift_num=粉丝牌等级
+danmaku  = 0  # 监听弹幕       → “【用户名】说【内容】”                        gift_id=关键词id        gift_price=大航海等级     gift_num=粉丝牌等级
+emoticon = 0  # 监听表情包     → “【用户名】说【表情】”                        gift_id=关键词id        gift_price=大航海等级     gift_num=粉丝牌等级
+gift     = 0  # 监听礼物       → “【用户名】赠送【数量】个【礼物名】”          gift_id=自定义礼物id      gift_price=礼物价格*     gift_num=礼物数量*
+sc       = 0  # 监听醒目留言   → “【用户名】发送【价格】说【内容】”             gift_id=sc对应礼物id      gift_price=sc价格*       gift_num=sc颜色
+guard    = 0  # 监听大航海     → “【用户名】开通【数量】个月【大航海等级】”     gift_id=大航海对应礼物id  gift_price=大航海等级   gift_num=舰长月数
+# *1. 超出 255 的 gift_id / gift_price / gift_num 都会被当作 255  
+# *2. gift_id 为程序自定义的，并非 bilibili gift_id，详见 Data/Gift_id_compress.toml
 
-# 注：超出 255 的 gift_price / gift_num 都会被当作 255  
-# 注2：gift_id 为程序自定义的，并非 bilibili gift_id，见 Data/Gift_id_compress.toml
 
-# event_id 对照表:
+# ============================
+# event_id 对照表
+# ============================
 # enter    = 0
 # danmaku  = 1
 # emoticon = 2
 # gift     = 3
 # sc       = 4
 # guard    = 5
+
+# ============================
+# 关键词设置, id为在列表中的位置（从1开始数）
+# ============================
+[keywords]
+danmaku_key = ["穿","脱"]
+emoticon_key = ["可以","不可以"]

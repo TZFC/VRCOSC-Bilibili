@@ -1,10 +1,9 @@
-from pathlib import Path
 import tomllib
 from importlib import resources
 import logging
 logger = logging.getLogger(__name__)
-Path = "../config.toml"
+CONFIG_PATH = "./config.toml"
 
 def load_user_config() -> dict:
-    with open(Path, "rb") as f:
+    with open(CONFIG_PATH, "rb") as f:
         return tomllib.load(f)

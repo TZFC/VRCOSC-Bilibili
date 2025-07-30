@@ -1,5 +1,3 @@
-#! F:\VRCOSC-Bilibili\.venv\Scripts\python.exe
-
 from bilibili_api import Credential
 from browser_cookie3 import firefox
 import logging
