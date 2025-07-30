@@ -10,8 +10,8 @@ events: # 任意事件触发时，若不为0，会更新 bili_trigger 和 event_
   - gift: 0     # 监听礼物      1：发送至聊天框“【用户名】赠送【数量】个【礼物名】”  2：更新{gift_id, gift_price, gift_num}参数 3：前两者都做
   - sc: 0       # 监听醒目留言  1：发送至聊天框“【用户名】发送【价格】说【内容】”  2：更新{gift_id, gift_price}参数  3：前两者都做
   - guard: 0    # 监听大航海    1：发送至聊天框“【用户名】开通【数量】个月【大航海等级】” 2：更新{gift_id, gift_price}参数  3：前两者都做
-
-
+# 注：超出255的 gift_price / gift_num 都会被当作255
+# 注2：gift_id 为本程序自定义的，并非 bilibili 的 gift_id 对照表见 Gift_id_compress.yaml
 
 ## event_id:
 # enter 进场: 0
