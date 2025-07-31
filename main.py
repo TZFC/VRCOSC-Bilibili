@@ -37,15 +37,15 @@ async def main():
         osc_queue: asyncio.Queue = asyncio.Queue()
         
         # 启动事件分发
-        async def dispatch(event_name: str, event: dict, handler):
+        def dispatch(event_name: str, event: dict, handler):
             if user_config['events'][event_name] == 0:
                 return
             elif user_config['events'][event_name] == 1:
-                await handler(event, update_chatbox=True, update_osc_param=False, osc_queue = osc_queue)
+                handler(event, update_chatbox=True, update_osc_param=False, osc_queue = osc_queue)
             elif user_config['events'][event_name] == 2:
-                await handler(event, update_chatbox=False, update_osc_param=True, osc_queue = osc_queue)
+                handler(event, update_chatbox=False, update_osc_param=True, osc_queue = osc_queue)
             elif user_config['events'][event_name] == 3:
-                await handler(event, update_chatbox=True, update_osc_param=True, osc_queue = osc_queue)
+                handler(event, update_chatbox=True, update_osc_param=True, osc_queue = osc_queue)
             else:
                 logger.warning(
                     f"未知{event_name}用户设置{user_config['events'][event_name]}")
@@ -54,34 +54,34 @@ async def main():
         # 收到进房
         @live_danmaku.on('INTERACT_WORD')
         async def on_interact(event: dict):
-            await dispatch('enter', event, handle_enter)
+            dispatch('enter', event, handle_enter)
         
         # 收到弹幕或表情包
         @live_danmaku.on('DANMU_MSG')
         async def on_danmaku(event: dict):
             message_type: int = event["data"]["info"][0][MSG_TYPE_IDX]
             if message_type == TEXT_TYPE:  # 文字弹幕
-                await dispatch('danmaku', event, handle_text)
+                dispatch('danmaku', event, handle_text)
             elif message_type == EMOTICON_TYPE:  # 表情包
-                await dispatch('emoticon', event, handle_emoticon)
+                dispatch('emoticon', event, handle_emoticon)
         
         # 收到礼物
         @live_danmaku.on('SEND_GIFT')
         async def on_gift(event: dict):
-            await dispatch('gift', event, handle_gift)
+            dispatch('gift', event, handle_gift)
         
         # 其它事件
         @live_danmaku.on('ALL')
         async def on_all(event: dict):
             # 收到sc
             if event['type'] in {'SUPER_CHAT_MESSAGE', 'SUPER_CHAT_MESSAGE_JPN'}:
-                await dispatch('sc', event, handle_sc)
+                dispatch('sc', event, handle_sc)
             # 收到舰长
             elif event['type'] == 'GUARD_BUY':
-                await dispatch('guard', event, handle_guard)
+                dispatch('guard', event, handle_guard)
             # 收到警告
             elif event['type'] == 'WARNING':
-                await dispatch('warning', event, handle_warning)
+                dispatch('warning', event, handle_warning)
         
         async with asyncio.TaskGroup() as tg:
             # 链接VRChatOSC

@@ -49,5 +49,5 @@ def close() -> None:
     global _vrc
     logger.debug("closing VRChatOSC singleton Client")
     if _vrc is not None:
-        _vrc.aclose()
+        _vrc.close()
         _vrc = None

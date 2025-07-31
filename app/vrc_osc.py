@@ -27,11 +27,11 @@ class VRChatOSC:
 
     @classmethod
     def connect(cls, ip: str = "127.0.0.1", port: int = 9000) -> "VRChatOSC":
-        """Create a UDP client (synchronous)."""
+        """Create a UDP client connects to VRC OSC address."""
         return cls(ip, port)
 
     def close(self) -> None:
-        """No explicit close needed for SimpleUDPClient; make state consistent."""
+        """Close the UDP client."""
         self._client = None
         logger.info("关闭 VRChatOSC 客户端")
 
@@ -54,7 +54,7 @@ class VRChatOSC:
 
     def typing_indicator(self, on: bool = True) -> None:
         self._ensure_ready()
-        self._client.send_message("/chatbox/typing", [bool(on)])  # type: ignore[union-attr]
+        self._client.send_message("/chatbox/typing", [bool(on)])
         logger.debug("/chatbox/typing = %r", on)
 
     # --- Internal ---
