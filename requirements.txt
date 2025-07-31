@@ -1,4 +1,4 @@
 aiohttp
-bilibili-api-python
+bilibili-api-python @ git+https://github.com/Nemo2011/bilibili-api.git@dev
 browser-cookie3
 python-osc

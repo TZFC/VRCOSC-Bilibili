@@ -18,6 +18,7 @@ import logging
 logger = logging.getLogger(__name__)
 _MAX_CHAT_LEN = 144
 
+
 class VRChatOSC:
     def __init__(self, ip: str = "127.0.0.1", port: int = 9000):
         self._ip = ip
@@ -50,7 +51,8 @@ class VRChatOSC:
         if len(message) > _MAX_CHAT_LEN:
             message = message[:_MAX_CHAT_LEN]
         self._client.send_message("/chatbox/input", [message, bool(immediate)])
-        logger.debug("/chatbox/input = %r (%s)", message, "immediate" if immediate else "fill-only")
+        logger.debug("/chatbox/input = %r (%s)", message,
+                     "immediate" if immediate else "fill-only")
 
     def typing_indicator(self, on: bool = True) -> None:
         self._ensure_ready()
@@ -60,4 +62,5 @@ class VRChatOSC:
     # --- Internal ---
     def _ensure_ready(self) -> None:
         if self._client is None:
-            raise RuntimeError("VRChatOSC not connected. Use VRChatOSC.connect() first.")
+            raise RuntimeError(
+                "VRChatOSC not connected. Use VRChatOSC.connect() first.")

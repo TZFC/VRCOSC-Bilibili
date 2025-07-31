@@ -18,7 +18,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-async def send_vrchat_osc(osc_queue: asyncio.Queue):
+async def process_request_loop(osc_queue: asyncio.Queue):
     while True:
         request = osc_queue.get()
         try:
@@ -34,7 +34,7 @@ async def send_vrchat_osc(osc_queue: asyncio.Queue):
                 break
             else:
                 logger.warning("未知请求类型 %s", request_type)
-            logger.info("请求 %s 成功, 还剩 %d 条请求", str(request),osc_queue.qsize())
+            logger.info("请求 %s 成功, 还剩 %d 条请求", str(request), osc_queue.qsize())
         except:
             logger.warning("请求 %s 发生错误,忽略并继续", request)
         finally:
