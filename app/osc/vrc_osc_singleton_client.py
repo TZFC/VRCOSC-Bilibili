@@ -13,7 +13,7 @@ Notes:
   - AI assistance was used in drafting parts of this file.
 """
 import asyncio
-from app.vrc_osc import VRChatOSC
+from app.osc.vrc_osc import VRChatOSC
 import logging
 logger = logging.getLogger(__name__)
 
