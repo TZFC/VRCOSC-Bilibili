@@ -1,5 +1,10 @@
+"""
+Loader for user config.toml
+
+Copyright (C) 2025  TZFC <tianzifangchen@gmail.com>
+License: GNU General Public License v3.0 or later (see LICENSE).
+"""
 import tomllib
-from importlib import resources
 import logging
 logger = logging.getLogger(__name__)
 CONFIG_PATH = "./config.toml"

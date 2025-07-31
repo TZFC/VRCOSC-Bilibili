@@ -5,7 +5,7 @@ Copyright (C) 2025  TZFC <tianzifangchen@gmail.com>
 License: GNU General Public License v3.0 or later (see LICENSE).
 
 Dependencies:
-  - python-osc (see its license in THIRD_PARTY_NOTICES or the dependency's repository)
+  - python-osc (see its license in the dependency's repository)
 
 VRChat is a trademark of VRChat Inc.
 

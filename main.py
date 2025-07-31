@@ -1,6 +1,14 @@
 """
-Main event dispatcher from bilibili danmaku stream events to handlers
-(c) 2025 TZFC tianzifangchen@gmail.com
+Main event dispatcher from Bilibili danmaku stream events to handlers
+
+Copyright (C) 2025  TZFC <tianzifangchen@gmail.com>
+License: GNU General Public License v3.0 or later (see LICENSE).
+
+Dependencies:
+  - bilibili-api-python (see its license in the dependency's repository)
+
+VRChat is a trademark of VRChat Inc.
+BILIBILI is a trademark of Shanghai Hode Information Technology Co., Ltd.
 """
 import asyncio
 from app.browser_credential import get_credentials
@@ -14,7 +22,6 @@ from EventHandler.Guard_handler import handle_guard
 from EventHandler.Warning_handler import handle_warning
 from EventHandler.Sc_handler import handle_sc
 from app.vrc_osc_send import send_vrchat_osc
-from app.vrc_osc_singleton_client import aclose
 from bilibili_api import Credential
 from bilibili_api.live import LiveDanmaku
 import logging

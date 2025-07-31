@@ -1,3 +1,15 @@
+"""
+Retreive Bilibili login credential from Firefox browser
+!!HIGH SECURITY RISK!! USE WITH CAUTION
+
+Copyright (C) 2025  TZFC <tianzifangchen@gmail.com>
+License: GNU General Public License v3.0 or later (see LICENSE).
+
+Dependencies:
+  - browser_cookie3 (see its license in the dependency's repository)
+
+BILIBILI is a trademark of Shanghai Hode Information Technology Co., Ltd.
+"""
 from bilibili_api import Credential
 from browser_cookie3 import firefox
 import logging
