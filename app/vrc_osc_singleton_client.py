@@ -21,33 +21,33 @@ _vrc: VRChatOSC = None
 _lock = asyncio.Lock()
 
 
-async def _ensure_ready() -> VRChatOSC:
+def _ensure_ready() -> VRChatOSC:
     global _vrc
     if _vrc is None:
         logger.debug("first time setup vrc client")
-        async with _lock:
+        with _lock:
             if _vrc is None:
-                _vrc = await VRChatOSC.connect()  # one client
+                _vrc = VRChatOSC.connect()  # one client
     return _vrc
 
 
-async def update_parameter(name: str, value) -> None:
+def update_parameter(name: str, value) -> None:
     logger.debug(f"preparing parameter update {name}, {value}")
-    vrc = await _ensure_ready()
-    await vrc.update_parameter(name, value)
+    vrc = _ensure_ready()
+    vrc.update_parameter(name, value)
     logger.debug(f"parameter updated {name}, {value}")
 
 
-async def send_chat(message: str, immediate: bool = True) -> None:
+def send_chat(message: str, immediate: bool = True) -> None:
     logger.debug(f"preparing chat send {message}, {immediate}")
-    vrc = await _ensure_ready()
-    await vrc.send_chat(message, immediate)
+    vrc = _ensure_ready()
+    vrc.send_chat(message, immediate)
     logger.debug(f"chat sent {message}, {immediate}")
 
 
-async def aclose() -> None:
+def close() -> None:
     global _vrc
     logger.debug("closing VRChatOSC singleton Client")
     if _vrc is not None:
-        await _vrc.aclose()
+        _vrc.aclose()
         _vrc = None
