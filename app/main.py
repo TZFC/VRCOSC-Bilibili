@@ -64,8 +64,6 @@ async def main():
                 await dispatch('danmaku', event, handle_text)
             elif message_type == EMOTICON_TYPE:  # 表情包
                 await dispatch('emoticon', event, handle_emoticon)
-            else:
-                logger.warning(f"未知弹幕类型{message_type}:\n{event}")
         
         # 收到礼物
         @live_danmaku.on('SEND_GIFT')
