@@ -4,39 +4,44 @@
 # 需要监听的房间号
 room_id = 870004
 
-
 # ============================
-# 事件类型设置 （event_id自动更新）
+# 事件类型设置（默认为排队事件，每秒只能触发一个，fx 应从 Anystate 根据 gift_id 触发对应动画，动画由 gift_num 控制， 长度为 1 秒）
 # ============================
 # 0 = 不监听  
 # 1 = 发送至聊天框
-# 2 = 更新参数 (gift_id, gift_price, gift_num)
+# 2 = 更新参数 gift_id (int), gift_num (float)
 # 3 = 前两者都做
 [events]
-enter    = 0  # 监听进场       → “欢迎【用户名】进入直播间”                    gift_id=荣誉等级        gift_price=大航海等级     gift_num=粉丝牌等级
-danmaku  = 0  # 监听弹幕       → “【用户名】说【内容】”                        gift_id=关键词id        gift_price=大航海等级     gift_num=粉丝牌等级
-emoticon = 0  # 监听表情包     → “【用户名】说【表情】”                        gift_id=关键词id        gift_price=大航海等级     gift_num=粉丝牌等级
-gift     = 0  # 监听礼物       → “【用户名】赠送【数量】个【礼物名】”          gift_id=自定义礼物id      gift_price=礼物价格*     gift_num=礼物数量*
-sc       = 0  # 监听醒目留言   → “【用户名】发送【价格】说【内容】”             gift_id=sc对应礼物id      gift_price=sc价格*       gift_num=sc颜色
-guard    = 0  # 监听大航海     → “【用户名】开通【数量】个月【大航海等级】”     gift_id=大航海对应礼物id  gift_price=大航海等级   gift_num=舰长月数
-WARNING  = 0  # 监听超管警告   → “【警告信息】”
-# *1. 超出 255 的 gift_id / gift_price / gift_num 都会被当作 255  
-# *2. gift_id 为程序自定义的，并非 bilibili gift_id，详见 Data/Gift_id_compress.toml
-
+enter    = 0  # 监听进场         → “欢迎【用户名】进入直播间”                  gift_id=0                   gift_num=舰队等级【观众-1，舰长-0.5，提督0,总督0.5，特殊1（见进场设置）】
+danmaku  = 0  # 监听弹幕关键词    → “【用户名】说【内容】”                       gift_id=1                   gift_num=见弹幕设置
+emoticon = 0  # 监听表情包关键词  → “【用户名】说【表情】”                       gift_id=2                   gift_num=见表情包设置
+sc       = 0  # 监听醒目留言     → “【用户名】发送【价格】说【内容】”            gift_id=3                    gift_num=min(sc价格, 255)/255 *2 -1 # 30元sc为 30/255 *2 -1=-0.76470588235
+guard    = 0  # 监听大航海       → “【用户名】开通【数量】个月【大航海等级】”     gift_id=大航海对应礼物id*    gift_num=min(舰长月数, 255)/255 *2 -1 # 12月舰长为 12/255 *2 -1=-0.90588235294
+gift     = 0  # 监听礼物         → “【用户名】赠送【数量】个【礼物名】”          gift_id=礼物id*              gift_num=礼物数量
+WARNING  = 0  # 监听超管警告     → “【警告信息】”                               gift_id=警告id*              gift_num=0
+# * gift_id 为程序自定义的，并非 bilibili gift_id，详见 Data/Gift_id_compress.toml
 
 # ============================
-# event_id 对照表
+# 进场设置
+# 以下uid进场会触发，gift_num=1
 # ============================
-# enter    = 0
-# danmaku  = 1
-# emoticon = 2
-# gift     = 3
-# sc       = 4
-# guard    = 5
+enter_special = [1454277253]
 
 # ============================
-# 关键词设置, id为在列表中的位置（从1开始数），留空为任意词都触发
+# 礼物独立事件设置
+# 不参与排队，每种需要独占的两个参数：
+# special_num_名字(float) = min(礼物数量, 255)/255 *2 -1 # 10个礼物为 10/255 *2 -1 = -0.92156862745
+# 和 special_time_名字(int) = 特效时长
+# 每个礼物应有独立的fx layer，动画由 special_num_名字 控制，长度为 special_time_名字 秒
+# ============================
+special = ["小花花","牛哇牛哇"]
+special_time = [1, 1]
+
+# ============================
+# 弹幕及表情包关键词设置, gift_num 为【在列表中的位置/255 *2 - 1】（从1开始数）
+# 留空为任意词都触发, gift_num = 0
+# 长度最多为255
 # ============================
 [keywords]
 danmaku_key = []
-emoticon_key = ["可以","不可以"]
+emoticon_key = ["可以","不可以"] # "可以" gift_num 为 1/255 *2 - 1 = -0.99215686274

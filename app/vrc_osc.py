@@ -1,12 +1,22 @@
 """
-An async UDP Client that sends parameter update and chatbox message to VRChat OSC
-(c) 2025 TZFC tianzifangchen@gmail.com
-AI assisstance involved
+An async UDP Client that sends parameter updates and chatbox messages to VRChat via OSC
+
+Copyright (C) 2025  TZFC <tianzifangchen@gmail.com>
+License: GNU General Public License v3.0 or later (see LICENSE).
+
+Dependencies:
+  - python-osc (see its license in THIRD_PARTY_NOTICES or the dependency's repository)
+
 VRChat is a trademark of VRChat Inc.
+
+Notes:
+  - AI assistance was used in drafting parts of this file.
 """
 from pythonosc.udp_client import AsyncIOOSCUDPClient
-
+import logging
+logger = logging.getLogger(__name__)
 _MAX_CHAT_LEN = 144
+
 
 class VRChatOSC:
     def __init__(self, ip: str = "127.0.0.1", port: int = 9000):
@@ -15,6 +25,7 @@ class VRChatOSC:
         self._client: AsyncIOOSCUDPClient = None
         self._transport = None
         self._protocol = None
+        logger.info("起始化VRChatOSC客户端")
 
     @classmethod
     async def connect(cls, ip: str = "127.0.0.1", port: int = 9000) -> "VRChatOSC":
@@ -23,6 +34,7 @@ class VRChatOSC:
         self._client = AsyncIOOSCUDPClient(ip, port)
         # create_endpoint() -> (asyncio.DatagramTransport, OSCProtocol)
         self._transport, self._protocol = await self._client.create_endpoint()
+        logger.info("开启向VRC发送UDP数据")
         return self
 
     async def aclose(self) -> None:
@@ -32,22 +44,11 @@ class VRChatOSC:
         self._transport = None
         self._protocol = None
         self._client = None
-
-    # --- async context manager support ---
-    async def __aenter__(self) -> "VRChatOSC":
-        if self._protocol is None:
-            # If user called `async with VRChatOSC(...) as v:`, they likely
-            # forgot to use .connect(); be helpful and connect.
-            self._client = AsyncIOOSCUDPClient(self._ip, self._port)
-            self._transport, self._protocol = await self._client.create_endpoint()
-        return self
-
-    async def __aexit__(self, exc_type, exc, tb):
-        await self.aclose()
+        logger.info("关闭VRChatOSC客户端")
 
     # --- Public API ---
 
-    async def update(self, param_name: str, param_value: int | float | bool) -> None:
+    async def update_parameter(self, param_name: str, param_value: int | float | bool) -> None:
         """
         Update an avatar parameter.
         Address: /avatar/parameters/<ParamName>
@@ -59,6 +60,7 @@ class VRChatOSC:
         addr = f"/avatar/parameters/{param_name}"
         # send_message is non-blocking on UDP; no await needed
         self._protocol.send_message(addr, param_value)
+        logger.debug(f"{addr} = {param_value}")
 
     async def send_chat(self, message: str, immediate: bool = True) -> None:
         """
@@ -68,7 +70,9 @@ class VRChatOSC:
           - immediate=True posts immediately; False just fills the input box.
         """
         self._ensure_ready()
-        self._protocol.send_message("/chatbox/input", [str(message), bool(immediate)])
+        self._protocol.send_message(
+            "/chatbox/input", [str(message), bool(immediate)])
+        logger.debug(f"/chatbox/input = {message} {'immediate' if immediate else 'fill-only'}")
 
     async def typing_indicator(self, on: bool = True) -> None:
         """
@@ -78,8 +82,10 @@ class VRChatOSC:
         """
         self._ensure_ready()
         self._protocol.send_message("/chatbox/typing", [bool(on)])
+        logger.debug(f"/chatbox/typing = {on}")
 
     # --- Internal ---
     def _ensure_ready(self) -> None:
         if self._protocol is None:
-            raise RuntimeError("VRChatOSC not connected. Use `await VRChatOSC.connect()` or `async with VRChatOSC.connect() as v:`")
+            raise RuntimeError(
+                "VRChatOSC not connected. Use `await VRChatOSC.connect()` or `async with VRChatOSC.connect() as v:`")
