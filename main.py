@@ -14,7 +14,7 @@ import asyncio
 import sys
 from app.bili_event_dispatch import live_danmaku, osc_queue
 from app.request_consumer import process_request_loop
-
+from app.osc_queue import osc_queue
 import logging
 logger = logging.getLogger(__name__)
 
@@ -23,7 +23,7 @@ async def main():
     try:
         async with asyncio.TaskGroup() as tg:
             # 链接VRChatOSC
-            tg.create_task(process_request_loop(osc_queue))
+            tg.create_task(process_request_loop())
 
             # 连接直播间
             tg.create_task(live_danmaku.connect())
