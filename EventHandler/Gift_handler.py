@@ -1,3 +1,9 @@
+"""
+Gift handler
+
+Copyright (C) 2025  TZFC <tianzifangchen@gmail.com>
+License: GNU General Public License v3.0 or later (see LICENSE).
+"""
 import asyncio
 
 

@@ -1,3 +1,9 @@
+"""
+Enter handler
+
+Copyright (C) 2025  TZFC <tianzifangchen@gmail.com>
+License: GNU General Public License v3.0 or later (see LICENSE).
+"""
 import asyncio
 from Utils.pretty_print_event import pretty_print_event
 from app.config_loader import CONFIG
