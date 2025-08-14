@@ -9,7 +9,7 @@ from Utils.EVENT_IDX import *
 from app.config_loader import CONFIG
 import logging
 logger = logging.getLogger(__name__)
-send_all_text = (CONFIG['keywords']['danmaku_key'] == [])
+send_all_text = (CONFIG['danmaku_emoticon']['danmaku_key'] == [])
 
 
 async def handle_text(event: dict, update_chatbox: bool, update_osc_param: bool, osc_queue: asyncio.Queue):
