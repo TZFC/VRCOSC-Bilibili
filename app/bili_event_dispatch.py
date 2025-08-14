@@ -21,7 +21,6 @@ from EventHandler.Gift_handler import handle_gift
 from EventHandler.Guard_handler import handle_guard
 from EventHandler.Warning_handler import handle_warning
 from EventHandler.Sc_handler import handle_sc
-from app.osc_queue import osc_queue
 import logging
 logger = logging.getLogger(__name__)
 
@@ -38,28 +37,24 @@ async def dispatch(event_name: str, event: dict, handler):
         return
     elif CONFIG['events'][event_name] == 1:
         await handler(event, update_chatbox=True,
-                      update_osc_param=False, osc_queue=osc_queue)
+                      update_osc_param=False)
     elif CONFIG['events'][event_name] == 2:
         await handler(event, update_chatbox=False,
-                      update_osc_param=True, osc_queue=osc_queue)
+                      update_osc_param=True)
     elif CONFIG['events'][event_name] == 3:
         await handler(event, update_chatbox=True,
-                      update_osc_param=True, osc_queue=osc_queue)
+                      update_osc_param=True)
     else:
         logger.warning(
             f"未知{event_name}用户设置{CONFIG['events'][event_name]}")
     logger.info(f"分发事件{event_name}")
 
 # 收到进房
-
-
 @live_danmaku.on('INTERACT_WORD_V2')
 async def on_interact(event: dict):
     await dispatch('enter', event, handle_enter)
 
 # 收到弹幕或表情包
-
-
 @live_danmaku.on('DANMU_MSG')
 async def on_danmaku(event: dict):
     message_type: int = event["data"]["info"][0][MSG_TYPE_IDX]
@@ -71,29 +66,21 @@ async def on_danmaku(event: dict):
         logger.warning("未知弹幕类型 %d", message_type)
 
 # 收到礼物
-
-
 @live_danmaku.on('SEND_GIFT')
 async def on_gift(event: dict):
     await dispatch('gift', event, handle_gift)
 
 # 收到sc
-
-
 @live_danmaku.on('SUPER_CHAT_MESSAGE')
 async def on_sc(event: dict):
     await dispatch('sc', event, handle_sc)
 
 # 收到舰长
-
-
 @live_danmaku.on('GUARD_BUY')
 async def on_guard_buy(event: dict):
     await dispatch('guard', event, handle_guard)
 
 # 收到警告
-
-
 @live_danmaku.on('WARNING')
 async def on_warning(event: dict):
     await dispatch('warning', event, handle_warning)

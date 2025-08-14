@@ -13,7 +13,8 @@ BILIBILI is a trademark of Shanghai Hode Information Technology Co., Ltd.
 import asyncio
 import sys
 from app.bili_event_dispatch import live_danmaku
-from app.request_consumer import process_request_loop
+from app.chatbox_consumer import chatbox_loop
+from app.animation_consumer import animation_loop
 from app.config_loader import CONFIG
 import argparse
 import logging
@@ -23,8 +24,11 @@ logger = logging.getLogger(__name__)
 async def main():
     try:
         async with asyncio.TaskGroup() as tg:
-            # 链接VRChatOSC
-            tg.create_task(process_request_loop())
+            # 聊天框队列
+            tg.create_task(chatbox_loop())
+
+            # 独立动画队列
+            tg.create_task(animation_loop())
 
             # 连接直播间
             tg.create_task(live_danmaku.connect())

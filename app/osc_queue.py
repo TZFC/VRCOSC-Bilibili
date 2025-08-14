@@ -1,5 +1,5 @@
 """
-Async queue, bilibili events as producer, osc client as consumer
+Async queues and accumulators, bilibili events as producer, osc client as consumer
 
 Copyright (C) 2025  TZFC <tianzifangchen@gmail.com>
 License: GNU General Public License v3.0 or later (see LICENSE).
@@ -11,10 +11,23 @@ BILIBILI is a trademark of Shanghai Hode Information Technology Co., Ltd.
 """
 import asyncio
 import logging
+from app.config_loader import CONFIG
 logger = logging.getLogger(__name__)
 
-# 创建异步OSC请求队列
-# 更新参数请求      ("PARAMETER", (name, value))
-# 更新聊天框请求    ("CHATBOX", (message, immediate))
-osc_queue: asyncio.Queue = asyncio.Queue()
-logger.debug("创建请求队列")
+# 创建聊天框队列
+# 事件：(text, min_display_time=0)
+chatbox_queue: asyncio.Queue = asyncio.Queue()
+
+# 创建特殊动画累积
+animation_counts: dict[str:int] = {}
+for gift_name in CONFIG["animation_accumulate"]["animation"]:
+    animation_counts[gift_name] = 0
+
+# 创建设置参数累积
+set_parameter_value: dict[str:int] = {}
+for name, value in zip(CONFIG["set_parameter"]["parameter_names"], CONFIG["set_parameter"]["parameter_default"]):
+    set_parameter_value[name] = value
+
+# 创建通用礼物队列
+# 事件: (gift_name, gift_num)
+general_gift_queue: asyncio.Queue = asyncio.Queue()

@@ -18,9 +18,9 @@ room_id = 27163300
 enter    = 1  # 监听进场关键身份  → “欢迎【用户名】进入直播间”                  event_id=0                   event_num=身份
 danmaku  = 1  # 监听弹幕关键词    → “【用户名】说【内容】”                       event_id=1                   event_num=见弹幕设置
 emoticon = 1  # 监听表情包关键词  → “【用户名】说【表情】”                       event_id=2                   event_num=见表情包设置
-sc       = 1  # 监听醒目留言     → “【用户名】发送【价格】说【内容】”            event_id=3                    event_num=min(sc价格, 255)/255 *2 -1 # 30元sc为 30/255 *2 -1=-0.76470588235
-guard    = 1  # 监听大航海       → “【用户名】开通【数量】个月【大航海等级】”     event_id=大航海id             event_num=min(舰长月数, 255)/255 *2 -1 # 12月舰长为 12/255 *2 -1=-0.90588235294
-gift     = 1  # 监听礼物         → “【用户名】赠送【数量】个【礼物名】”          event_id=礼物id               event_num=礼物数量
+sc       = 1  # 监听醒目留言     → “【用户名】发送【价格】说【内容】”            event_id=3                    event_num=min(sc价格, 100)/100 # 30元sc为 30/100 = 0.3
+guard    = 1  # 监听大航海       → “【用户名】开通【数量】个月【大航海等级】”     event_id=大航海id             event_num=min(舰长月数, 100)/100 # 12月舰长为 12/100 = 0.12
+gift     = 1  # 监听礼物         → “【用户名】赠送【数量】个【礼物名】”          event_id=礼物id               event_num=min(礼物数量, 100)/100 # 100个礼物为 100/100 = 1
 WARNING  = 1  # 监听超管警告     → “警告：【警告信息】”                               event_id=警告id              event_num=0
 
 [enter]
@@ -29,26 +29,41 @@ WARNING  = 1  # 监听超管警告     → “警告：【警告信息】”    
 # 以下设置为1的身份进场会触发
 # event_num = 路人:-1，粉丝-0.5 舰长:0，提督:0.5, 总督:1
 # ============================
-enter_level = [0, 0, 1, 1, 1] # 分别对应 【路人，粉丝，舰长，提督，总督】
+enter_level         = [0, 1, 1, 1, 1] # 分别对应 【路人，粉丝，舰长，提督，总督】
+min_display_time    = [0, 0, 1, 1, 1] # 分别对应 【路人，粉丝，舰长，提督，总督】
 
-[gift_guard]
+[animation_accumulate]
 # ============================
-# 礼物及舰长独立事件设置
-# 不参与排队，每种需要独占的两个参数：
-# special_num_名字(float) = min(礼物数量, 255)/255 *2 -1 # 10个礼物为 10/255 *2 -1 = -0.92156862745
-# special_time_名字(int) = 特效时长
-# 每个礼物应有独立的fx layer，动画由 special_num_名字 控制，长度为 special_time_名字 秒
-# osc 每 special_time_名字 秒汇报一次 special_num_名字， 无对应礼物则汇报 0
-# 超出 255 的数量会被拆成多次 255，期间有新礼物会累积
+# 触发以下事件会被累积，每animation_time时间最多处理255,每种需要独占的一个参数：
+# animation_num_名字(float) = min(礼物数量,, 100)/100 # 10个礼物为 10/100 = 0.1
+# 每个礼物应有独立的fx layer，动画由 animation_num_名字 控制，长度为 animation_time_名字 秒
+# osc 每 animation_time 秒汇报一次 animation_num_名字， 累积为0时汇报 0
+# 超出 100 的数量会被拆成多次 100，期间有新礼物会累积
 # ============================
-special = ["小花花","牛哇牛哇","舰长"]
-special_time = [1, 1, 3]
+animation = ["小花花","牛哇牛哇"] # 角色需要有“animation_num_小花花”“animation_num_牛哇牛哇”这些参数，每对应animation_time，osc汇报一次当前累积值（最100）
+animation_time = [1, 1]
 
-[danmaku_emoticon]
+[set_parameter]
 # ============================
-# 弹幕及表情包关键词设置, event_num 为【在列表中的位置/255 *2 - 1】（从1开始数）
+# 触发以下事件时会更新{值名字=[起始值，每次变化值，变大关键词,变小关键词]}最低为0，最高为100
+# ============================
+parameter_names = ["bust"] # 角色需要有“bust”这个参数
+parameter_default = [0] # 起始值为0
+parameter_increment = [1] # 每次变化1
+parameter_keywords = [["#大","#小"]] # [增加关键词，减少关键词]
+
+[filter_keywords]
+# ============================
+# 弹幕及表情包关键词设置, event_num 为【在列表中的位置/100】（从1开始数）
 # 留空为任意词都触发, event_num = 0
-# 长度最多为255
+# 长度最多为100
 # ============================
-danmaku_key = []
-emoticon_key = ["打Call","求婚"] # "打Call" event_num 为 1/255 *2 - 1 = -0.99215686274
+danmaku_chatbox_keywords = []
+danmaku_parameter_keywords = ["#测试小花花"]
+emoticon_chatbox_keywords = []
+emoticon_parameter_keywords = ["打Call","求婚"] # "求婚" event_num 为 2/100 = 0.2
+
+
+[misc]
+sc_min_display_time = 5 # sc 在聊天框最少显示秒数
+warning_min_display_time = 3 # 警告 在聊天框最少显示秒数
