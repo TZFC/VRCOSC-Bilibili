@@ -10,8 +10,11 @@ Dependencies:
 BILIBILI is a trademark of Shanghai Hode Information Technology Co., Ltd.
 """
 import asyncio
+import logging
+logger = logging.getLogger(__name__)
 
 # 创建异步OSC请求队列
 # 更新参数请求      ("PARAMETER", (name, value))
 # 更新聊天框请求    ("CHATBOX", (message, immediate))
 osc_queue: asyncio.Queue = asyncio.Queue()
+logger.debug("创建请求队列")

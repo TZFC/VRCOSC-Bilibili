@@ -9,8 +9,8 @@ from Utils.EVENT_IDX import *
 
 
 async def handle_emoticon(event: dict, update_chatbox: bool, update_osc_param: bool, osc_queue: asyncio.Queue):
-    username = event["data"]["info"][EMOTICON_USERINFO_IDX][EMOTICON_USERINFO_USERNAME_IDX]
+    username = event["data"]["info"][USERINFO_IDX][USERINFO_USERNAME_IDX]
     text = event["data"]["info"][TEXT_IDX]
     if update_chatbox:
-        await osc_queue.put(("CHATBOX", f"{username}说{text}"))
+        await osc_queue.put(("CHATBOX", f"{username}:{text}"))
     # TODO: update params

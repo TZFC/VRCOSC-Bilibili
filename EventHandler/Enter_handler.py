@@ -12,9 +12,13 @@ logger = logging.getLogger(__name__)
 
 
 async def handle_enter(event: dict, update_chatbox: bool, update_osc_param: bool, osc_queue: asyncio.Queue):
-    username: str = event["data"]["data"]["pb_decoded"]['uname']
-    # 0: 路人 1: 粉丝牌 2: 舰长 3: 提督 4：总督
-    identity: int = event["data"]["data"]["pb_decoded"]["identities"][0]
+    try:
+        username: str = event["data"]["data"]["pb_decoded"]['uname']
+        # 0: 路人 1: 粉丝牌 2: 舰长 3: 提督 4：总督
+        identity: int = event["data"]["data"]["pb_decoded"]["identities"][0]
+    except KeyError:
+        logger.warning("进房信息缺失%s", str(event))
+        return
     if update_chatbox:
         if identity == 0 and CONFIG['enter_level'][0] == 1:
             await osc_queue.put(('CHATBOX', f"欢迎{username}进入直播间"))

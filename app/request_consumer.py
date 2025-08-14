@@ -21,14 +21,15 @@ logger = logging.getLogger(__name__)
 async def process_request_loop():
     while True:
         request = await osc_queue.get()
+        logger.debug("收到请求 %s", str(request))
         try:
             request_type, args = request
             if request_type == "PARAMETER":
                 name, value = args
                 update_parameter(name, value)
             elif request_type == "CHATBOX":
-                message, immediate = args
-                send_chat(message, immediate)
+                message = args
+                send_chat(message)
             else:
                 logger.warning("未知请求类型 %s", request_type)
             logger.info("请求 %s 成功, 还剩 %d 条请求", str(request), osc_queue.qsize())

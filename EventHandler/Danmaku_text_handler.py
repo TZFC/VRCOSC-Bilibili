@@ -13,7 +13,8 @@ send_all_text = (CONFIG['keywords']['danmaku_key'] == [])
 
 
 async def handle_text(event: dict, update_chatbox: bool, update_osc_param: bool, osc_queue: asyncio.Queue):
-    text = event["data"]["info"][0]
+    username = event["data"]["info"][USERINFO_IDX][USERINFO_USERNAME_IDX]
+    text = event["data"]["info"][TEXT_IDX]
     if update_chatbox:
         if send_all_text or any (key in text for key in CONFIG["danmaku_key"]):
             text = event["data"]["info"][TEXT_IDX]

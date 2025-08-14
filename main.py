@@ -15,6 +15,7 @@ import sys
 from app.bili_event_dispatch import live_danmaku, osc_queue
 from app.request_consumer import process_request_loop
 from app.osc_queue import osc_queue
+import argparse
 import logging
 logger = logging.getLogger(__name__)
 
@@ -32,6 +33,19 @@ async def main():
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+    "--log", 
+    default="warning", 
+    choices=["debug", "info", "warning", "error", "critical"],
+    help="Set the logging level"
+    )
+    args = parser.parse_args()
+    log_level = getattr(logging, args.log.upper(), logging.WARNING)
+    logging.basicConfig(
+    level=log_level,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+    )
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
