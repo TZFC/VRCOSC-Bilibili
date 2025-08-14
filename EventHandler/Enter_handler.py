@@ -11,18 +11,18 @@ async def handle_enter(event: dict, update_chatbox: bool, update_osc_param: bool
     identity: int = event["data"]["data"]["pb_decoded"]["identities"][0]
     if update_chatbox:
         if identity == 0 and CONFIG['enter_level'][0] == 1:
-            osc_queue.put(('CHATBOX', f"欢迎{username}进入直播间"))
+            await osc_queue.put(('CHATBOX', f"欢迎{username}进入直播间"))
         elif identity == 1 and CONFIG['enter_level'][1] == 1:
-            osc_queue.put(('CHATBOX', f"粉丝{username}进入直播间"))
+            await osc_queue.put(('CHATBOX', f"粉丝{username}进入直播间"))
         elif identity == 2 and CONFIG['enter_level'][2] == 1:
-            osc_queue.put(('CHATBOX', f"舰长{username}进入直播间"))
+            await osc_queue.put(('CHATBOX', f"舰长{username}进入直播间"))
         elif identity == 3 and CONFIG['enter_level'][3] == 1:
-            osc_queue.put(('CHATBOX', f"提督{username}进入直播间"))
+            await osc_queue.put(('CHATBOX', f"提督{username}进入直播间"))
         elif identity == 4 and CONFIG['enter_level'][4] == 1:
-            osc_queue.put(('CHATBOX', f"总督{username}进入直播间"))
+            await osc_queue.put(('CHATBOX', f"总督{username}进入直播间"))
         else:
             logger.info("未知进房身份%s", str(
                 event["data"]["data"]["pb_decoded"]["identities"]))
-
     else:
         pass
+    # TODO: update params

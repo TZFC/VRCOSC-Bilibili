@@ -1,0 +1,2293 @@
+﻿{
+  "id": "avtr_202e9aa3-d9b8-4aa2-9b45-4ef2018ec4b1",
+  "name": "CeilMaid WinQuest",
+  "hash": -1236794687,
+  "parameters": [
+    {
+      "name": "AvatarProp/DistanceTooFar",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/DistanceTooFar",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/DistanceTooFar",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "AvatarProp/RightHand",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/RightHand",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/RightHand",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/LeftHand",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/LeftHand",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/LeftHand",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/Grabbing_Squish",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Grabbing_Squish",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Grabbing_Squish",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/Grabbing_Stretch",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Grabbing_Stretch",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Grabbing_Stretch",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/Grabbing_Angle",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Grabbing_Angle",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Grabbing_Angle",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/Grabbing_IsPosed",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Grabbing_IsPosed",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Grabbing_IsPosed",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "AvatarProp/Grabbing_IsGrabbed",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Grabbing_IsGrabbed",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Grabbing_IsGrabbed",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "AvatarProp/TrackersCheck",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/TrackersCheck",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/TrackersCheck",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "AvatarProp/Trackers/Ring/Y-",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Ring/Y-",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Ring/Y-",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/Trackers/Ring/Y+",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Ring/Y+",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Ring/Y+",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/Trackers/Ring/X-",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Ring/X-",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Ring/X-",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/Trackers/Ring/X+",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Ring/X+",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Ring/X+",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/Trackers/Ring/Prox",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Ring/Prox",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Ring/Prox",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/Trackers/Middle/Y-",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Middle/Y-",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Middle/Y-",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/Trackers/Middle/Y+",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Middle/Y+",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Middle/Y+",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/Trackers/Middle/X-",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Middle/X-",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Middle/X-",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/Trackers/Middle/X+",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Middle/X+",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Middle/X+",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/Trackers/Middle/Prox",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Middle/Prox",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Middle/Prox",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/Trackers/Hand/Y-",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Hand/Y-",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Hand/Y-",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/Trackers/Hand/Y+",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Hand/Y+",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Hand/Y+",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/Trackers/Hand/X-",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Hand/X-",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Hand/X-",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/Trackers/Hand/X+",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Hand/X+",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Hand/X+",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AvatarProp/Trackers/Hand/Prox",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Hand/Prox",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Trackers/Hand/Prox",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "VF10_Bone/AutoDistance",
+      "input": {
+        "address": "/avatar/parameters/VF10_Bone/AutoDistance",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF10_Bone/AutoDistance",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Bone/PenOthersNewTip",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Bone/PenOthersNewTip",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Bone/PenOthersNewTip",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Bone/PenSelfNewTip",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Bone/PenSelfNewTip",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Bone/PenSelfNewTip",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Bone/PenOthersNewRoot",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Bone/PenOthersNewRoot",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Bone/PenOthersNewRoot",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Bone/PenSelfNewRoot",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Bone/PenSelfNewRoot",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Bone/PenSelfNewRoot",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "PillowGrab",
+      "input": {
+        "address": "/avatar/parameters/PillowGrab",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/PillowGrab",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF109_Cam/Watergun/AD/_GrabR",
+      "input": {
+        "address": "/avatar/parameters/VF109_Cam/Watergun/AD/_GrabR",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF109_Cam/Watergun/AD/_GrabR",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF109_Cam/Watergun/AD/_GrabL",
+      "input": {
+        "address": "/avatar/parameters/VF109_Cam/Watergun/AD/_GrabL",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF109_Cam/Watergun/AD/_GrabL",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF10_But/AutoDistance",
+      "input": {
+        "address": "/avatar/parameters/VF10_But/AutoDistance",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF10_But/AutoDistance",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/But/PenOthersNewTip",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/But/PenOthersNewTip",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/But/PenOthersNewTip",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/But/PenSelfNewTip",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/But/PenSelfNewTip",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/But/PenSelfNewTip",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/But/PenOthersNewRoot",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/But/PenOthersNewRoot",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/But/PenOthersNewRoot",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/But/PenSelfNewRoot",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/But/PenSelfNewRoot",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/But/PenSelfNewRoot",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/But/FrotOthers",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/But/FrotOthers",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/But/FrotOthers",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/But/PenOthersClose",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/But/PenOthersClose",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/But/PenOthersClose",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "OGB/Orf/But/TouchOthersClose",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/But/TouchOthersClose",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/But/TouchOthersClose",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "OGB/Orf/But/TouchSelfClose",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/But/TouchSelfClose",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/But/TouchSelfClose",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "OGB/Orf/But/PenOthers",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/But/PenOthers",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/But/PenOthers",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/But/TouchOthers",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/But/TouchOthers",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/But/TouchOthers",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/But/TouchSelf",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/But/TouchSelf",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/But/TouchSelf",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "VF10_Pus/AutoDistance",
+      "input": {
+        "address": "/avatar/parameters/VF10_Pus/AutoDistance",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF10_Pus/AutoDistance",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Pus/PenOthersNewTip",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/PenOthersNewTip",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/PenOthersNewTip",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Pus/PenSelfNewTip",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/PenSelfNewTip",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/PenSelfNewTip",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Pus/PenOthersNewRoot",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/PenOthersNewRoot",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/PenOthersNewRoot",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Pus/PenSelfNewRoot",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/PenSelfNewRoot",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/PenSelfNewRoot",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Pus/FrotOthers",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/FrotOthers",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/FrotOthers",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Pus/PenOthersClose",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/PenOthersClose",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/PenOthersClose",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "OGB/Orf/Pus/TouchOthersClose",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/TouchOthersClose",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/TouchOthersClose",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "OGB/Orf/Pus/TouchSelfClose",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/TouchSelfClose",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/TouchSelfClose",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "OGB/Orf/Pus/PenOthers",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/PenOthers",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/PenOthers",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Pus/TouchOthers",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/TouchOthers",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/TouchOthers",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Pus/TouchSelf",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/TouchSelf",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Pus/TouchSelf",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "VF10_Right Toes/AutoDistance",
+      "input": {
+        "address": "/avatar/parameters/VF10_Right_Toes/AutoDistance",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF10_Right_Toes/AutoDistance",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Right Toes/PenOthersNewTip",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Right_Toes/PenOthersNewTip",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Right_Toes/PenOthersNewTip",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Right Toes/PenSelfNewTip",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Right_Toes/PenSelfNewTip",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Right_Toes/PenSelfNewTip",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Right Toes/PenOthersNewRoot",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Right_Toes/PenOthersNewRoot",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Right_Toes/PenOthersNewRoot",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Right Toes/PenSelfNewRoot",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Right_Toes/PenSelfNewRoot",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Right_Toes/PenSelfNewRoot",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "VF10_Left Toes/AutoDistance",
+      "input": {
+        "address": "/avatar/parameters/VF10_Left_Toes/AutoDistance",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF10_Left_Toes/AutoDistance",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Left Toes/PenOthersNewTip",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Left_Toes/PenOthersNewTip",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Left_Toes/PenOthersNewTip",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Left Toes/PenSelfNewTip",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Left_Toes/PenSelfNewTip",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Left_Toes/PenSelfNewTip",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Left Toes/PenOthersNewRoot",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Left_Toes/PenOthersNewRoot",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Left_Toes/PenOthersNewRoot",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Left Toes/PenSelfNewRoot",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Left_Toes/PenSelfNewRoot",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Left_Toes/PenSelfNewRoot",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "stickContact",
+      "input": {
+        "address": "/avatar/parameters/stickContact",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/stickContact",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF10_Head/AutoDistance",
+      "input": {
+        "address": "/avatar/parameters/VF10_Head/AutoDistance",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF10_Head/AutoDistance",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Head/PenOthersNewTip",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Head/PenOthersNewTip",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Head/PenOthersNewTip",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Head/PenSelfNewTip",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Head/PenSelfNewTip",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Head/PenSelfNewTip",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Head/PenOthersNewRoot",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Head/PenOthersNewRoot",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Head/PenOthersNewRoot",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "OGB/Orf/Head/PenSelfNewRoot",
+      "input": {
+        "address": "/avatar/parameters/OGB/Orf/Head/PenSelfNewRoot",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/OGB/Orf/Head/PenSelfNewRoot",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "Go/DashDirection",
+      "input": {
+        "address": "/avatar/parameters/Go/DashDirection",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/DashDirection",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "_PPPen_Color_B_Buffer_0",
+      "input": {
+        "address": "/avatar/parameters/_PPPen_Color_B_Buffer_0",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/_PPPen_Color_B_Buffer_0",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "_PPPen_Color_G_Buffer_0",
+      "input": {
+        "address": "/avatar/parameters/_PPPen_Color_G_Buffer_0",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/_PPPen_Color_G_Buffer_0",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "_PPPen_Color_R_Buffer_0",
+      "input": {
+        "address": "/avatar/parameters/_PPPen_Color_R_Buffer_0",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/_PPPen_Color_R_Buffer_0",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "Go/JSRF/Timer",
+      "input": {
+        "address": "/avatar/parameters/Go/JSRF/Timer",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/JSRF/Timer",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "TrackingTypeProxy",
+      "input": {
+        "address": "/avatar/parameters/TrackingTypeProxy",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/TrackingTypeProxy",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "VRModeProxy",
+      "input": {
+        "address": "/avatar/parameters/VRModeProxy",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/VRModeProxy",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "Go/FloatEnd",
+      "input": {
+        "address": "/avatar/parameters/Go/FloatEnd",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/FloatEnd",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/FloatFactor",
+      "input": {
+        "address": "/avatar/parameters/Go/FloatFactor",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/FloatFactor",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "Go/JSRF/ReadyToGrind",
+      "input": {
+        "address": "/avatar/parameters/Go/JSRF/ReadyToGrind",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/JSRF/ReadyToGrind",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/Jump",
+      "input": {
+        "address": "/avatar/parameters/Go/Jump",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/Jump",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/HipDriftZ",
+      "input": {
+        "address": "/avatar/parameters/Go/HipDriftZ",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/HipDriftZ",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "Go/HipDriftX",
+      "input": {
+        "address": "/avatar/parameters/Go/HipDriftX",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/HipDriftX",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "Go/HipDriftY",
+      "input": {
+        "address": "/avatar/parameters/Go/HipDriftY",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/HipDriftY",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "Go/FloatSave",
+      "input": {
+        "address": "/avatar/parameters/Go/FloatSave",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/FloatSave",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "Go/Action",
+      "input": {
+        "address": "/avatar/parameters/Go/Action",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/Action",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/Mirror",
+      "input": {
+        "address": "/avatar/parameters/Go/Mirror",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/Mirror",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/SVRB/Grounded",
+      "input": {
+        "address": "/avatar/parameters/Go/SVRB/Grounded",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/SVRB/Grounded",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/UprightMobile",
+      "input": {
+        "address": "/avatar/parameters/Go/UprightMobile",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/UprightMobile",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/Head",
+      "input": {
+        "address": "/avatar/parameters/Go/Head",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/Head",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/Prone",
+      "input": {
+        "address": "/avatar/parameters/Go/Prone",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/Prone",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/Crouch",
+      "input": {
+        "address": "/avatar/parameters/Go/Crouch",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/Crouch",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/PosePlaySpace",
+      "input": {
+        "address": "/avatar/parameters/Go/PosePlaySpace",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/PosePlaySpace",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/Pose",
+      "input": {
+        "address": "/avatar/parameters/Go/Pose",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/Pose",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF108_PB Option/Heartrate",
+      "input": {
+        "address": "/avatar/parameters/VF108_PB_Option/Heartrate",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF108_PB_Option/Heartrate",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF106_PB Option/GreenScreen/GSWorld",
+      "input": {
+        "address": "/avatar/parameters/VF106_PB_Option/GreenScreen/GSWorld",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF106_PB_Option/GreenScreen/GSWorld",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF105_PB Option/GreenScreen/GSON",
+      "input": {
+        "address": "/avatar/parameters/VF105_PB_Option/GreenScreen/GSON",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF105_PB_Option/GreenScreen/GSON",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF102_Props/Ring/Ring World",
+      "input": {
+        "address": "/avatar/parameters/VF102_Props/Ring/Ring_World",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF102_Props/Ring/Ring_World",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF101_Props/Ring/RingON",
+      "input": {
+        "address": "/avatar/parameters/VF101_Props/Ring/RingON",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF101_Props/Ring/RingON",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF100_Props/Bouquet/bouquet World",
+      "input": {
+        "address": "/avatar/parameters/VF100_Props/Bouquet/bouquet_World",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF100_Props/Bouquet/bouquet_World",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF99_Props/Bouquet/BouquetON",
+      "input": {
+        "address": "/avatar/parameters/VF99_Props/Bouquet/BouquetON",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF99_Props/Bouquet/BouquetON",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VFH/Version/10",
+      "input": {
+        "address": "/avatar/parameters/VFH/Version/10",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VFH/Version/10",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF10_Bone",
+      "input": {
+        "address": "/avatar/parameters/VF10_Bone",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF10_Bone",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF10_But",
+      "input": {
+        "address": "/avatar/parameters/VF10_But",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF10_But",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF10_Pus",
+      "input": {
+        "address": "/avatar/parameters/VF10_Pus",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF10_Pus",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF10_Right Toes",
+      "input": {
+        "address": "/avatar/parameters/VF10_Right_Toes",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF10_Right_Toes",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF10_Left Toes",
+      "input": {
+        "address": "/avatar/parameters/VF10_Left_Toes",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF10_Left_Toes",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF10_Head",
+      "input": {
+        "address": "/avatar/parameters/VF10_Head",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF10_Head",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF10_multi",
+      "input": {
+        "address": "/avatar/parameters/VF10_multi",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF10_multi",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF10_stealth",
+      "input": {
+        "address": "/avatar/parameters/VF10_stealth",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF10_stealth",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF10_autoMode",
+      "input": {
+        "address": "/avatar/parameters/VF10_autoMode",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF10_autoMode",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF109_Cam/Watergun/Color",
+      "input": {
+        "address": "/avatar/parameters/VF109_Cam/Watergun/Color",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF109_Cam/Watergun/Color",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "VF109_Cam/Watergun/GrabbedR",
+      "input": {
+        "address": "/avatar/parameters/VF109_Cam/Watergun/GrabbedR",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF109_Cam/Watergun/GrabbedR",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF109_Cam/Watergun/GrabbedL",
+      "input": {
+        "address": "/avatar/parameters/VF109_Cam/Watergun/GrabbedL",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF109_Cam/Watergun/GrabbedL",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF109_Cam/Watergun/EnabledRight",
+      "input": {
+        "address": "/avatar/parameters/VF109_Cam/Watergun/EnabledRight",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF109_Cam/Watergun/EnabledRight",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF109_Cam/Watergun/EnabledLeft",
+      "input": {
+        "address": "/avatar/parameters/VF109_Cam/Watergun/EnabledLeft",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF109_Cam/Watergun/EnabledLeft",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VRCOSC/Heartrate/Value",
+      "input": {
+        "address": "/avatar/parameters/VRCOSC/Heartrate/Value",
+        "type": "Int"
+      },
+      "output": {
+        "address": "/avatar/parameters/VRCOSC/Heartrate/Value",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Go/Station/Chair",
+      "input": {
+        "address": "/avatar/parameters/Go/Station/Chair",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/Station/Chair",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/Dash/Right/FistWeight",
+      "input": {
+        "address": "/avatar/parameters/Go/Dash/Right/FistWeight",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/Dash/Right/FistWeight",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/DashDistance",
+      "input": {
+        "address": "/avatar/parameters/Go/DashDistance",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/DashDistance",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "Go/Dash",
+      "input": {
+        "address": "/avatar/parameters/Go/Dash",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/Dash",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/ProneIdleMirror",
+      "input": {
+        "address": "/avatar/parameters/Go/ProneIdleMirror",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/ProneIdleMirror",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/CrouchIdleMirror",
+      "input": {
+        "address": "/avatar/parameters/Go/CrouchIdleMirror",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/CrouchIdleMirror",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/StandIdleMirror",
+      "input": {
+        "address": "/avatar/parameters/Go/StandIdleMirror",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/StandIdleMirror",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/Height",
+      "input": {
+        "address": "/avatar/parameters/Go/Height",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/Height",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "Go/PuppetY",
+      "input": {
+        "address": "/avatar/parameters/Go/PuppetY",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/PuppetY",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "Go/PuppetX",
+      "input": {
+        "address": "/avatar/parameters/Go/PuppetX",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/PuppetX",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "Go/Swimming",
+      "input": {
+        "address": "/avatar/parameters/Go/Swimming",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/Swimming",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/ProneIdle",
+      "input": {
+        "address": "/avatar/parameters/Go/ProneIdle",
+        "type": "Int"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/ProneIdle",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Go/CrouchIdle",
+      "input": {
+        "address": "/avatar/parameters/Go/CrouchIdle",
+        "type": "Int"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/CrouchIdle",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Go/StandType",
+      "input": {
+        "address": "/avatar/parameters/Go/StandType",
+        "type": "Int"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/StandType",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Go/StandIdle",
+      "input": {
+        "address": "/avatar/parameters/Go/StandIdle",
+        "type": "Int"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/StandIdle",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Go/Jump&Fall",
+      "input": {
+        "address": "/avatar/parameters/Go/Jump&Fall",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/Jump&Fall",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/Locomotion",
+      "input": {
+        "address": "/avatar/parameters/Go/Locomotion",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/Locomotion",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/Stationary",
+      "input": {
+        "address": "/avatar/parameters/Go/Stationary",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/Stationary",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Go/PoseRadial",
+      "input": {
+        "address": "/avatar/parameters/Go/PoseRadial",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/PoseRadial",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "Go/Float",
+      "input": {
+        "address": "/avatar/parameters/Go/Float",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/Go/Float",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "ykgun",
+      "input": {
+        "address": "/avatar/parameters/ykgun",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/ykgun",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "heart",
+      "input": {
+        "address": "/avatar/parameters/heart",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/heart",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "stamp",
+      "input": {
+        "address": "/avatar/parameters/stamp",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/stamp",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "capsule",
+      "input": {
+        "address": "/avatar/parameters/capsule",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/capsule",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "ハート",
+      "input": {
+        "address": "/avatar/parameters/\\u30cf\\u30fc\\u30c8",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/\\u30cf\\u30fc\\u30c8",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "ミニオムライス",
+      "input": {
+        "address": "/avatar/parameters/\\u30df\\u30cb\\u30aa\\u30e0\\u30e9\\u30a4\\u30b9",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/\\u30df\\u30cb\\u30aa\\u30e0\\u30e9\\u30a4\\u30b9",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "スプーン",
+      "input": {
+        "address": "/avatar/parameters/\\u30b9\\u30d7\\u30fc\\u30f3",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/\\u30b9\\u30d7\\u30fc\\u30f3",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "オムライス固定",
+      "input": {
+        "address": "/avatar/parameters/\\u30aa\\u30e0\\u30e9\\u30a4\\u30b9\\u56fa\\u5b9a",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/\\u30aa\\u30e0\\u30e9\\u30a4\\u30b9\\u56fa\\u5b9a",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "オムライス",
+      "input": {
+        "address": "/avatar/parameters/\\u30aa\\u30e0\\u30e9\\u30a4\\u30b9",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/\\u30aa\\u30e0\\u30e9\\u30a4\\u30b9",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Use_OshiLight_R",
+      "input": {
+        "address": "/avatar/parameters/Use_OshiLight_R",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Use_OshiLight_R",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Use_OshiLight_L",
+      "input": {
+        "address": "/avatar/parameters/Use_OshiLight_L",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Use_OshiLight_L",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Color_OshiLight",
+      "input": {
+        "address": "/avatar/parameters/Color_OshiLight",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/Color_OshiLight",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "PPPen_Width_0",
+      "input": {
+        "address": "/avatar/parameters/PPPen_Width_0",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/PPPen_Width_0",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "PPPen_Color_0",
+      "input": {
+        "address": "/avatar/parameters/PPPen_Color_0",
+        "type": "Int"
+      },
+      "output": {
+        "address": "/avatar/parameters/PPPen_Color_0",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "PPPen_Color_B_0",
+      "input": {
+        "address": "/avatar/parameters/PPPen_Color_B_0",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/PPPen_Color_B_0",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "PPPen_Color_G_0",
+      "input": {
+        "address": "/avatar/parameters/PPPen_Color_G_0",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/PPPen_Color_G_0",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "PPPen_Color_R_0",
+      "input": {
+        "address": "/avatar/parameters/PPPen_Color_R_0",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/PPPen_Color_R_0",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "PPPen_Clear_0",
+      "input": {
+        "address": "/avatar/parameters/PPPen_Clear_0",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/PPPen_Clear_0",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "PPPen_Pickup_0",
+      "input": {
+        "address": "/avatar/parameters/PPPen_Pickup_0",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/PPPen_Pickup_0",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "PPPen_Write_0",
+      "input": {
+        "address": "/avatar/parameters/PPPen_Write_0",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/PPPen_Write_0",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "AvatarProp/Enable",
+      "input": {
+        "address": "/avatar/parameters/AvatarProp/Enable",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/AvatarProp/Enable",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "RingSize",
+      "input": {
+        "address": "/avatar/parameters/RingSize",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/RingSize",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "Blink",
+      "input": {
+        "address": "/avatar/parameters/Blink",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Blink",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Waifu",
+      "input": {
+        "address": "/avatar/parameters/Waifu",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/Waifu",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "Hula",
+      "input": {
+        "address": "/avatar/parameters/Hula",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Hula",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "effect",
+      "input": {
+        "address": "/avatar/parameters/effect",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/effect",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "stickContactOnOff",
+      "input": {
+        "address": "/avatar/parameters/stickContactOnOff",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/stickContactOnOff",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "stick",
+      "input": {
+        "address": "/avatar/parameters/stick",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/stick",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "FloorCollider",
+      "input": {
+        "address": "/avatar/parameters/FloorCollider",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/FloorCollider",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "SkirtPB",
+      "input": {
+        "address": "/avatar/parameters/SkirtPB",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/SkirtPB",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "HairPB",
+      "input": {
+        "address": "/avatar/parameters/HairPB",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/HairPB",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "hoppePB",
+      "input": {
+        "address": "/avatar/parameters/hoppePB",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/hoppePB",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Socks",
+      "input": {
+        "address": "/avatar/parameters/Socks",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Socks",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "MaidCostume",
+      "input": {
+        "address": "/avatar/parameters/MaidCostume",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/MaidCostume",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Underwear",
+      "input": {
+        "address": "/avatar/parameters/Underwear",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Underwear",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Hoodie",
+      "input": {
+        "address": "/avatar/parameters/Hoodie",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Hoodie",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "CielCostume",
+      "input": {
+        "address": "/avatar/parameters/CielCostume",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/CielCostume",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Twintailup",
+      "input": {
+        "address": "/avatar/parameters/Twintailup",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Twintailup",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "nekomimi",
+      "input": {
+        "address": "/avatar/parameters/nekomimi",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/nekomimi",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Fronthair",
+      "input": {
+        "address": "/avatar/parameters/Fronthair",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/Fronthair",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "mimimotionY",
+      "input": {
+        "address": "/avatar/parameters/mimimotionY",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/mimimotionY",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "mimimotionX",
+      "input": {
+        "address": "/avatar/parameters/mimimotionX",
+        "type": "Float"
+      },
+      "output": {
+        "address": "/avatar/parameters/mimimotionX",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "Face",
+      "input": {
+        "address": "/avatar/parameters/Face",
+        "type": "Int"
+      },
+      "output": {
+        "address": "/avatar/parameters/Face",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Hand",
+      "input": {
+        "address": "/avatar/parameters/Hand",
+        "type": "Int"
+      },
+      "output": {
+        "address": "/avatar/parameters/Hand",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Track",
+      "input": {
+        "address": "/avatar/parameters/Track",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Track",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Move",
+      "input": {
+        "address": "/avatar/parameters/Move",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/Move",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VRCEmote",
+      "input": {
+        "address": "/avatar/parameters/VRCEmote",
+        "type": "Int"
+      },
+      "output": {
+        "address": "/avatar/parameters/VRCEmote",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "VF 1.1241.0",
+      "input": {
+        "address": "/avatar/parameters/VF_1.1241.0",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF_1.1241.0",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF 3.8.2",
+      "input": {
+        "address": "/avatar/parameters/VF_3.8.2",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF_3.8.2",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF 2022.3.22f1",
+      "input": {
+        "address": "/avatar/parameters/VF_2022.3.22f1",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF_2022.3.22f1",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VF N",
+      "input": {
+        "address": "/avatar/parameters/VF_N",
+        "type": "Bool"
+      },
+      "output": {
+        "address": "/avatar/parameters/VF_N",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "PreviewMode",
+      "output": {
+        "address": "/avatar/parameters/PreviewMode",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "InStation",
+      "output": {
+        "address": "/avatar/parameters/InStation",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Seated",
+      "output": {
+        "address": "/avatar/parameters/Seated",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "GestureRightWeight",
+      "output": {
+        "address": "/avatar/parameters/GestureRightWeight",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "GestureLeftWeight",
+      "output": {
+        "address": "/avatar/parameters/GestureLeftWeight",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "GestureRight",
+      "output": {
+        "address": "/avatar/parameters/GestureRight",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "GestureLeft",
+      "output": {
+        "address": "/avatar/parameters/GestureLeft",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Viseme",
+      "output": {
+        "address": "/avatar/parameters/Viseme",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "IsAnimatorEnabled",
+      "output": {
+        "address": "/avatar/parameters/IsAnimatorEnabled",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "IsOnFriendsList",
+      "output": {
+        "address": "/avatar/parameters/IsOnFriendsList",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "EyeHeightAsMeters",
+      "output": {
+        "address": "/avatar/parameters/EyeHeightAsMeters",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "EyeHeightAsPercent",
+      "output": {
+        "address": "/avatar/parameters/EyeHeightAsPercent",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "ScaleModified",
+      "output": {
+        "address": "/avatar/parameters/ScaleModified",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "ScaleFactorInverse",
+      "output": {
+        "address": "/avatar/parameters/ScaleFactorInverse",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "ScaleFactor",
+      "output": {
+        "address": "/avatar/parameters/ScaleFactor",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "VelocityMagnitude",
+      "output": {
+        "address": "/avatar/parameters/VelocityMagnitude",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "Earmuffs",
+      "output": {
+        "address": "/avatar/parameters/Earmuffs",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Voice",
+      "output": {
+        "address": "/avatar/parameters/Voice",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "MuteSelf",
+      "output": {
+        "address": "/avatar/parameters/MuteSelf",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "VRMode",
+      "output": {
+        "address": "/avatar/parameters/VRMode",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "TrackingType",
+      "output": {
+        "address": "/avatar/parameters/TrackingType",
+        "type": "Int"
+      }
+    },
+    {
+      "name": "Upright",
+      "output": {
+        "address": "/avatar/parameters/Upright",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "AFK",
+      "output": {
+        "address": "/avatar/parameters/AFK",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "Grounded",
+      "output": {
+        "address": "/avatar/parameters/Grounded",
+        "type": "Bool"
+      }
+    },
+    {
+      "name": "AngularY",
+      "output": {
+        "address": "/avatar/parameters/AngularY",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "VelocityZ",
+      "output": {
+        "address": "/avatar/parameters/VelocityZ",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "VelocityY",
+      "output": {
+        "address": "/avatar/parameters/VelocityY",
+        "type": "Float"
+      }
+    },
+    {
+      "name": "VelocityX",
+      "output": {
+        "address": "/avatar/parameters/VelocityX",
+        "type": "Float"
+      }
+    }
+  ]
+}
