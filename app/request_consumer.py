@@ -12,11 +12,11 @@ VRChat is a trademark of VRChat Inc.
 Notes:
   - AI assistance was used in drafting parts of this file.
 """
-import asyncio
 from app.osc.vrc_osc_singleton_client import update_parameter, send_chat, close
 import logging
 from app.osc_queue import osc_queue
 logger = logging.getLogger(__name__)
+
 
 async def process_request_loop():
     while True:
@@ -37,4 +37,3 @@ async def process_request_loop():
             logger.warning("请求 %s 发生错误, 忽略并继续", request)
         finally:
             osc_queue.task_done()
-

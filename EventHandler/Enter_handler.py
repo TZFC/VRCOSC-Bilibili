@@ -30,7 +30,7 @@ async def handle_enter(event: dict, update_chatbox: bool, update_osc_param: bool
             await osc_queue.put(('CHATBOX', f"提督{username}进入直播间"))
         elif identity == 4 and CONFIG['enter']['enter_level'][4] == 1:
             await osc_queue.put(('CHATBOX', f"总督{username}进入直播间"))
-        elif identity not in [1,2,3,4]:
+        elif identity not in [1, 2, 3, 4]:
             logger.info("未知进房身份%s", str(
                 event["data"]["data"]["pb_decoded"]["identities"]))
         else:

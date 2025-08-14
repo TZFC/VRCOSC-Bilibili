@@ -35,16 +35,16 @@ async def main():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-    "--log", 
-    default="warning", 
-    choices=["debug", "info", "warning", "error", "critical"],
-    help="Set the logging level"
+        "--log",
+        default="warning",
+        choices=["debug", "info", "warning", "error", "critical"],
+        help="Set the logging level"
     )
     args = parser.parse_args()
     log_level = getattr(logging, args.log.upper(), logging.WARNING)
     logging.basicConfig(
-    level=log_level,
-    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+        level=log_level,
+        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
     )
     try:
         logger.info("配置： %s", str(CONFIG))
