@@ -12,9 +12,9 @@ BILIBILI is a trademark of Shanghai Hode Information Technology Co., Ltd.
 """
 import asyncio
 import sys
-from app.bili_event_dispatch import live_danmaku, osc_queue
+from app.bili_event_dispatch import live_danmaku
 from app.request_consumer import process_request_loop
-from app.osc_queue import osc_queue
+from app.config_loader import CONFIG
 import argparse
 import logging
 logger = logging.getLogger(__name__)
@@ -47,6 +47,7 @@ if __name__ == "__main__":
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
     )
     try:
+        logger.info("配置： %s", str(CONFIG))
         asyncio.run(main())
     except KeyboardInterrupt:
         sys.exit(130)

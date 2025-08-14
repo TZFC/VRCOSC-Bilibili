@@ -5,7 +5,6 @@ Copyright (C) 2025  TZFC <tianzifangchen@gmail.com>
 License: GNU General Public License v3.0 or later (see LICENSE).
 """
 import asyncio
-from app.config_loader import CONFIG
 
 
 async def handle_sc(event: dict, update_chatbox: bool, update_osc_param: bool, osc_queue: asyncio.Queue):
