@@ -5,7 +5,9 @@ Copyright (C) 2025  TZFC <tianzifangchen@gmail.com>
 License: GNU General Public License v3.0 or later (see LICENSE).
 """
 from app.config_loader import CONFIG
-from app.osc_queue import chatbox_queue, general_gift_queue, animation_counts
+from Utils.int2float8 import int2f8
+from app.osc.vrc_osc_singleton_client import update_parameter
+from app.osc_queue import chatbox_queue, general_gift_queue, animation_counts, set_parameter_value
 import logging
 logger = logging.getLogger(__name__)
 
@@ -17,7 +19,23 @@ async def handle_guard(event: dict, update_chatbox: bool, update_osc_param: bool
     if update_chatbox:
         await chatbox_queue.put((f"{username}开通{guard_count}个月{guard_level}", CONFIG["misc"]["guard_min_display_time"]))
     if update_osc_param:
-        if guard_name in CONFIG["animation_accumulate"]["animation"]: # 独立礼物
+        if guard_name in CONFIG["animation_accumulate"]["animation"]:  # 动画
             animation_counts[guard_name] += guard_count
-        else: # 通用礼物
+            logger.info("动画舰长 %s", guard_name)
+        elif guard_name in CONFIG["set_parameter"]["parameter_keywords"]:  # 变化
+            set_index: int = CONFIG["set_parameter"]["parameter_keywords"].index(
+                guard_name)
+            is_increase: bool = set_index % 2 == 0
+            set_index = set_index // 2
+            parameter_name: str = CONFIG["set_parameter"]["parameter_names"][set_index]
+            step: int = CONFIG["set_parameter"]["parameter_increment"][set_index]
+            if is_increase:
+                set_parameter_value[parameter_name] += step * guard_count
+            else:
+                set_parameter_value[parameter_name] -= step * guard_count
+            logger.info("变化舰长 %s", guard_name)
+            update_parameter(parameter_name, int2f8(
+                set_parameter_value[parameter_name]))
+        else:  # 通用
+            logger.info("通用舰长 %s", guard_name)
             await general_gift_queue.put((guard_name, guard_count))

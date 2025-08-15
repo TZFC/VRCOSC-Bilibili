@@ -28,7 +28,7 @@ WARNING  = 1  # 监听超管警告     → “警告：【警告信息】”    
 # 以下设置为1的身份进场会触发
 # event_num = 路人:-1，粉丝-0.5 舰长:0，提督:0.5, 总督:1
 # ============================
-enter_level         = [1, 1, 1, 1, 1] # 分别对应 【路人，粉丝，舰长，提督，总督】
+enter_level         = [0, 1, 1, 1, 1] # 分别对应 【路人，粉丝，舰长，提督，总督】
 min_display_time    = [0, 0, 1, 1, 1] # 分别对应 【路人，粉丝，舰长，提督，总督】
 
 [animation_accumulate] # 动画
@@ -49,7 +49,7 @@ animation_time = [1, 1]
 parameter_names = ["bust"] # 角色需要有“bust”这个参数
 parameter_default = [50] # 起始值为50
 parameter_increment = [1] # 每次变化1
-parameter_keywords = ["粉丝团灯牌","牛哇牛哇"] # 增加关键词，减少关键词, 每2个对应1个参数
+parameter_keywords = ["小花花","牛哇牛哇"] # 增加关键词，减少关键词, 每2个对应1个参数
 
 [filter_keywords] # 过滤
 # ============================

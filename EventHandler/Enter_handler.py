@@ -5,7 +5,9 @@ Copyright (C) 2025  TZFC <tianzifangchen@gmail.com>
 License: GNU General Public License v3.0 or later (see LICENSE).
 """
 from app.config_loader import CONFIG
-from app.osc_queue import chatbox_queue
+from Utils.int2float8 import int2f8
+from app.osc.vrc_osc_singleton_client import update_parameter
+from app.osc_queue import chatbox_queue, general_gift_queue, animation_counts, set_parameter_value
 import logging
 logger = logging.getLogger(__name__)
 
@@ -15,7 +17,7 @@ async def handle_enter(event: dict, update_chatbox: bool, update_osc_param: bool
         username: str = event["data"]["data"]["pb_decoded"]['uname']
         # 0: 路人 1: 粉丝牌 2: 舰长 3: 提督 4：总督
         identity: int = 0 # TODO: new protobuf need investigation https://github.com/Nemo2011/bilibili-api/issues/955
-        logger.info("Got event %s", str(event))
+        logger.debug("Got event %s", str(event))
     except KeyError:
         logger.warning("进房信息缺失%s", str(event))
         return
@@ -35,4 +37,24 @@ async def handle_enter(event: dict, update_chatbox: bool, update_osc_param: bool
                 event["data"]["data"]["pb_decoded"]["identities"]))
         else:
             pass
-    # TODO: update params
+    if update_osc_param:
+        if str(identity) in CONFIG["animation_accumulate"]["animation"]:  # 动画
+            animation_counts[text] += 1
+            logger.info("动画进房 %s", text)
+        elif str(identity) in CONFIG["set_parameter"]["parameter_keywords"]:  # 变化
+            set_index: int = CONFIG["set_parameter"]["parameter_keywords"].index(
+                str(identity))
+            is_increase: bool = set_index % 2 == 0
+            set_index = set_index // 2
+            parameter_name: str = CONFIG["set_parameter"]["parameter_names"][set_index]
+            step: int = CONFIG["set_parameter"]["parameter_increment"][set_index]
+            if is_increase:
+                set_parameter_value[parameter_name] += step * 1
+            else:
+                set_parameter_value[parameter_name] -= step * 1
+            logger.info("变化进房 %s", str(identity))
+            update_parameter(parameter_name, int2f8(
+                set_parameter_value[parameter_name]))
+        else:  # 通用表情
+            logger.info("通用进房 %s", str(identity))
+            await general_gift_queue.put((str(identity), 1))
