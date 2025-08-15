@@ -2,7 +2,7 @@
 # 房间配置
 # ============================
 # 需要监听的房间号
-room_id = 27163300
+room_id = 870004
 
 # ============================
 # 事件类型设置
@@ -49,7 +49,7 @@ animation_time = [1, 1]
 parameter_names = ["bust"] # 角色需要有“bust”这个参数
 parameter_default = [50] # 起始值为50
 parameter_increment = [1] # 每次变化1
-parameter_keywords = ["小花花","牛哇牛哇"] # 增加关键词，减少关键词, 每2个对应1个参数
+parameter_keywords = ["粉丝团灯牌","人气票"] # 增加关键词，减少关键词, 每2个对应1个参数
 
 [filter_keywords] # 过滤
 # ============================

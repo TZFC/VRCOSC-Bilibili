@@ -44,14 +44,14 @@ class VRChatOSC:
         self._ensure_ready()
         addr = f"/avatar/parameters/{param_name}"
         self._client.send_message(addr, param_value)
-        logger.info("%s = %r", addr, param_value)
+        logger.debug("%s = %r", addr, param_value)
 
     def send_chat(self, message: str, immediate: bool = True) -> None:
         self._ensure_ready()
         if len(message) > _MAX_CHAT_LEN:
             message = message[:_MAX_CHAT_LEN]
         self._client.send_message("/chatbox/input", [message, bool(immediate)])
-        logger.info("/chatbox/input = %r (%s)", message,
+        logger.debug("/chatbox/input = %r (%s)", message,
                     "immediate" if immediate else "fill-only")
 
     def typing_indicator(self, on: bool = True) -> None:
