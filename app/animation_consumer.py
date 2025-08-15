@@ -1,5 +1,5 @@
 """
-An async queue consumer that sends accumulated animation controller parameter updates to VRChatOSC
+An async accumulator consumer that sends accumulated animation controller parameter updates to VRChatOSC
 
 Copyright (C) 2025  TZFC <tianzifangchen@gmail.com>
 License: GNU General Public License v3.0 or later (see LICENSE).
