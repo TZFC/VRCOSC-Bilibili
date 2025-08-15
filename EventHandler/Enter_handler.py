@@ -14,7 +14,8 @@ async def handle_enter(event: dict, update_chatbox: bool, update_osc_param: bool
     try:
         username: str = event["data"]["data"]["pb_decoded"]['uname']
         # 0: 路人 1: 粉丝牌 2: 舰长 3: 提督 4：总督
-        identity: int = event["data"]["data"]["pb_decoded"]["identities"][0]
+        identity: int = 0 # TODO: no info here?
+        logger.info("Got identities %s for user %s", str(event["data"]["data"]["pb_decoded"]["identities"]), username)
     except KeyError:
         logger.warning("进房信息缺失%s", str(event))
         return

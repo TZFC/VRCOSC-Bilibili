@@ -17,7 +17,7 @@ async def handle_gift(event: dict, update_chatbox: bool, update_osc_param: bool)
     gift_num: int = event["data"]["data"]["num"]
     username: str = event["data"]["data"]["uname"]
     if update_chatbox:
-        await chatbox_queue.put(f"{username}赠送{gift_num}个{gift_name}")
+        await chatbox_queue.put((f"{username}赠送{gift_num}个{gift_name}", 0))
     if update_osc_param:
         if gift_name in CONFIG["animation_accumulate"]["animation"]:  # 动画礼物
             animation_counts[gift_name] += gift_num

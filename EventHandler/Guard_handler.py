@@ -10,12 +10,12 @@ import logging
 logger = logging.getLogger(__name__)
 
 async def handle_guard(event: dict, update_chatbox: bool, update_osc_param: bool):
-    username = event['data']['data']['username']
-    guard_count = event['data']['data']['num']
-    guard_level = event['data']['data']['guard_level']
-    guard_name = event['data']['data']['gift_name']
+    username: str = event['data']['data']['username']
+    guard_count: int = event['data']['data']['num']
+    guard_level: int = event['data']['data']['guard_level']
+    guard_name: str = event['data']['data']['gift_name']
     if update_chatbox:
-        await chatbox_queue.put(f"{username}开通{guard_count}个月{guard_level}")
+        await chatbox_queue.put((f"{username}开通{guard_count}个月{guard_level}", CONFIG["misc"]["guard_min_display_time"]))
     if update_osc_param:
         if guard_name in CONFIG["animation_accumulate"]["animation"]: # 独立礼物
             animation_counts[guard_name] += guard_count
