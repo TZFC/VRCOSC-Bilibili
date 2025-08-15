@@ -47,7 +47,7 @@ async def dispatch(event_name: str, event: dict, handler):
     else:
         logger.warning(
             f"未知{event_name}用户设置{CONFIG['events'][event_name]}")
-    logger.info(f"分发事件{event_name}")
+    logger.debug(f"分发事件{event_name}")
 
 # 收到进房
 @live_danmaku.on('INTERACT_WORD_V2')

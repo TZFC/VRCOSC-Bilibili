@@ -13,9 +13,9 @@ logger = logging.getLogger(__name__)
 async def handle_enter(event: dict, update_chatbox: bool, update_osc_param: bool):
     try:
         username: str = event["data"]["data"]["pb_decoded"]['uname']
-        # 0: 路人 1: 粉丝牌 2: 舰长 3: 提督 4：总督
-        identity: int = 0 # TODO: no info here?
-        logger.info("Got identities %s for user %s", str(event["data"]["data"]["pb_decoded"]["identities"]), username)
+        # 1: 路人 1: 粉丝牌 2: 舰长 3: 提督 4：总督
+        identity: int = min(event["data"]["data"]["pb_decoded"]["identities"]) # TODO: no info here?
+        logger.info("Got identities %s for user %s at event %s", str(event["data"]["data"]["pb_decoded"]["identities"]), username, str(event))
     except KeyError:
         logger.warning("进房信息缺失%s", str(event))
         return
@@ -35,6 +35,4 @@ async def handle_enter(event: dict, update_chatbox: bool, update_osc_param: bool
                 event["data"]["data"]["pb_decoded"]["identities"]))
         else:
             pass
-    else:
-        pass
     # TODO: update params
