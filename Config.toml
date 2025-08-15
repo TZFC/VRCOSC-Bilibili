@@ -50,12 +50,12 @@ animation_time = [1, 1]
 parameter_names = ["bust"] # 角色需要有“bust”这个参数
 parameter_default = [0] # 起始值为0
 parameter_increment = [1] # 每次变化1
-parameter_keywords = [["#大","#小"]] # [增加关键词，减少关键词]
+parameter_keywords = ["小花花","牛哇牛哇"] # 增加关键词，减少关键词, 每2个对应1个参数
 
 [filter_keywords]
 # ============================
 # 弹幕及表情包关键词设置, event_num 为【在列表中的位置/100】（从1开始数）
-# 留空为任意词都触发, event_num = 0
+# chatbox留空为任意词都触发, event_num = 0
 # 长度最多为100
 # ============================
 danmaku_chatbox_keywords = []

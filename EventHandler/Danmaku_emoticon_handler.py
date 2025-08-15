@@ -18,4 +18,7 @@ async def handle_emoticon(event: dict, update_chatbox: bool, update_osc_param: b
     if update_chatbox:
         if send_all_emoticons or (text in CONFIG["filter_keywords"]["emoticon_chatbox_keywords"]):
             await chatbox_queue.put((f"{username}:{text}", 0))
-    # TODO: update params
+    if update_osc_param:
+        if text in CONFIG["filter_keywords"]["emoticon_parameter_keywords"]:
+            # drive parameters here
+            pass 
