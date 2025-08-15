@@ -20,13 +20,13 @@ chatbox_queue: asyncio.Queue = asyncio.Queue()
 
 # 创建特殊动画累积
 animation_counts: dict[str:int] = {}
-for gift_name in CONFIG["animation_accumulate"]["animation"]:
-    animation_counts[gift_name] = 0
+for animation_name in CONFIG["animation_accumulate"]["animation"]:
+    animation_counts[animation_name] = 0
 
 # 创建设置参数累积
 set_parameter_value: dict[str:int] = {}
-for name, value in zip(CONFIG["set_parameter"]["parameter_names"], CONFIG["set_parameter"]["parameter_default"]):
-    set_parameter_value[name] = value
+for parameter_name, value in zip(CONFIG["set_parameter"]["parameter_names"], CONFIG["set_parameter"]["parameter_default"]):
+    set_parameter_value[parameter_name] = value
 
 # 创建通用礼物队列
 # 事件: (gift_name, gift_num)

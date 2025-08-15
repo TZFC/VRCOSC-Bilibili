@@ -11,6 +11,7 @@ from app.osc_queue import chatbox_queue, general_gift_queue, animation_counts, s
 import logging
 logger = logging.getLogger(__name__)
 
+
 async def handle_guard(event: dict, update_chatbox: bool, update_osc_param: bool):
     username: str = event['data']['data']['username']
     guard_count: int = event['data']['data']['num']

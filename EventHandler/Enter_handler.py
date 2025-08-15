@@ -16,7 +16,8 @@ async def handle_enter(event: dict, update_chatbox: bool, update_osc_param: bool
     try:
         username: str = event["data"]["data"]["pb_decoded"]['uname']
         # 0: 路人 1: 粉丝牌 2: 舰长 3: 提督 4：总督
-        identity: int = 0 # TODO: new protobuf need investigation https://github.com/Nemo2011/bilibili-api/issues/955
+        # TODO: new protobuf need investigation https://github.com/Nemo2011/bilibili-api/issues/955
+        identity: int = 0
         logger.debug("Got event %s", str(event))
     except KeyError:
         logger.warning("进房信息缺失%s", str(event))

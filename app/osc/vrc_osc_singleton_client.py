@@ -19,6 +19,7 @@ import logging
 logger = logging.getLogger(__name__)
 _vrc: Optional[VRChatOSC] = None
 
+
 def _ensure_ready() -> VRChatOSC:
     global _vrc
     if _vrc is None:
@@ -26,11 +27,14 @@ def _ensure_ready() -> VRChatOSC:
         _vrc = VRChatOSC.connect()
     return _vrc
 
+
 def update_parameter(name: str, value) -> None:
     _ensure_ready().update_parameter(name, value)
 
+
 def send_chat(message: str, immediate: bool = True) -> None:
     _ensure_ready().send_chat(message, immediate)
+
 
 def close() -> None:
     global _vrc

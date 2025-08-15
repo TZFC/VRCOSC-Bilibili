@@ -34,9 +34,9 @@ min_display_time    = [0, 0, 1, 1, 1] # 分别对应 【路人，粉丝，舰长
 [animation_accumulate] # 动画
 # ============================
 # 触发以下事件会被累积，每animation_time时间最多处理255,每种需要独占的一个参数：
-# animation_num_名字(float) = min(礼物数量,, 100)/100 # 10个礼物为 10/100 = 0.1
-# 每个礼物应有独立的fx layer，动画由 animation_num_名字 控制，长度为 animation_time_名字 秒
-# osc 每 animation_time 秒汇报一次 animation_num_名字， 累积为0时汇报 0
+# animation_名字(float) = min(礼物数量,, 100)/100 # 10个礼物为 10/100 = 0.1
+# 每个礼物应有独立的fx layer，动画由 animation_名字 控制，长度为 animation_time_名字 秒
+# osc 每 animation_time 秒汇报一次 animation_名字， 累积为0时汇报 0
 # 超出 100 的数量会被拆成多次 100，期间有新礼物会累积
 # ============================
 animation = ["小花花","牛哇牛哇"] # 角色需要有“animation_num_小花花”“animation_num_牛哇牛哇”这些参数，每对应animation_time，osc汇报一次当前累积值（最100）

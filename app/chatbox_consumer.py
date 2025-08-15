@@ -23,7 +23,8 @@ async def chatbox_loop():
         try:
             text, min_display_time = request
             send_chat(text)
-            logger.debug("聊天框请求 %s 成功, 还剩 %d 条请求", str(request), chatbox_queue.qsize())
+            logger.debug("聊天框请求 %s 成功, 还剩 %d 条请求", str(
+                request), chatbox_queue.qsize())
             await asyncio.sleep(min_display_time)
         except Exception:
             logger.warning("聊天框请求 %s 发生错误, 忽略并继续", request)

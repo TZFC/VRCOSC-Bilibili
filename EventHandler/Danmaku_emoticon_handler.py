@@ -12,7 +12,9 @@ from app.config_loader import CONFIG
 import logging
 logger = logging.getLogger(__name__)
 
-send_all_emoticons = (CONFIG["filter_keywords"]["emoticon_chatbox_keywords"] == [])
+send_all_emoticons = (CONFIG["filter_keywords"]
+                      ["emoticon_chatbox_keywords"] == [])
+
 
 async def handle_emoticon(event: dict, update_chatbox: bool, update_osc_param: bool):
     username = event["data"]["info"][USERINFO_IDX][USERINFO_USERNAME_IDX]

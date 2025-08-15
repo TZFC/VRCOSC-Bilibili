@@ -17,7 +17,7 @@ EMOTICON_TYPE = 1
 LIVE_STATUS_STREAMING = 1
 DM_INTERACTION_ONGOING = 4
 DM_INTERACTION_END = 5
-
+MAX_COUNT_PER_SECOND = 100
 '''
 For details, see https://github.com/TZFC/BiliLiveManager/wiki/All-non-standard-events 
 '''

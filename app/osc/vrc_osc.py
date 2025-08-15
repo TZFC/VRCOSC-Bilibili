@@ -52,7 +52,7 @@ class VRChatOSC:
             message = message[:_MAX_CHAT_LEN]
         self._client.send_message("/chatbox/input", [message, bool(immediate)])
         logger.info("/chatbox/input = %r (%s)", message,
-                     "immediate" if immediate else "fill-only")
+                    "immediate" if immediate else "fill-only")
 
     def typing_indicator(self, on: bool = True) -> None:
         self._ensure_ready()

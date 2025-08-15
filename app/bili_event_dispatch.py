@@ -50,11 +50,15 @@ async def dispatch(event_name: str, event: dict, handler):
     logger.debug(f"分发事件{event_name}")
 
 # 收到进房
+
+
 @live_danmaku.on('INTERACT_WORD_V2')
 async def on_interact(event: dict):
     await dispatch('enter', event, handle_enter)
 
 # 收到弹幕或表情包
+
+
 @live_danmaku.on('DANMU_MSG')
 async def on_danmaku(event: dict):
     message_type: int = event["data"]["info"][0][MSG_TYPE_IDX]
@@ -66,21 +70,29 @@ async def on_danmaku(event: dict):
         logger.warning("未知弹幕类型 %d", message_type)
 
 # 收到礼物
+
+
 @live_danmaku.on('SEND_GIFT')
 async def on_gift(event: dict):
     await dispatch('gift', event, handle_gift)
 
 # 收到sc
+
+
 @live_danmaku.on('SUPER_CHAT_MESSAGE')
 async def on_sc(event: dict):
     await dispatch('sc', event, handle_sc)
 
 # 收到舰长
+
+
 @live_danmaku.on('GUARD_BUY')
 async def on_guard_buy(event: dict):
     await dispatch('guard', event, handle_guard)
 
 # 收到警告
+
+
 @live_danmaku.on('WARNING')
 async def on_warning(event: dict):
     await dispatch('warning', event, handle_warning)
