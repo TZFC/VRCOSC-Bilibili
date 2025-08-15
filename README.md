@@ -6,7 +6,7 @@ import OSC-Bilibili.unitypackage [release link here] into your avatar project
 
 use Avatar Manager [vcc link here] to merge animation controller located in OSC-Bilibili/osc-bilibili.fx
 
-Fill in config in Config.yaml
+Fill in config in Config.toml
 
 log into Bilibili with firefox browser
 
@@ -16,20 +16,10 @@ double click RUNME.bat
 
 Avatar parameters:
 
-gift_id int 8-bit | gift_price int 8-bit | gift_num float 8-bit
+event_id int 8-bit | event_num float 8-bit | animation_num_name * n float 8-bit * n
 
-use gift_id and/pr gift_price to transition animation state
+use event_id to drive fx states
 
-use gift_num to drive Blendtree
+use event_num/animation_num_name to drive Blendtree animations
 
-Animation should be set to play 1 second loop
-
-Timeline fot every second:
-
- - set gift_id
-
- - set gift_price
-
- - set gift_num
-
- - Start new animation loop
+See Config.toml for more details
