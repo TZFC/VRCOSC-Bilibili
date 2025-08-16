@@ -5,7 +5,7 @@ Copyright (C) 2025  TZFC <tianzifangchen@gmail.com>
 License: GNU General Public License v3.0 or later (see LICENSE).
 """
 from app.Utils.config_loader import CONFIG
-from app.Utils.name2id import name2id
+from app.Utils.name2id import NAME_EVENT_ID, name2id
 from app.osc_queue import chatbox_queue, general_gift_queue, animation_counts, set_parameter_value
 from app.osc.vrc_osc_singleton_client import update_parameter
 from app.Utils.int2float8 import int2f8
@@ -40,4 +40,5 @@ async def handle_gift(event: dict, update_chatbox: bool, update_osc_param: bool)
                 set_parameter_value[parameter_name]))
         else:  # 通用
             logger.info("通用礼物 %s", gift_name)
-            await general_gift_queue.put((name2id(gift_name), gift_num))
+            if gift_name in NAME_EVENT_ID.keys():
+                await general_gift_queue.put((name2id(gift_name), gift_num))
