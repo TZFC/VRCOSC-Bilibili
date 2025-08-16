@@ -41,4 +41,7 @@ async def handle_text(event: dict, update_chatbox: bool, update_osc_param: bool)
                 set_parameter_value[parameter_name]))
         else:  # 通用
             logger.info("通用弹幕 %s", text)
-            await general_gift_queue.put((name2id('TEXT'), 1))
+            if text in CONFIG["filter_keywords"]["danmaku_parameter_keywords"]:
+                danmaku_id: int = CONFIG["filter_keywords"]["danmaku_parameter_keywords"].index(
+                    text)
+                await general_gift_queue.put((name2id('TEXT'), danmaku_id))

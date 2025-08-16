@@ -41,8 +41,11 @@ async def handle_emoticon(event: dict, update_chatbox: bool, update_osc_param: b
                 set_parameter_value[parameter_name] -= step * 1
             logger.info("变化表情 %s", text)
             update_parameter(
-                name = parameter_name, 
-                value = int2f8(set_parameter_value[parameter_name]))
+                name=parameter_name,
+                value=int2f8(set_parameter_value[parameter_name]))
         else:  # 通用
             logger.info("通用表情 %s", text)
-            await general_gift_queue.put((name2id('DANMAKU'), 1))
+            if text in CONFIG["filter_keywords"]["emoticon_parameter_keywords"]:
+                emoticon_id: int = CONFIG["filter_keywords"]["emoticon_parameter_keywords"].index(
+                    text)
+                await general_gift_queue.put((name2id('DANMAKU'), emoticon_id))
