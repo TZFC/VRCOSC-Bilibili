@@ -15,12 +15,12 @@ NAME_EVENT_ID: dict[str, int] ={
     'WARNING': 3,
     'SC': 4,
     'GUARD': 5,
-    '小花花': 6,
-    '牛哇牛哇': 7,
-    '粉丝团灯牌': 8,
-    '人气票': 9,
-    '口水黄豆': 10,
-    '这个好耶': 11
+    'gift_小花花': 6,
+    'gift_牛哇牛哇': 7,
+    'gift_粉丝团灯牌': 8,
+    'gift_人气票': 9,
+    'gift_口水黄豆': 10,
+    'gift_这个好耶': 11
     }
 
 def name2id(name: str) -> int:
