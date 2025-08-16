@@ -24,6 +24,7 @@ timer_lcm: int = math.lcm(*CONFIG["animation_accumulate"]["animation_time"])
 
 async def animation_loop():
     current_time: int = 0
+    prev_report: int = 0
     while True:
         await asyncio.sleep(1)
         current_time += 1
@@ -39,11 +40,14 @@ async def animation_loop():
                 # 堆积超过上限，汇报上限
                 update_parameter(animated_parameter, int2f8(MAX_COUNT_PER_SECOND))
                 animation_counts[animation_name] -= MAX_COUNT_PER_SECOND
+                prev_report = MAX_COUNT_PER_SECOND
             elif pending_value > 0:
                 # 堆积不足上限，汇报所有堆积
                 update_parameter(animated_parameter, int2f8(pending_value))
                 animation_counts[animation_name] = 0
+                prev_report = pending_value
             else:
                 # 无堆积，归零
-                update_parameter(animated_parameter, 0)
-                animation_counts[animation_name] = 0
+                if prev_report != 0:
+                    update_parameter(animated_parameter, 0)
+                    animation_counts[animation_name] = 0

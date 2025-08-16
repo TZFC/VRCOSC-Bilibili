@@ -16,7 +16,7 @@ room_id = 27163300
 # 3 = 前两者都做
 [events]
 enter    = 1  # 监听进场关键身份  → “欢迎【用户名】进入直播间”                  event_id=0                   event_num=身份
-danmaku  = 1  # 监听弹幕关键词    → “【用户名】说【内容】”                       event_id=1                   event_num=见弹幕设置
+danmaku  = 3  # 监听弹幕关键词    → “【用户名】说【内容】”                       event_id=1                   event_num=见弹幕设置
 emoticon = 1  # 监听表情包关键词  → “【用户名】说【表情】”                       event_id=2                   event_num=见表情包设置
 sc       = 1  # 监听醒目留言     → “【用户名】发送【价格】说【内容】”            event_id=3                    event_num=min(sc价格, 100)/100 # 30元sc为 30/100 = 0.3
 guard    = 1  # 监听大航海       → “【用户名】开通【数量】个月【大航海等级】”     event_id=大航海id             event_num=min(舰长月数, 100)/100 # 12月舰长为 12/100 = 0.12
