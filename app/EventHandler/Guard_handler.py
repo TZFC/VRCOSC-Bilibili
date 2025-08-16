@@ -4,8 +4,9 @@ Guard handler
 Copyright (C) 2025  TZFC <tianzifangchen@gmail.com>
 License: GNU General Public License v3.0 or later (see LICENSE).
 """
-from app.config_loader import CONFIG
-from Utils.int2float8 import int2f8
+from app.Utils.config_loader import CONFIG
+from app.Utils.int2float8 import int2f8
+from app.Utils.name2id import name2id
 from app.osc.vrc_osc_singleton_client import update_parameter
 from app.osc_queue import chatbox_queue, general_gift_queue, animation_counts, set_parameter_value
 import logging
@@ -39,4 +40,4 @@ async def handle_guard(event: dict, update_chatbox: bool, update_osc_param: bool
                 set_parameter_value[parameter_name]))
         else:  # 通用
             logger.info("通用舰长 %s", guard_name)
-            await general_gift_queue.put((guard_name, guard_count))
+            await general_gift_queue.put((name2id(guard_name), guard_count))

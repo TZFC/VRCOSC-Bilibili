@@ -4,18 +4,19 @@ SC handler
 Copyright (C) 2025  TZFC <tianzifangchen@gmail.com>
 License: GNU General Public License v3.0 or later (see LICENSE).
 """
-from Utils.int2float8 import int2f8
+from app.Utils.int2float8 import int2f8
+from app.Utils.name2id import name2id
 from app.osc.vrc_osc_singleton_client import update_parameter
 from app.osc_queue import chatbox_queue, general_gift_queue, animation_counts, set_parameter_value
-from app.config_loader import CONFIG
+from app.Utils.config_loader import CONFIG
 import logging
 logger = logging.getLogger(__name__)
 
 
 async def handle_sc(event: dict, update_chatbox: bool, update_osc_param: bool):
-    username = event['data']['data']['user_info']['uname']
-    text = event['data']['data']['message']
-    price = event['data']['data']['price']
+    username: str = event['data']['data']['user_info']['uname']
+    text: str = event['data']['data']['message']
+    price: int = event['data']['data']['price']
     if update_chatbox:
         await chatbox_queue.put((f"{username}说{text}", CONFIG["misc"]['sc_min_display_time']))
     if update_osc_param:
@@ -37,5 +38,5 @@ async def handle_sc(event: dict, update_chatbox: bool, update_osc_param: bool):
             update_parameter(parameter_name, int2f8(
                 set_parameter_value[parameter_name]))
         else:  # 通用
-            logger.info("通用sc %s", 'sc')
-            await general_gift_queue.put(('sc', price))
+            logger.info("通用sc %s 元", str(price))
+            await general_gift_queue.put((name2id('SC'), price))

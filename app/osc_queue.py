@@ -11,7 +11,7 @@ BILIBILI is a trademark of Shanghai Hode Information Technology Co., Ltd.
 """
 import asyncio
 import logging
-from app.config_loader import CONFIG
+from app.Utils.config_loader import CONFIG
 logger = logging.getLogger(__name__)
 
 # 创建聊天框队列

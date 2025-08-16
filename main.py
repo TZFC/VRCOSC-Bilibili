@@ -16,7 +16,7 @@ from app.bili_event_dispatch import live_danmaku
 from app.chatbox_consumer import chatbox_loop
 from app.animation_consumer import animation_loop
 from app.general_consumer import general_loop
-from app.config_loader import CONFIG
+from app.Utils.config_loader import CONFIG
 import argparse
 import logging
 logger = logging.getLogger(__name__)

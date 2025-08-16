@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 def get_credentials() -> Credential | None:
-    credential = {}
+    credential: dict = {}
     cj = None
     logger.info("尝试获取火狐浏览器bilbili登录信息")
     try:

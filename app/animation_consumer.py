@@ -9,28 +9,28 @@ Dependencies:
 
 VRChat is a trademark of VRChat Inc.
 """
-from Utils.EVENT_IDX import MAX_COUNT_PER_SECOND
-from Utils.int2float8 import int2f8
+from Data.EVENT_IDX import MAX_COUNT_PER_SECOND
+from app.Utils.int2float8 import int2f8
 from app.osc.vrc_osc_singleton_client import update_parameter
 from app.osc_queue import animation_counts
-from app.config_loader import CONFIG
+from app.Utils.config_loader import CONFIG
 import asyncio
 import math
 import logging
 logger = logging.getLogger(__name__)
 
-timer_lcm = math.lcm(*CONFIG["animation_accumulate"]["animation_time"])
+timer_lcm: int = math.lcm(*CONFIG["animation_accumulate"]["animation_time"])
 
 
 async def animation_loop():
-    current_time = 0
+    current_time: int = 0
     while True:
         await asyncio.sleep(1)
         current_time += 1
         if current_time == timer_lcm:
             current_time = 0
         for index, (animation_name, pending_value) in enumerate(animation_counts.items()):
-            animation_time = CONFIG["animation_accumulate"]["animation_time"][index]
+            animation_time: int = CONFIG["animation_accumulate"]["animation_time"][index]
             if current_time % animation_time != 0:
                 # 还没到汇报时间
                 continue

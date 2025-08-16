@@ -4,10 +4,11 @@ Gift handler
 Copyright (C) 2025  TZFC <tianzifangchen@gmail.com>
 License: GNU General Public License v3.0 or later (see LICENSE).
 """
-from app.config_loader import CONFIG
+from app.Utils.config_loader import CONFIG
+from app.Utils.name2id import name2id
 from app.osc_queue import chatbox_queue, general_gift_queue, animation_counts, set_parameter_value
 from app.osc.vrc_osc_singleton_client import update_parameter
-from Utils.int2float8 import int2f8
+from app.Utils.int2float8 import int2f8
 import logging
 logger = logging.getLogger(__name__)
 
@@ -19,6 +20,7 @@ async def handle_gift(event: dict, update_chatbox: bool, update_osc_param: bool)
     if update_chatbox:
         await chatbox_queue.put((f"{username}赠送{gift_num}个{gift_name}", 0))
     if update_osc_param:
+        gift_name = 'gift_' + gift_name
         if gift_name in CONFIG["animation_accumulate"]["animation"]:  # 动画
             animation_counts[gift_name] += gift_num
             logger.info("动画礼物 %s", gift_name)
@@ -38,4 +40,4 @@ async def handle_gift(event: dict, update_chatbox: bool, update_osc_param: bool)
                 set_parameter_value[parameter_name]))
         else:  # 通用
             logger.info("通用礼物 %s", gift_name)
-            await general_gift_queue.put((gift_name, gift_num))
+            await general_gift_queue.put((name2id(gift_name), gift_num))

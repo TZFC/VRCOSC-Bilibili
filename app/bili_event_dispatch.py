@@ -11,16 +11,16 @@ BILIBILI is a trademark of Shanghai Hode Information Technology Co., Ltd.
 """
 from bilibili_api import Credential
 from bilibili_api.live import LiveDanmaku
-from app.config_loader import CONFIG
-from app.browser_credential import get_credentials
-from Utils.EVENT_IDX import *
-from EventHandler.Danmaku_emoticon_handler import handle_emoticon
-from EventHandler.Danmaku_text_handler import handle_text
-from EventHandler.Enter_handler import handle_enter
-from EventHandler.Gift_handler import handle_gift
-from EventHandler.Guard_handler import handle_guard
-from EventHandler.Warning_handler import handle_warning
-from EventHandler.Sc_handler import handle_sc
+from app.Utils.config_loader import CONFIG
+from app.Utils.browser_credential import get_credentials
+from Data.EVENT_IDX import *
+from app.EventHandler.Danmaku_emoticon_handler import handle_emoticon
+from app.EventHandler.Danmaku_text_handler import handle_text
+from app.EventHandler.Enter_handler import handle_enter
+from app.EventHandler.Gift_handler import handle_gift
+from app.EventHandler.Guard_handler import handle_guard
+from app.EventHandler.Warning_handler import handle_warning
+from app.EventHandler.Sc_handler import handle_sc
 import logging
 logger = logging.getLogger(__name__)
 
@@ -32,7 +32,7 @@ live_danmaku: LiveDanmaku = LiveDanmaku(
 
 
 # 启动事件分发
-async def dispatch(event_name: str, event: dict, handler):
+async def dispatch(event_name: str, event: dict, handler) -> None:
     if CONFIG['events'][event_name] == 0:
         return
     elif CONFIG['events'][event_name] == 1:
@@ -50,15 +50,11 @@ async def dispatch(event_name: str, event: dict, handler):
     logger.debug(f"分发事件{event_name}")
 
 # 收到进房
-
-
 @live_danmaku.on('INTERACT_WORD_V2')
 async def on_interact(event: dict):
     await dispatch('enter', event, handle_enter)
 
 # 收到弹幕或表情包
-
-
 @live_danmaku.on('DANMU_MSG')
 async def on_danmaku(event: dict):
     message_type: int = event["data"]["info"][0][MSG_TYPE_IDX]
@@ -70,29 +66,21 @@ async def on_danmaku(event: dict):
         logger.warning("未知弹幕类型 %d", message_type)
 
 # 收到礼物
-
-
 @live_danmaku.on('SEND_GIFT')
 async def on_gift(event: dict):
     await dispatch('gift', event, handle_gift)
 
 # 收到sc
-
-
 @live_danmaku.on('SUPER_CHAT_MESSAGE')
 async def on_sc(event: dict):
     await dispatch('sc', event, handle_sc)
 
 # 收到舰长
-
-
 @live_danmaku.on('GUARD_BUY')
 async def on_guard_buy(event: dict):
     await dispatch('guard', event, handle_guard)
 
 # 收到警告
-
-
 @live_danmaku.on('WARNING')
 async def on_warning(event: dict):
     await dispatch('warning', event, handle_warning)
