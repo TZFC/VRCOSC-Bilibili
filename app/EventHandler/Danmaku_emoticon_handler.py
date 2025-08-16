@@ -36,9 +36,9 @@ async def handle_emoticon(event: dict, update_chatbox: bool, update_osc_param: b
             parameter_name: str = CONFIG["set_parameter"]["parameter_names"][set_index]
             step: int = CONFIG["set_parameter"]["parameter_increment"][set_index]
             if is_increase:
-                set_parameter_value[parameter_name] += step * 1
+                set_parameter_value[parameter_name] = min(set_parameter_value[parameter_name] + step * 1, 100)
             else:
-                set_parameter_value[parameter_name] -= step * 1
+                set_parameter_value[parameter_name] = max(set_parameter_value[parameter_name] - step * 1, 0)
             logger.info("变化表情 %s", text)
             update_parameter(
                 name=parameter_name,

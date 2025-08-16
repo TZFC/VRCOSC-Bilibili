@@ -33,9 +33,9 @@ async def handle_guard(event: dict, update_chatbox: bool, update_osc_param: bool
             parameter_name: str = CONFIG["set_parameter"]["parameter_names"][set_index]
             step: int = CONFIG["set_parameter"]["parameter_increment"][set_index]
             if is_increase:
-                set_parameter_value[parameter_name] += step * guard_count
+                set_parameter_value[parameter_name] = min(set_parameter_value[parameter_name] + step * guard_count, 100)
             else:
-                set_parameter_value[parameter_name] -= step * guard_count
+                set_parameter_value[parameter_name] = max(set_parameter_value[parameter_name] - step * guard_count, 0)
             logger.info("变化舰长 %s", guard_name)
             update_parameter(parameter_name, int2f8(
                 set_parameter_value[parameter_name]))
