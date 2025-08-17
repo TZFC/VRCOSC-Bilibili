@@ -21,4 +21,4 @@ jobs:
         pip install -r requirements.txt
     - name: Analysing the code with pylint
       run: |
-        pylint --fail-under=9 --max-line-length=120 -d duplicate-code $(git ls-files '*.py')
+        PYTHONPATH=. pylint --fail-under=9 --max-line-length=120 -d duplicate-code $(git ls-files '*.py')
