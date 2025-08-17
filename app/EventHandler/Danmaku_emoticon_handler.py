@@ -5,7 +5,7 @@ Copyright (C) 2025  TZFC <tianzifangchen@gmail.com>
 License: GNU General Public License v3.0 or later (see LICENSE).
 """
 import logging
-from Data.constants import USERINFO_IDX, USERINFO_USERNAME_IDX, TEXT_IDX
+from app.Utils.constants import USERINFO_IDX, USERINFO_USERNAME_IDX, TEXT_IDX
 from app.Utils.int2float8 import int2f8
 from app.Utils.name2id import NAME_EVENT_ID
 from app.osc.vrc_osc_singleton_client import update_parameter

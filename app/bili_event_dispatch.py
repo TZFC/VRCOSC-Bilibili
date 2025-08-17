@@ -12,7 +12,7 @@ BILIBILI is a trademark of Shanghai Hode Information Technology Co., Ltd.
 import logging
 from bilibili_api import Credential
 from bilibili_api.live import LiveDanmaku
-from Data.constants import MSG_TYPE_IDX, TEXT_TYPE, EMOTICON_TYPE
+from app.Utils.constants import MSG_TYPE_IDX, TEXT_TYPE, EMOTICON_TYPE
 from app.Utils.config_loader import CONFIG
 from app.Utils.browser_credential import get_credentials
 from app.EventHandler.danmaku_emoticon_handler import handle_emoticon

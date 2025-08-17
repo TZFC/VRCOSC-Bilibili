@@ -12,7 +12,7 @@ VRChat is a trademark of VRChat Inc.
 import asyncio
 import math
 import logging
-from Data.constants import MAX_COUNT_PER_SECOND
+from app.Utils.constants import MAX_COUNT_PER_SECOND
 from app.Utils.int2float8 import int2f8
 from app.osc.vrc_osc_singleton_client import update_parameter
 from app.osc_queue import animation_counts
