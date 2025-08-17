@@ -48,7 +48,7 @@ async def dispatch(event_name: str, event: dict, handler) -> None:
             await handler(event, update_chatbox=True, update_osc_param=True)
         case _:
             logger.warning("%s 事件有未知等级 %d", event_name, dispatch_level)
-    logger.debug(f"分发事件{event_name}")
+    logger.debug("分发事件 %s", event_name)
 
 
 @live_danmaku.on('INTERACT_WORD_V2')
