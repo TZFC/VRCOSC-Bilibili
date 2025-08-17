@@ -27,8 +27,8 @@ warning  = 1  # 监听超管警告     → “警告：【警告信息】”    
 # ============================
 # 以下设置为1的身份进场会触发
 # ============================
-enter_level         = [1, 1, 1, 1, 1] # 分别对应 【路人，粉丝，舰长，提督，总督】
-min_display_time    = [0, 0, 1, 1, 1] # 分别对应 【路人，粉丝，舰长，提督，总督】
+enter_level         = [1, 1, 1, 1, 1] # 身份等级分别对应 【路人，粉丝，舰长，提督，总督】
+min_display_time    = [0, 0, 1, 1, 1] # 最短展示秒数分别对应 【路人，粉丝，舰长，提督，总督】
 
 [animation_accumulate] # 动画
 # ============================
@@ -67,4 +67,4 @@ emoticon_parameter_keywords = ["emoticon_打Call","emoticon_求婚"] # "求婚" 
 [misc] # 其它
 sc_min_display_time = 5 # sc 在聊天框最少显示秒数
 guard_min_display_time = 5 # 舰长 在聊天框最少显示秒数
-warning_min_display_time = 3 # 警告 在聊天框最少显示秒数
+warning_min_display_time = 5 # 警告 在聊天框最少显示秒数

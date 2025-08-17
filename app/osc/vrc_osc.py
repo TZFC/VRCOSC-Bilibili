@@ -12,15 +12,21 @@ VRChat is a trademark of VRChat Inc.
 Notes:
   - AI assistance was used in drafting parts of this file.
 """
-from pythonosc.udp_client import SimpleUDPClient
 import logging
+from pythonosc.udp_client import SimpleUDPClient
 
 logger = logging.getLogger(__name__)
 _MAX_CHAT_LEN = 144
 
 
 class VRChatOSC:
+    """
+    OSC class that encapsulates a SimpleUDPClient conencted to VRChat ports and endpoints
+    """
     def __init__(self, ip: str = "127.0.0.1", port: int = 9000):
+        """
+        initialize target OSC ip and ports, create the Client
+        """
         self._ip = ip
         self._port = port
         self._client: SimpleUDPClient | None = SimpleUDPClient(ip, port)
@@ -39,6 +45,9 @@ class VRChatOSC:
     # --- Public API ---
 
     def update_parameter(self, param_name: str, param_value: int | float | bool) -> None:
+        """
+        update given parameter with given value
+        """
         if not param_name:
             raise ValueError("param_name must be non-empty")
         self._ensure_ready()
@@ -47,6 +56,9 @@ class VRChatOSC:
         logger.debug("%s = %r", addr, param_value)
 
     def send_chat(self, message: str, immediate: bool = True) -> None:
+        """
+        update chackbox with given message, immediate default to True
+        """
         self._ensure_ready()
         if len(message) > _MAX_CHAT_LEN:
             message = message[:_MAX_CHAT_LEN]
@@ -55,12 +67,18 @@ class VRChatOSC:
                     "immediate" if immediate else "fill-only")
 
     def typing_indicator(self, on: bool = True) -> None:
+        """
+        update typing indicator
+        """
         self._ensure_ready()
         self._client.send_message("/chatbox/typing", [bool(on)])
         logger.debug("/chatbox/typing = %r", on)
 
     # --- Internal ---
     def _ensure_ready(self) -> None:
+        """
+        ensure VRChatOSC is connected
+        """
         if self._client is None:
             raise RuntimeError(
                 "VRChatOSC not connected. Use VRChatOSC.connect() first.")

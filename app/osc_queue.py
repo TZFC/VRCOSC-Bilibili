@@ -25,9 +25,11 @@ for animation_name in CONFIG["animation_accumulate"]["animation"]:
 
 # 创建设置参数累积
 set_parameter_value: dict[str:int] = {}
-for parameter_name, value in zip(CONFIG["set_parameter"]["parameter_names"], CONFIG["set_parameter"]["parameter_default"]):
+parameter_names: list = CONFIG["set_parameter"]["parameter_names"]
+parameter_default: list = CONFIG["set_parameter"]["parameter_default"]
+for parameter_name, value in zip(parameter_names, parameter_default):
     set_parameter_value[parameter_name] = value
 
 # 创建通用礼物队列
 # 事件: (gift_name, gift_num)
-general_gift_queue: asyncio.Queue = asyncio.Queue()
+general_gift_queue: asyncio.Queue[tuple[str, int]] = asyncio.Queue()

@@ -9,14 +9,17 @@ Dependencies:
 
 VRChat is a trademark of VRChat Inc.
 """
-from app.osc.vrc_osc_singleton_client import send_chat
-from app.osc_queue import chatbox_queue
 import logging
 import asyncio
+from app.osc.vrc_osc_singleton_client import send_chat
+from app.osc_queue import chatbox_queue
 logger = logging.getLogger(__name__)
 
 
 async def chatbox_loop():
+    """
+    Infinite loop that consumes from chatbox_queue
+    """
     while True:
         request = await chatbox_queue.get()
         logger.debug("收到聊天框请求 %s", str(request))
@@ -26,7 +29,9 @@ async def chatbox_loop():
             logger.debug("聊天框请求 %s 成功, 还剩 %d 条请求", str(
                 request), chatbox_queue.qsize())
             await asyncio.sleep(min_display_time)
-        except Exception:
-            logger.warning("聊天框请求 %s 发生错误, 忽略并继续", request)
+        except asyncio.CancelledError:
+            raise
+        except (IndexError, KeyError, TypeError, ValueError) as e:
+            logger.warning("聊天框请求 %s 发生错误 %s, 忽略并继续", str(request), str(e))
         finally:
             chatbox_queue.task_done()

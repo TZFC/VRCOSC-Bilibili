@@ -9,20 +9,23 @@ Dependencies:
 
 VRChat is a trademark of VRChat Inc.
 """
-from Data.EVENT_IDX import MAX_COUNT_PER_SECOND
+import asyncio
+import math
+import logging
+from Data.constants import MAX_COUNT_PER_SECOND
 from app.Utils.int2float8 import int2f8
 from app.osc.vrc_osc_singleton_client import update_parameter
 from app.osc_queue import animation_counts
 from app.Utils.config_loader import CONFIG
-import asyncio
-import math
-import logging
 logger = logging.getLogger(__name__)
 
 timer_lcm: int = math.lcm(*CONFIG["animation_accumulate"]["animation_time"])
 
 
-async def animation_loop():
+async def animation_loop() -> None:
+    """
+    Infinite loop that consumes from accumulated animation_counts
+    """
     current_time: int = 0
     prev_report: dict[str, int] = {}
     for animated_parameter in CONFIG["animation_accumulate"]["animated_parameter"]:
@@ -40,7 +43,8 @@ async def animation_loop():
                 continue
             if pending_value >= MAX_COUNT_PER_SECOND:
                 # 堆积超过上限，汇报上限
-                update_parameter(animated_parameter, int2f8(MAX_COUNT_PER_SECOND))
+                update_parameter(animated_parameter,
+                                 int2f8(MAX_COUNT_PER_SECOND))
                 animation_counts[animation_name] -= MAX_COUNT_PER_SECOND
                 prev_report[animated_parameter] = MAX_COUNT_PER_SECOND
             elif pending_value > 0:

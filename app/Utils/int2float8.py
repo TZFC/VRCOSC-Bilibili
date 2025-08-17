@@ -9,7 +9,7 @@ License: GNU General Public License v3.0 or later (see LICENSE).
 VRChat is a trademark of VRChat Inc.
 """
 
-from Data.EVENT_IDX import MAX_COUNT_PER_SECOND
+from Data.constants import MAX_COUNT_PER_SECOND
 
 
 def int2f8(value: int) -> float:
