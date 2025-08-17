@@ -25,8 +25,8 @@ for animation_name in CONFIG["animation_accumulate"]["animation"]:
 
 # 创建设置参数累积
 set_parameter_value: dict[str:int] = {}
-parameter_names: list = CONFIG["set_parameter"]["parameter_names"]
-parameter_default: list = CONFIG["set_parameter"]["parameter_default"]
+parameter_names: list[str] = CONFIG["set_parameter"]["parameter_names"]
+parameter_default: list[int] = CONFIG["set_parameter"]["parameter_default"]
 for parameter_name, value in zip(parameter_names, parameter_default):
     set_parameter_value[parameter_name] = value
 
