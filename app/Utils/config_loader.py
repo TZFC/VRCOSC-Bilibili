@@ -26,7 +26,9 @@ def verify_config(unverified_config: dict) -> None:
     """
     verify user has filled in config correctly
     """
-    if isinstance(unverified_config["room_id"], int):
+    try:
+        int(unverified_config["room_id"])
+    except Exception as e:
         logger.warning(
             """
             配置文件格式错误：房间号 room_id 应为数字
@@ -69,10 +71,15 @@ def verify_config(unverified_config: dict) -> None:
         unverified_config["set_parameter"]["parameter_increment"])
     para_kw_len: int = len(
         unverified_config["set_parameter"]["parameter_keywords"])
-    if not 2*para_name_len == 2*para_default_len == 2*para_increment_len == para_kw_len:
+    para_dc_step_len: int = len(
+        unverified_config["set_parameter"]["parameter_decay_step"])
+    para_dc_time_len: int = len(
+        unverified_config["set_parameter"]["parameter_decay_time"])
+    if not 2*para_name_len == 2*para_default_len == 2*para_increment_len == 2*para_dc_step_len == 2*para_dc_time_len == para_kw_len:
         logger.warning(
             """
             配置文件格式错误: parameter_names 应与 parameter_default \
+                和 parameter_decay_step 和 parameter_decay_time
                 和 parameter_increment 等长且为 parameter_keywords 的一半
             """)
         raise ValueError("parameter_names, parameter_default, parameter_increment, \

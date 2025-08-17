@@ -53,6 +53,8 @@ animation_time = [1, 1]
 parameter_names = ["bust","HairColor"] # 角色需要有“bust”“HairColor”参数
 parameter_default = [50, 0] # 起始值为50
 parameter_increment = [1, 1] # 每次变化1
+parameter_decay_step = [0, 0] # 每次向起始值衰退的值
+parameter_decay_time = [1, 1] # 每 x 秒向起始值衰退
 parameter_keywords = ["gift_粉丝团灯牌","gift_人气票", "gift_口水黄豆","gift_这个好耶"] # 增加关键词，减少关键词, 每2个对应1个参数
 
 [filter_keywords] # 过滤
