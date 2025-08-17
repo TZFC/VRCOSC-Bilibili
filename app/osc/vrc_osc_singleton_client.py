@@ -15,6 +15,7 @@ Notes:
 import logging
 from typing import Optional
 from app.osc.vrc_osc import VRChatOSC
+from app.Utils.config_loader import CONFIG
 
 logger = logging.getLogger(__name__)
 _vrc: Optional[VRChatOSC] = None
@@ -27,7 +28,7 @@ def _ensure_ready() -> VRChatOSC:
     global _vrc
     if _vrc is None:
         logger.debug("first-time setup of VRChatOSC client")
-        _vrc = VRChatOSC.connect()
+        _vrc = VRChatOSC.connect(ip = CONFIG["LAN_ip"], port = CONFIG["LAN_port"])
     return _vrc
 
 
