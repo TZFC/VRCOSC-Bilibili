@@ -47,7 +47,7 @@ async def dispatch(event_name: str, event: dict, handler) -> None:
         case 3:
             await handler(event, update_chatbox=True, update_osc_param=True)
         case _:
-            logger.warning("%s 事件有未知登记 %d", event_name, dispatch_level)
+            logger.warning("%s 事件有未知等级 %d", event_name, dispatch_level)
     logger.debug(f"分发事件{event_name}")
 
 
