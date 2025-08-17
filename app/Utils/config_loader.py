@@ -26,7 +26,7 @@ def verify_config(unverified_config: dict) -> None:
     """
     verify user has filled in config correctly
     """
-    if type(unverified_config["room_id"]) != int:
+    if isinstance(unverified_config["room_id"], int):
         logger.warning(
             """
             配置文件格式错误：房间号 room_id 应为数字

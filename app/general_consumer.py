@@ -31,6 +31,7 @@ async def general_loop():
             logger.debug("通用请求 %s 成功, 还剩 %d 条请求", str(
                 request), general_gift_queue.qsize())
         except asyncio.CancelledError:
+            logger.debug("General loop cancelled")
             raise
         except (IndexError, KeyError, TypeError, ValueError) as e:
             logger.warning("通用请求 %s 发生错误 %s, 忽略并继续", str(request), str(e))

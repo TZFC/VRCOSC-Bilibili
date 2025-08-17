@@ -30,6 +30,7 @@ async def chatbox_loop():
                 request), chatbox_queue.qsize())
             await asyncio.sleep(min_display_time)
         except asyncio.CancelledError:
+            logger.debug("Chatbox loop cancelled")
             raise
         except (IndexError, KeyError, TypeError, ValueError) as e:
             logger.warning("聊天框请求 %s 发生错误 %s, 忽略并继续", str(request), str(e))
