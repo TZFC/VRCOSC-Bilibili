@@ -24,11 +24,12 @@ logging.basicConfig(
     level=log_level,
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
 )
+from app.Utils.config_loader import CONFIG
 from app.bili_event_dispatch import live_danmaku
 from app.chatbox_consumer import chatbox_loop
 from app.animation_consumer import animation_loop
 from app.general_consumer import general_loop
-from app.Utils.config_loader import CONFIG
+from app.parameter_decay_consumer import parameter_decay_loop
 logger = logging.getLogger(__name__)
 
 
@@ -43,6 +44,9 @@ async def main():
 
             # 独立动画队列
             tg.create_task(animation_loop())
+
+            # 参数衰退队列
+            tg.create_task(parameter_decay_loop())
 
             # 通用动画队列
             tg.create_task(general_loop())

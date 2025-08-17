@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 timer_lcm: int = math.lcm(*CONFIG["set_parameter"]["parameter_decay_time"])
 
 
-async def animation_loop() -> None:
+async def parameter_decay_loop() -> None:
     """
     Infinite loop that decays parameter toward default value
     """
