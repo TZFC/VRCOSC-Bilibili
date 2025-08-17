@@ -10,10 +10,20 @@ Dependencies:
 VRChat is a trademark of VRChat Inc.
 BILIBILI is a trademark of Shanghai Hode Information Technology Co., Ltd.
 """
-import asyncio
-import sys
-import argparse
-import logging
+import argparse, asyncio, logging, sys
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "--log",
+    default="warning",
+    choices=["debug", "info", "warning", "error", "critical"],
+    help="Set the logging level"
+)
+args = parser.parse_args()
+log_level = getattr(logging, args.log.upper(), logging.WARNING)
+logging.basicConfig(
+    level=log_level,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+)
 from app.bili_event_dispatch import live_danmaku
 from app.chatbox_consumer import chatbox_loop
 from app.animation_consumer import animation_loop
@@ -44,19 +54,6 @@ async def main():
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--log",
-        default="warning",
-        choices=["debug", "info", "warning", "error", "critical"],
-        help="Set the logging level"
-    )
-    args = parser.parse_args()
-    log_level = getattr(logging, args.log.upper(), logging.WARNING)
-    logging.basicConfig(
-        level=log_level,
-        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
-    )
     try:
         logger.info("配置： %s", str(CONFIG))
         asyncio.run(main())
