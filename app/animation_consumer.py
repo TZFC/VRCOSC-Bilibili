@@ -55,6 +55,6 @@ async def animation_loop() -> None:
             else:
                 # 无堆积，归零
                 if prev_report[animated_parameter] != 0:
-                    update_parameter(animated_parameter, 0)
+                    update_parameter(animated_parameter, -0.0)
                     animation_counts[animation_name] = 0
                     prev_report[animated_parameter] = 0

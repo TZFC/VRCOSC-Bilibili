@@ -15,4 +15,7 @@ from app.Utils.constants import MAX_COUNT_PER_SECOND
 def int2f8(value: int) -> float:
     """Convert integer [0...MAX_COUNT_PER_SECOND] to VRChat Float8 [0.0 ... 1.0]"""
     value = max(0, min(MAX_COUNT_PER_SECOND, value))
-    return value / MAX_COUNT_PER_SECOND
+    if value != 0:
+        return value / MAX_COUNT_PER_SECOND
+    else:
+        return -0.0
