@@ -56,10 +56,13 @@ def verify_config(unverified_config: dict) -> None:
         unverified_config["animation_accumulate"]["animated_parameter"])
     ani_time_len: int = len(
         unverified_config["animation_accumulate"]["animation_time"])
-    if not ani_name_len == ani_param_len == ani_time_len:
+    ani_time_max_len: int = len(
+        unverified_config["animation_accumulate"]["animation_max_per_time"])
+    if not ani_name_len == ani_param_len == ani_time_len == ani_time_max_len:
         logger.warning(
             """
-            配置文件格式错误: animation 应与 animated_parameter 和 animation_time 等长
+            配置文件格式错误: animation 应与 animated_parameter \
+                和 animation_time 和 animation_max_per_time 等长
             """)
         raise ValueError("animation, animated_parameter, and animation_time \
                          should have same length")

@@ -42,9 +42,10 @@ min_display_time    = [0, 0, 1, 1, 1] # 最短展示秒数分别对应 【路人
 # osc 每 animation_time 秒汇报一次 animation_名字， 累积为0时汇报 0
 # 超出 100 的数量会被拆成多次 100，期间有新礼物会累积
 # ============================
-animation = ["gift_小花花","gift_牛哇牛哇"]
-animated_parameter = ["flower", "cow"] # 角色需要有这些参数, ！ASCII限定！
-animation_time = [1, 1]
+animation = ["gift_小花花","gift_牛哇牛哇", "情书"]
+animated_parameter = ["flower", "cow", "heart"] # 角色需要有这些参数, ！ASCII限定！
+animation_time = [1, 1, 5] # 汇报时间间隔
+animation_max_per_time = [100, 100, 1] # 每单位时间最大汇报量，需要小于 100
 
 [set_parameter] # 变化
 # ============================
