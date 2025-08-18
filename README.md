@@ -1,5 +1,7 @@
 # VRCOSC-Bilibili
+
 Connect to Bilibili livestream and trigger OSC messages on events
+
 链接Bilibili直播间弹幕信息流，根据弹幕事件，依照用户设置，发送OSC参数更新与聊天框消息到VRChat
 
 使用说明见 [最新 Release](https://github.com/TZFC/VRCOSC-Bilibili/releases/latest)
