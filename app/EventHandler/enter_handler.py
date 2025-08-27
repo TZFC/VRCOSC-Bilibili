@@ -25,7 +25,8 @@ async def handle_enter(event: dict, update_chatbox: bool, update_osc_param: bool
         identity: int = 0
         # logger.debug("Got event %s", str(event))
     except KeyError:
-        logger.warning("进房信息缺失%s", str(event))
+        logger.error("进房信息缺失")
+        logger.debug("进房事件解析失败: %s", event, exc_info=True)
         return
     if update_chatbox:
         if CONFIG['enter']['enter_level'][identity] == 1:
