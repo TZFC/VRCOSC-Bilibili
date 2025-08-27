@@ -34,6 +34,7 @@ async def general_loop():
             logger.debug("General loop cancelled")
             raise
         except (IndexError, KeyError, TypeError, ValueError) as e:
-            logger.warning("通用请求 %s 发生错误 %s, 忽略并继续", str(request), str(e))
+            logger.error("通用请求 %s 发生错误 %s, 忽略并继续", str(request), str(e))
+            logger.debug("通用请求解析失败: %s", request, exc_info=True)
         finally:
             general_gift_queue.task_done()
