@@ -47,7 +47,8 @@ async def dispatch(event_name: str, event: dict, handler) -> None:
         case 3:
             await handler(event, update_chatbox=True, update_osc_param=True)
         case _:
-            logger.warning("%s 事件有未知等级 %d", event_name, dispatch_level)
+            logger.error("%s 事件有未知等级 %d", event_name, dispatch_level)
+            logger.debug("事件详情: %s", event)
     logger.debug("分发事件 %s", event_name)
 
 
@@ -64,13 +65,19 @@ async def on_danmaku(event: dict):
     """
     收到弹幕或表情包
     """
-    message_type: int = event["data"]["info"][0][MSG_TYPE_IDX]
+    try:
+        message_type: int = event["data"]["info"][0][MSG_TYPE_IDX]
+    except (IndexError, KeyError, TypeError) as e:
+        logger.error("弹幕事件解析失败: %s", str(e))
+        logger.debug("弹幕事件内容: %s", event, exc_info=True)
+        return
     if message_type == TEXT_TYPE:  # 文字弹幕
         await dispatch('danmaku', event, handle_text)
     elif message_type == EMOTICON_TYPE:  # 表情包
         await dispatch('emoticon', event, handle_emoticon)
     else:
-        logger.warning("未知弹幕类型 %d", message_type)
+        logger.error("未知弹幕类型 %d", message_type)
+        logger.debug("无法解析的弹幕事件: %s", event)
 
 
 @live_danmaku.on('SEND_GIFT')

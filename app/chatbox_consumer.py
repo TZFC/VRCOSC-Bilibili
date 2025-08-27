@@ -33,6 +33,7 @@ async def chatbox_loop():
             logger.debug("Chatbox loop cancelled")
             raise
         except (IndexError, KeyError, TypeError, ValueError) as e:
-            logger.warning("聊天框请求 %s 发生错误 %s, 忽略并继续", str(request), str(e))
+            logger.error("聊天框请求 %s 发生错误 %s, 忽略并继续", str(request), str(e))
+            logger.debug("聊天框请求解析失败: %s", request, exc_info=True)
         finally:
             chatbox_queue.task_done()
