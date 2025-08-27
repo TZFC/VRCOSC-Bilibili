@@ -70,12 +70,15 @@ async def main():
 
     async with bilibili_connection():
         async with asyncio.TaskGroup() as tg:
-            tg.create_task(chatbox_loop())
-            tg.create_task(animation_loop())
-            tg.create_task(parameter_decay_loop())
-            tg.create_task(general_loop())
+            tasks = [
+                tg.create_task(chatbox_loop()),
+                tg.create_task(animation_loop()),
+                tg.create_task(parameter_decay_loop()),
+                tg.create_task(general_loop()),
+            ]
             await shutdown_event.wait()
-            tg.cancel_scope.cancel()
+            for task in tasks:
+                task.cancel()
 
 
 if __name__ == "__main__":
