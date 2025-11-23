@@ -46,7 +46,7 @@ class VRChatOSC:
 
     def update_parameter(self, param_name: str, param_value: int | float | bool) -> None:
         """
-        update given parameter with given value
+        update given avatar parameter with given value
         """
         if not param_name:
             raise ValueError("param_name must be non-empty")
@@ -73,6 +73,17 @@ class VRChatOSC:
         self._ensure_ready()
         self._client.send_message("/chatbox/typing", [bool(on)])
         logger.debug("/chatbox/typing = %r", on)
+    
+    def update_camera(self, param_name: str, param_value: int | float | bool | tuple) -> None:
+        """
+        update given camera parameter with given value
+        """
+        if not param_name:
+            raise ValueError("param_name must be non-empty")
+        self._ensure_ready()
+        addr = f"/usercamera/{param_name}"
+        self._client.send_message(addr, param_value)
+        logger.debug("%s = %r", addr, param_value)
 
     # --- Internal ---
     def _ensure_ready(self) -> None:
