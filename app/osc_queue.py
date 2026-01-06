@@ -33,3 +33,7 @@ for parameter_name, value in zip(parameter_names, parameter_default):
 # 创建通用礼物队列
 # 事件: (gift_name, gift_num)
 general_gift_queue: asyncio.Queue[tuple[str, int]] = asyncio.Queue()
+
+# 创建指令队列
+# 事件：（command_name, command value）
+command_queue: asyncio.Queue[tuple[str, int]] = asyncio.Queue()

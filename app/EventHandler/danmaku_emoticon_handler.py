@@ -9,12 +9,9 @@ from app.Utils.constants import USERINFO_IDX, USERINFO_USERNAME_IDX, TEXT_IDX
 from app.Utils.int2float8 import int2f8
 from app.Utils.name2id import NAME_EVENT_ID
 from app.osc.vrc_osc_singleton_client import update_parameter
-from app.osc_queue import chatbox_queue, general_gift_queue, animation_counts, set_parameter_value
+from app.osc_queue import chatbox_queue, command_queue, animation_counts, set_parameter_value
 from app.Utils.config_loader import CONFIG
 logger = logging.getLogger(__name__)
-
-send_all_emoticons = (CONFIG["filter_keywords"]
-                      ["emoticon_chatbox_keywords"] == [])
 
 
 async def handle_emoticon(event: dict, update_chatbox: bool, update_osc_param: bool) -> None:
@@ -24,8 +21,7 @@ async def handle_emoticon(event: dict, update_chatbox: bool, update_osc_param: b
     username: str = event["data"]["info"][USERINFO_IDX][USERINFO_USERNAME_IDX]
     text: str = event["data"]["info"][TEXT_IDX]
     if update_chatbox:
-        if send_all_emoticons or (text in CONFIG["filter_keywords"]["emoticon_chatbox_keywords"]):
-            await chatbox_queue.put((f"{username}:{text}", 0))
+        await chatbox_queue.put((f"{username}:{text}", 0))
     if update_osc_param:
         text = "emoticon_" + text
         if text in CONFIG["animation_accumulate"]["animation"]:  # 动画
@@ -49,8 +45,8 @@ async def handle_emoticon(event: dict, update_chatbox: bool, update_osc_param: b
                 name=parameter_name,
                 value=int2f8(set_parameter_value[parameter_name]))
         else:  # 通用
-            logger.info("通用表情 %s", text)
-            if text in CONFIG["filter_keywords"]["emoticon_parameter_keywords"]:
-                emoticon_id: int = CONFIG["filter_keywords"]["emoticon_parameter_keywords"].index(
+            if text in CONFIG["filter_keywords"]["emoticon_command_keywords"]:
+                logger.info("指令表情 %s", text)
+                emoticon_id: int = CONFIG["filter_keywords"]["emoticon_command_keywords"].index(
                     text)
-                await general_gift_queue.put((NAME_EVENT_ID['DANMAKU'], emoticon_id))
+                await command_queue.put((NAME_EVENT_ID['DANMAKU'], emoticon_id))

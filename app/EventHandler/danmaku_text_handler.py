@@ -10,9 +10,8 @@ from app.Utils.config_loader import CONFIG
 from app.Utils.int2float8 import int2f8
 from app.Utils.name2id import NAME_EVENT_ID
 from app.osc.vrc_osc_singleton_client import update_parameter
-from app.osc_queue import chatbox_queue, general_gift_queue, animation_counts, set_parameter_value
+from app.osc_queue import chatbox_queue, command_queue, animation_counts, set_parameter_value
 logger = logging.getLogger(__name__)
-send_all_text = CONFIG['filter_keywords']['danmaku_chatbox_keywords'] == []
 
 
 async def handle_text(event: dict, update_chatbox: bool, update_osc_param: bool) -> None:
@@ -22,9 +21,7 @@ async def handle_text(event: dict, update_chatbox: bool, update_osc_param: bool)
     # username: str = event["data"]["info"][USERINFO_IDX][USERINFO_USERNAME_IDX]
     text: str = event["data"]["info"][TEXT_IDX]
     if update_chatbox:
-        danmaku_chatbox_keywords: list = CONFIG["filter_keywords"]["danmaku_chatbox_keywords"]
-        if send_all_text or any(key in text for key in danmaku_chatbox_keywords):
-            await chatbox_queue.put((text, 0))
+        await chatbox_queue.put((text, 0))
     if update_osc_param:
         if text in CONFIG["animation_accumulate"]["animation"]:  # 动画
             animation_counts[text] += 1
@@ -46,8 +43,8 @@ async def handle_text(event: dict, update_chatbox: bool, update_osc_param: bool)
             update_parameter(parameter_name, int2f8(
                 set_parameter_value[parameter_name]))
         else:  # 通用
-            logger.info("通用弹幕 %s", text)
-            if text in CONFIG["filter_keywords"]["danmaku_parameter_keywords"]:
-                danmaku_id: int = CONFIG["filter_keywords"]["danmaku_parameter_keywords"].index(
+            if text in CONFIG["filter_keywords"]["danmaku_command_keywords"]:
+                logger.info("指令弹幕 %s", text)
+                danmaku_id: int = CONFIG["filter_keywords"]["danmaku_command_keywords"].index(
                     text)
-                await general_gift_queue.put((NAME_EVENT_ID['TEXT'], danmaku_id))
+                await command_queue.put((NAME_EVENT_ID['TEXT'], danmaku_id))

@@ -58,16 +58,16 @@ parameter_decay_step = [0, 0] # 每次向起始值衰退的值
 parameter_decay_time = [30, 30] # 每 x 秒向起始值衰退
 parameter_keywords = ["gift_粉丝团灯牌","gift_人气票", "gift_口水黄豆","gift_这个好耶"] # 增加关键词，减少关键词, 每2个对应1个参数
 
-[filter_keywords] # 过滤
+[filter_keywords] # 关键词指令
 # ============================
 # 弹幕及表情包关键词设置, event_num 为【在列表中的位置/100】（从1开始数）
 # chatbox留空为任意词都触发, event_num = 0
 # 长度最多为100
 # ============================
-danmaku_chatbox_keywords = []
-danmaku_parameter_keywords = ["#测试小花花"]
-emoticon_chatbox_keywords = []
-emoticon_parameter_keywords = ["emoticon_打Call","emoticon_求婚"] # "求婚" event_num 为 2/100 = 0.2
+danmaku_command_keywords = ["上","下","左","右","远","近"]
+danmaku_command_names = ["camera","camera","camera","camera","camera","camera"]
+danmaku_command_values = [0,1,2,3,4,5]
+emoticon_command_keywords = ["emoticon_打Call","emoticon_求婚"] # "求婚" event_num 为 2/100 = 0.2
 
 
 [misc] # 其它

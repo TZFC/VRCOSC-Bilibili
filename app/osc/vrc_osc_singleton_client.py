@@ -133,17 +133,17 @@ def send_chat(message: str, immediate: bool = True) -> None:
     """
     _ensure_ready().send_chat(message, immediate)
 
-def move_camera(command_name: str, distance_value: float) -> None:
+def move_camera(command_name: int, distance_value: float) -> None:
     """
     Move the camera relative to its current pose based on a simple command.
 
     Supported command_name values:
-      - "left"
-      - "right"
-      - "up"
-      - "down"
-      - "close"
-      - "far"
+      - 0: "上"
+      - 1: "下"
+      - 2: "左"
+      - 3: "右"
+      - 4: "远"
+      - 5: "近"
 
     distance_value is in world units (meters).
     """
@@ -173,37 +173,37 @@ def move_camera(command_name: str, distance_value: float) -> None:
         up_vector,
     ) = _compute_local_direction_vectors_from_euler(rotation_x, rotation_y)
 
-    if command_name == "left":
+    if command_name == 2:
         direction_vector = (
             -right_vector[0],
             -right_vector[1],
             -right_vector[2],
         )
-    elif command_name == "right":
+    elif command_name == 3:
         direction_vector = (
             right_vector[0],
             right_vector[1],
             right_vector[2],
         )
-    elif command_name == "up":
+    elif command_name == 0:
         direction_vector = (
             up_vector[0],
             up_vector[1],
             up_vector[2],
         )
-    elif command_name == "down":
+    elif command_name == 1:
         direction_vector = (
             -up_vector[0],
             -up_vector[1],
             -up_vector[2],
         )
-    elif command_name == "close":
+    elif command_name == 5:
         direction_vector = (
             forward_vector[0],
             forward_vector[1],
             forward_vector[2],
         )
-    elif command_name == "far":
+    elif command_name == 4:
         direction_vector = (
             -forward_vector[0],
             -forward_vector[1],
@@ -234,7 +234,7 @@ def move_camera(command_name: str, distance_value: float) -> None:
     )
 
     _ensure_ready().update_camera("Pose", new_pose)
-    
+
 def close() -> None:
     """
     close the only Client
