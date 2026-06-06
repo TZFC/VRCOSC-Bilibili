@@ -16,7 +16,6 @@ frontend/dist/
 # Build artifacts
 backend/build/
 backend/dist/
-backend/static/
 *.spec
 
 # Database

@@ -6,7 +6,7 @@ This application seamlessly connects your Bilibili live room to VRChat's OSC sys
 ## 🚀 Getting Started
 
 1. **Launch the App**
-   Simply run VRCOSC-Bilibili.exe. A web browser will automatically open with the Unity-style user interface.
+   Simply double-click `Start.bat`. A loading screen will appear to automatically set up the Python environment and download dependencies (this may take a minute on your very first run). Once finished, a web browser will automatically open with the Unity-style user interface. You will never need to touch the command line!
 
 2. **Authenticate with Bilibili**
    In the main setup screen, click **Auto-Scan Browsers for Login**. The app will securely search your installed browsers (Chrome, Firefox, Edge, etc.) for an active Bilibili login and present your profile card. Alternatively, you can use the manual fallback if you're an advanced user.
