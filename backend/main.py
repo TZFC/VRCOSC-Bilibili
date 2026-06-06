@@ -18,6 +18,9 @@ from auth.bili_auth import (
     get_active_auth_profile,
     get_bilibili_cookies_from_browser,
     save_auth_profile,
+    verify_and_fetch_profile,
+    generate_qr_code,
+    check_qr_code
 )
 from bili_client import bili_client_manager
 from database import AppConfig, AuthProfile, Rule, engine, get_session, init_db
@@ -264,6 +267,41 @@ async def select_auth_profile(profile: dict, session: Session = Depends(get_sess
 @app.get("/api/auth/active")
 def get_active_auth(session: Session = Depends(get_session)):
     return get_active_auth_profile(session)
+
+
+@app.get("/api/auth/qr/generate")
+async def api_generate_qr():
+    url = await generate_qr_code()
+    return {"url": url}
+
+
+@app.get("/api/auth/qr/check")
+async def api_check_qr(session: Session = Depends(get_session)):
+    res = await check_qr_code(session)
+    if res and res.get("status") == "done":
+        config = session.exec(select(AppConfig)).first()
+        if config.bili_room_id > 0:
+            await bili_client_manager.connect(config.bili_room_id, res["profile"])
+    return res
+
+
+class ManualAuth(BaseModel):
+    bili_jct: str
+    dedeuserid: str
+    sessdata: str
+    buvid3: str
+
+
+@app.post("/api/auth/manual")
+async def api_manual_auth(data: ManualAuth, session: Session = Depends(get_session)):
+    profile = verify_and_fetch_profile(data.bili_jct, data.dedeuserid, data.sessdata, data.buvid3)
+    if profile:
+        saved = save_auth_profile(session, profile, set_active=True)
+        config = session.exec(select(AppConfig)).first()
+        if config.bili_room_id > 0:
+            await bili_client_manager.connect(config.bili_room_id, saved.model_dump())
+        return {"status": "ok"}
+    raise HTTPException(status_code=400, detail="Invalid cookies")
 
 
 @app.websocket("/ws/logs")

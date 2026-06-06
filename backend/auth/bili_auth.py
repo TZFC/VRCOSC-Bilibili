@@ -2,9 +2,12 @@ from typing import Dict, List, Optional
 
 import browser_cookie3
 import requests
+from bilibili_api import login_v2
 from database import AuthProfile, Session, engine
 from sqlmodel import select
 
+# Global instance for QR code login
+qr_login_instance: Optional[login_v2.QrCodeLogin] = None
 
 def get_bilibili_cookies_from_browser() -> List[Dict]:
     """Scans browsers for Bilibili cookies and returns a list of active sessions."""
@@ -107,3 +110,30 @@ def get_active_auth_profile(session: Session) -> Optional[AuthProfile]:
     return session.exec(
         select(AuthProfile).where(AuthProfile.is_active == True)
     ).first()
+
+async def generate_qr_code() -> str:
+    global qr_login_instance
+    qr_login_instance = login_v2.QrCodeLogin()
+    await qr_login_instance.generate_qrcode()
+    # Need to bypass private attribute to get the actual URL
+    # pylint: disable=protected-access
+    return getattr(qr_login_instance, "_QrCodeLogin__qr_link", "")
+
+async def check_qr_code(session: Session) -> Optional[Dict]:
+    global qr_login_instance
+    if not qr_login_instance:
+        return {"status": "none"}
+        
+    info = await qr_login_instance.check_state()
+    # It returns an enum (QrCodeLoginEvents)
+    if qr_login_instance.has_done():
+        cred = qr_login_instance.get_credential()
+        if cred:
+            profile = verify_and_fetch_profile(
+                cred.bili_jct, cred.dedeuserid, cred.sessdata, cred.buvid3
+            )
+            if profile:
+                saved = save_auth_profile(session, profile, set_active=True)
+                return {"status": "done", "profile": saved.model_dump()}
+        return {"status": "error"}
+    return {"status": info.name}
