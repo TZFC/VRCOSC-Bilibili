@@ -1,119 +1,51 @@
-# VRCOSC‑Bilibili
+﻿# VRCOSC-Bilibili (v3)
 
-For a Chinese translation, see [README-cn.md](README-cn.md).
+Welcome to **VRCOSC-Bilibili**, the easiest way to bridge Bilibili live streams with VRChat! 
+This application seamlessly connects your Bilibili live room to VRChat's OSC system, allowing you to trigger avatar animations, move your character, control your camera, or type in the chatbox using livestream events like Danmaku, Gifts, or Super Chats.
 
-Bridge Bilibili livestream events to **VRChat** through the OSC (Open Sound Control) protocol.
-When someone joins, chats, sends gifts, or triggers other events in your Bilibili room, the application can:
+## 🚀 Getting Started
 
-- Display messages in your VRChat chatbox
-- Update avatar parameters (for animations, blend shapes, etc.)
-- Accumulate and decay custom parameters over time
+1. **Launch the App**
+   Simply run VRCOSC-Bilibili.exe. A web browser will automatically open with the Unity-style user interface.
 
----
+2. **Authenticate with Bilibili**
+   In the main setup screen, click **Auto-Scan Browsers for Login**. The app will securely search your installed browsers (Chrome, Firefox, Edge, etc.) for an active Bilibili login and present your profile card. Alternatively, you can use the manual fallback if you're an advanced user.
 
-## 📦 For non‑technical users
+3. **Configure Connection**
+   Enter your **Bilibili Room ID**. The OSC ports are already set up for default VRChat usage (9000 for sending to VRChat, 9001 for receiving), so you usually won't need to change them. Click **Save & Apply Config**.
 
-Follow these steps to get the application running with minimal setup.
+4. **Create Your First Rule!**
+   Click the + button in the left **Hierarchy** panel to add a new rule.
 
-### 1. Requirements
-- **Windows / macOS / Linux** computer
-- **Python 3.11+** installed
-- **VRChat** running with **OSC** enabled (`Settings → OSC`)
-- A **Bilibili** account logged into **Firefox** (cookies are used to authenticate)
+## 🎛️ How to Make Rules (Unity-Style Inspector)
 
-### 2. Download and extract
-1. Grab the latest release from  
-   [GitHub Releases](https://github.com/TZFC/VRCOSC-Bilibili/releases/latest).
-2. Unzip the archive to any folder.
+When you select a rule, the right panel (the **Inspector**) lets you configure it:
 
-### 3. Configure
-1. Open `Config.toml` in a text editor.
-2. Set your Bilibili `room_id`.
-3. (Optional) Adjust which events trigger chat messages or avatar parameters.
-4. Save the file.
+### Triggers (The 'If')
+Choose what Bilibili event triggers the rule:
+- **Event Type:** Pick between Danmaku, Gift, Super Chat (SC), Guard, or Enter (when someone joins the stream).
+- **Keyword:** Want to trigger an animation when someone types "jump"? Type "jump" here (works for Danmaku).
+- **Min Value:** For Gifts or Super Chats, you can specify the minimum price (in RMB) needed to trigger the action.
 
-### 4. Install dependencies
-Open a terminal/command prompt in the project folder and run:
+### Action (The 'Then')
+Choose what happens in VRChat:
+- **Endpoint:** The VRChat OSC address to hit. Examples:
+  - /avatar/parameters/Dance (Triggers an avatar parameter)
+  - /chatbox/input (Types in the chatbox)
+  - /input/Jump (Makes you jump)
+  - /usercamera/Capture (Takes a picture with your camera)
+- **Action Type:** Set (force a specific value), Toggle (flip between true/false), or Add (increase a number).
+- **Value:** The value to send (e.g., 	rue, alse, 1.5, or text for the chatbox).
 
-```bash
-python -m venv .venv
-# Activate the environment
-# - Windows: .venv\Scripts\activate
-# - macOS/Linux: source .venv/bin/activate
-pip install -r requirements.txt
-```
+### Sync Mode (Bi-Directional Sync)
+VRChat avatars are interactive. If a user manually changes an Avatar Parameter (e.g., via their Action Menu in VR):
+- **Overwrite:** The app will be stubborn and immediately overwrite the user's manual change back to the rule's state.
+- **Respect:** The app will listen to VRChat and accept the user's manual change, staying in sync.
 
-### 5. Run
-Choose the script for your operating system:
+## 📦 Sharing Configs
 
-- **Windows:** double‑click `RUNME.bat`
-- **macOS:** double‑click `Mac_RUNME.command`
-- **Linux:** run `sh Unix_RUNME.sh`
-
-A console window appears and connects to the specified Bilibili room.  
-Keep the window open while streaming.
-
-### 6. Stop
-Press `Ctrl+C` in the console, or close the window.
+Want to share your complex avatar setup with friends? 
+Use the **Exp** (Export) button in the Hierarchy to download your rules as a .json file, and the **Imp** (Import) button to load someone else's!
 
 ---
-
-## 🔧 Technical design for developers
-
-### Core architecture
-```
-Bilibili LiveDanmaku → Event Handlers → OSC Queues → Consumers → VRChat OSC
-```
-
-1. **Configuration**
-   - `Config.toml` is parsed by `app/Utils/config_loader.py`.
-   - Validates room ID, event levels, parameter lists, etc.
-
-2. **Bilibili connection**
-   - `app/bili_event_dispatch.py` uses `LiveDanmaku` from `bilibili_api`.
-   - Event callbacks (`@live_danmaku.on(...)`) dispatch to handlers based on `CONFIG["events"]`.
-
-3. **Event handlers**
-   - Located in `app/EventHandler/`.
-   - Each handler can:
-     - Queue chatbox messages
-     - Queue general parameter updates
-     - Accumulate animation counts
-     - Modify and decay custom parameters
-
-4. **OSC queues / accumulators**
-   - Defined in `app/osc_queue.py`.
-   - Queues: `chatbox_queue`, `general_gift_queue`
-   - Accumulators: `animation_counts`, `set_parameter_value`
-
-5. **Consumers**
-   - Continuous async loops started in `main.py`:
-     - `chatbox_loop()` (chatbox messages)
-     - `general_loop()` (general `event_id`/`event_num` updates)
-     - `animation_loop()` (batch animation parameters)
-     - `parameter_decay_loop()` (decaying custom parameters)
-
-6. **OSC client**
-   - `app/osc/vrc_osc.py` wraps `python-osc` to send messages to VRChat.
-   - `app/osc/vrc_osc_singleton_client.py` ensures a single shared connection, using `CONFIG["LAN_ip"]` and `["LAN_port"]`.
-
-7. **Credential retrieval**
-   - `app/Utils/browser_credential.py` pulls Bilibili cookies from Firefox.
-   - Returns a `Credential` object if available; otherwise connects anonymously.
-
-### Key data flow example
-1. Viewer sends gift → `SEND_GIFT` event.
-2. `gift_handler.py` pushes `(event_id, event_num)` to `general_gift_queue`.
-3. `general_loop()` sends OSC parameters `/avatar/parameters/event_id` and `/avatar/parameters/event_num`.
-4. Avatar’s FX layer reacts accordingly.
-
-### Development notes
-- Uses `asyncio.TaskGroup` (Python 3.11+).
-- Expand event handling by adding new handler functions and mapping them in `bili_event_dispatch.py`.
-- Tests are currently absent; contributions welcome.
-- Licensed under **GNU GPLv3**.
-
----
-
-## 📝 License
-GNU General Public License v3.0 or later. See [LICENSE](LICENSE) for details.
+*Note: Make sure OSC is enabled in your VRChat Action Menu (Action Menu > Options > OSC > Enabled).*

@@ -110,11 +110,16 @@ def get_config(session: Session = Depends(get_session)):
 
 @app.post("/api/config")
 async def update_config(config_data: AppConfig, session: Session = Depends(get_session)):
+    if config_data.bili_room_id < 0:
+        raise HTTPException(status_code=400, detail="Room ID cannot be negative")
+    if not (1 <= config_data.osc_client_port <= 65535) or not (1 <= config_data.osc_server_port <= 65535):
+        raise HTTPException(status_code=400, detail="Ports must be between 1 and 65535")
+        
     config = session.exec(select(AppConfig)).first()
     config.bili_room_id = config_data.bili_room_id
-    config.osc_client_ip = config_data.osc_client_ip
+    config.osc_client_ip = config_data.osc_client_ip.strip()
     config.osc_client_port = config_data.osc_client_port
-    config.osc_server_ip = config_data.osc_server_ip
+    config.osc_server_ip = config_data.osc_server_ip.strip()
     config.osc_server_port = config_data.osc_server_port
     session.add(config)
     session.commit()
@@ -132,8 +137,19 @@ async def update_config(config_data: AppConfig, session: Session = Depends(get_s
 def get_rules(session: Session = Depends(get_session)):
     return session.exec(select(Rule)).all()
 
+def sanitize_rule(rule: Rule):
+    rule.name = rule.name.strip()[:100] if rule.name else "Unnamed"
+    rule.osc_endpoint = rule.osc_endpoint.strip() if rule.osc_endpoint else "/avatar/parameters/Param"
+    if not rule.osc_endpoint.startswith("/"):
+        rule.osc_endpoint = "/" + rule.osc_endpoint
+    rule.condition_keyword = rule.condition_keyword.strip()[:200] if rule.condition_keyword else ""
+    rule.action_value = rule.action_value.strip()[:200] if rule.action_value else ""
+    if rule.condition_min_value < 0:
+        rule.condition_min_value = 0.0
+
 @app.post("/api/rules")
 def create_rule(rule: Rule, session: Session = Depends(get_session)):
+    sanitize_rule(rule)
     session.add(rule)
     session.commit()
     session.refresh(rule)
@@ -145,8 +161,11 @@ def update_rule(rule_id: int, rule_data: Rule, session: Session = Depends(get_se
     rule = session.get(Rule, rule_id)
     if not rule:
         raise HTTPException(status_code=404, detail="Rule not found")
+        
+    sanitize_rule(rule_data)
     for k, v in rule_data.model_dump(exclude_unset=True).items():
         setattr(rule, k, v)
+        
     session.add(rule)
     session.commit()
     session.refresh(rule)

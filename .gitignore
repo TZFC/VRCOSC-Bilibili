@@ -1,3 +1,32 @@
-.venv
+﻿# Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Python
 __pycache__/
-error-log.txt
+*.py[cod]
+*.class
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# Build artifacts
+backend/build/
+backend/dist/
+backend/static/
+*.spec
+
+# Database
+*.db
+*.sqlite3
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.vscode/
+.idea/
