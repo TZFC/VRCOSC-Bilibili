@@ -1,12 +1,14 @@
 ﻿# VRCOSC-Bilibili (v3)
 
+[English (User Guide)](README.md) | [中文 (用户指南)](README-zh-CN.md) | [English (Developer Guide)](README-dev.md) | [中文 (开发者指南)](README-dev-zh-CN.md)
+
 Welcome to **VRCOSC-Bilibili**, the easiest way to bridge Bilibili live streams with VRChat! 
 This application seamlessly connects your Bilibili live room to VRChat's OSC system, allowing you to trigger avatar animations, move your character, control your camera, or type in the chatbox using livestream events like Danmaku, Gifts, or Super Chats.
 
 ## 🚀 Getting Started
 
 1. **Launch the App**
-   Simply double-click `Start.bat`. A loading screen will appear to automatically set up the Python environment and download dependencies (this may take a minute on your very first run). Once finished, a web browser will automatically open with the Unity-style user interface. You will never need to touch the command line!
+   Simply double-click Start.bat. A loading screen will appear to automatically set up the Python environment and download dependencies (this may take a minute on your very first run). Once finished, a web browser will automatically open with the Unity-style user interface. You will never need to touch the command line!
 
 2. **Authenticate with Bilibili**
    In the main setup screen, click **Auto-Scan Browsers for Login**. The app will securely search your installed browsers (Chrome, Firefox, Edge, etc.) for an active Bilibili login and present your profile card. Alternatively, you can use the manual fallback if you're an advanced user.
@@ -35,7 +37,7 @@ Choose what happens in VRChat:
   - /input/Jump (Makes you jump)
   - /usercamera/Capture (Takes a picture with your camera)
 - **Action Type:** Set (force a specific value), Toggle (flip between true/false), or Add (increase a number).
-- **Value:** The value to send (e.g., 	rue, alse, 1.5, or text for the chatbox).
+- **Value:** The value to send (e.g., "true", "false", "1.5", or text for the chatbox).
 
 ### Sync Mode (Bi-Directional Sync)
 VRChat avatars are interactive. If a user manually changes an Avatar Parameter (e.g., via their Action Menu in VR):
