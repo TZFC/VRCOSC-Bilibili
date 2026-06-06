@@ -1,9 +1,11 @@
-from database import Session, engine, Rule
-from sqlmodel import select
-from engine.osc_manager import osc_manager
 import logging
 
+from database import Rule, Session, engine
+from engine.osc_manager import osc_manager
+from sqlmodel import select
+
 logger = logging.getLogger(__name__)
+
 
 class RuleEngine:
     def __init__(self):
@@ -21,7 +23,7 @@ class RuleEngine:
         for rule in self.rules:
             if rule.event_type != event_type:
                 continue
-                
+
             # Evaluate conditions
             matched = False
             if event_type == "Danmaku":
@@ -45,7 +47,7 @@ class RuleEngine:
     def execute_action(self, rule: Rule):
         addr = rule.osc_endpoint
         val = rule.action_value
-        
+
         # Convert string value to proper type
         if val.lower() == "true":
             val = True
@@ -58,8 +60,8 @@ class RuleEngine:
                 else:
                     val = int(val)
             except ValueError:
-                pass # keep as string
-                
+                pass  # keep as string
+
         # Handle action type (Set, Toggle, Add)
         if rule.action_type == "Toggle":
             current_val = osc_manager.intended_state.get(addr, False)
@@ -75,22 +77,25 @@ class RuleEngine:
         if not args:
             return
         value = args[0]
-        
+
         # Find if this address is governed by any rule
         # If it is, check its sync_mode
         governing_rules = [r for r in self.rules if r.osc_endpoint == address]
-        
+
         if governing_rules:
             # For simplicity, use the sync_mode of the first governing rule
             sync_mode = governing_rules[0].sync_mode
-            
+
             if sync_mode == "Overwrite":
                 intended = osc_manager.intended_state.get(address)
                 if intended is not None and intended != value:
-                    logger.info(f"OSC state conflict for {address}: App({intended}) != VRChat({value}). Overwriting VRChat.")
+                    logger.info(
+                        f"OSC state conflict for {address}: App({intended}) != VRChat({value}). Overwriting VRChat."
+                    )
                     osc_manager.send_message(address, intended)
-            else: # Respect
+            else:  # Respect
                 logger.debug(f"Respecting manual change for {address} -> {value}")
                 osc_manager.intended_state[address] = value
+
 
 rule_engine = RuleEngine()

@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Sidebar({ rules, onSelect, selectedId, onRefresh }: any) {
   const addRule = async () => {
     await axios.post('/api/rules', { name: 'New Rule', event_type: 'Danmaku' });
@@ -22,6 +23,7 @@ export default function Sidebar({ rules, onSelect, selectedId, onRefresh }: any)
     a.click();
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const importRules = async (e: any) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -31,7 +33,7 @@ export default function Sidebar({ rules, onSelect, selectedId, onRefresh }: any)
         const json = JSON.parse(event.target?.result as string);
         await axios.post('/api/rules/import', json);
         onRefresh();
-      } catch (err) {
+      } catch {
         alert('Invalid JSON');
       }
     };
@@ -52,6 +54,7 @@ export default function Sidebar({ rules, onSelect, selectedId, onRefresh }: any)
         </div>
       </div>
       <div className="flex-1 overflow-y-auto">
+        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         {rules.map((r: any) => (
           <div 
             key={r.id} 

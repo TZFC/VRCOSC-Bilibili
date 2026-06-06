@@ -8,43 +8,47 @@ import AuthPanel from './components/AuthPanel';
 axios.defaults.baseURL = 'http://localhost:8000';
 
 function App() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [config, setConfig] = useState<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [authActive, setAuthActive] = useState<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [rules, setRules] = useState<any[]>([]);
   const [selectedRuleId, setSelectedRuleId] = useState<number | null>(null);
 
-  useEffect(() => {
-    fetchConfig();
-    fetchRules();
-    fetchAuth();
-  }, []);
-
-  const fetchConfig = async () => {
+  async function fetchConfig() {
     try {
       const res = await axios.get('/api/config');
       setConfig(res.data);
     } catch (e) {
       console.error(e);
     }
-  };
+  }
 
-  const fetchRules = async () => {
+  async function fetchRules() {
     try {
       const res = await axios.get('/api/rules');
       setRules(res.data);
     } catch (e) {
       console.error(e);
     }
-  };
+  }
 
-  const fetchAuth = async () => {
+  async function fetchAuth() {
     try {
       const res = await axios.get('/api/auth/active');
       setAuthActive(res.data);
     } catch (e) {
       console.error(e);
     }
-  };
+  }
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchConfig();
+    fetchRules();
+    fetchAuth();
+  }, []);
 
   return (
     <div className="flex h-screen w-full bg-[#282828] text-[#d4d4d4] overflow-hidden font-sans">

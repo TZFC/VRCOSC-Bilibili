@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Inspector({ rule, onUpdate }: any) {
   const [localRule, setLocalRule] = useState(rule);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLocalRule(rule);
   }, [rule]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
     setLocalRule({ ...localRule, [name]: type === 'checkbox' ? checked : value });

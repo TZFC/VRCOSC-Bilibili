@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function AuthPanel({ authActive, onAuthUpdate, config, onConfigUpdate }: any) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [profiles, setProfiles] = useState<any[]>([]);
   const [localConfig, setLocalConfig] = useState(config || { bili_room_id: 0, osc_client_ip: '127.0.0.1', osc_client_port: 9000, osc_server_ip: '127.0.0.1', osc_server_port: 9001 });
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (config) setLocalConfig(config);
   }, [config]);
 
@@ -14,6 +17,7 @@ export default function AuthPanel({ authActive, onAuthUpdate, config, onConfigUp
     setProfiles(res.data);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const selectProfile = async (profile: any) => {
     await axios.post('/api/auth/select', profile);
     onAuthUpdate();
@@ -25,6 +29,7 @@ export default function AuthPanel({ authActive, onAuthUpdate, config, onConfigUp
     alert('Config Saved & Applied!');
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleConfigChange = (e: any) => {
     setLocalConfig({ ...localConfig, [e.target.name]: e.target.value });
   };
