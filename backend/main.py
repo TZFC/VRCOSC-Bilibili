@@ -6,6 +6,13 @@ import sys
 import webbrowser
 from typing import List, Optional
 
+# Fix for uvicorn logging in PyInstaller windowed mode where stdout/stderr are None
+if sys.stdout is None:
+    sys.stdout = open(os.devnull, "w")
+if sys.stderr is None:
+    # Log errors to a file for debugging instead of devnull
+    sys.stderr = open("vrcosc_bilibili_error.log", "a", encoding="utf-8")
+
 import uvicorn
 from auth.bili_auth import (
     get_active_auth_profile,
@@ -276,4 +283,4 @@ if os.path.exists(static_dir):
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("main:app", host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="127.0.0.1", port=8000)
