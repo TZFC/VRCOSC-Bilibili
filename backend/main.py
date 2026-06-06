@@ -75,6 +75,7 @@ static_dir = os.path.join(base_dir, "static")
 @contextlib.asynccontextmanager
 async def lifespan(app: FastAPI):
     init_db()
+    rule_engine.reload_rules()
 
     with Session(engine) as session:
         config = session.exec(select(AppConfig)).first()

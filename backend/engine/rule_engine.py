@@ -11,7 +11,6 @@ class RuleEngine:
     def __init__(self):
         # Cache rules in memory for fast evaluation
         self.rules = []
-        self.reload_rules()
 
     def reload_rules(self):
         with Session(engine) as session:
