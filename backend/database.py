@@ -1,10 +1,15 @@
 import os
+import sys
 from typing import Any, Dict, List, Optional
 
-from sqlmodel import (JSON, Column, Field, Session, SQLModel, create_engine,
-                      select)
+from sqlmodel import JSON, Column, Field, Session, SQLModel, create_engine, select
 
-db_path = "vrcosc_bilibili_v3.db"
+if getattr(sys, "frozen", False):
+    application_path = os.path.dirname(sys.executable)
+else:
+    application_path = os.path.dirname(os.path.abspath(__file__))
+
+db_path = os.path.join(application_path, "vrcosc_bilibili_v3.db")
 sqlite_url = f"sqlite:///{db_path}"
 
 engine = create_engine(sqlite_url, echo=False)

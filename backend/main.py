@@ -2,13 +2,16 @@ import asyncio
 import contextlib
 import logging
 import os
+import sys
 import webbrowser
 from typing import List, Optional
 
 import uvicorn
-from auth.bili_auth import (get_active_auth_profile,
-                            get_bilibili_cookies_from_browser,
-                            save_auth_profile)
+from auth.bili_auth import (
+    get_active_auth_profile,
+    get_bilibili_cookies_from_browser,
+    save_auth_profile,
+)
 from bili_client import bili_client_manager
 from database import AppConfig, AuthProfile, Rule, engine, get_session, init_db
 from engine.osc_manager import osc_manager
@@ -62,7 +65,10 @@ logging.getLogger().addHandler(ws_handler)
 logging.getLogger().setLevel(logging.INFO)
 
 # Determine if we are running from PyInstaller
-base_dir = os.path.dirname(__file__)
+if getattr(sys, "frozen", False):
+    base_dir = sys._MEIPASS
+else:
+    base_dir = os.path.dirname(os.path.abspath(__file__))
 static_dir = os.path.join(base_dir, "static")
 
 

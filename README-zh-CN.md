@@ -8,7 +8,7 @@
 ## 🚀 快速开始
 
 1. **启动程序**
-   只需双击 Start.bat。首次启动时会弹出一个加载界面，自动设置 Python 环境并下载所需的依赖项（这可能需要一两分钟）。完成后，程序会自动在浏览器中打开一个类似 Unity 界面的网页。您全程无需接触命令行！
+   只需从 [Releases](https://github.com/TZFC/VRCOSC-Bilibili/releases) 页面下载 VRCOSC-Bilibili.exe 并双击它即可。完成后，程序会自动在浏览器中打开一个类似 Unity 界面的网页。您全程无需接触命令行！
 
 2. **登录 B 站**
    在主设置界面中，点击 **Auto-Scan Browsers for Login（自动扫描浏览器登录）**。程序将安全地在您安装的浏览器（Chrome、Firefox、Edge 等）中搜索已登录的 B站账号，并展示您的个人资料卡片以供选择。高级用户也可以使用手动方式填写 Cookie。

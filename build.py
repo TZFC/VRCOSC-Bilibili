@@ -22,13 +22,13 @@ def main():
     subprocess.run([
         "python", "-m", "PyInstaller", 
         "--name", "VRCOSC-Bilibili", 
-        "--onedir", 
+        "--onefile", 
         "--windowed", 
         "--add-data", "static;static",
         "main.py"
     ], check=True)
     
-    print("Build complete! Executable is in backend/dist/VRCOSC-Bilibili")
+    print("Build complete! Executable is in backend/dist/VRCOSC-Bilibili.exe")
 
 if __name__ == "__main__":
     main()
