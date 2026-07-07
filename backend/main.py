@@ -310,7 +310,6 @@ async def api_manual_auth(data: ManualAuth, session: Session = Depends(get_sessi
         return {"status": "ok"}
     raise HTTPException(status_code=400, detail="Invalid cookies")
 
-
 @app.websocket("/ws/logs")
 async def websocket_logs(websocket: WebSocket):
     await ws_manager.connect(websocket)

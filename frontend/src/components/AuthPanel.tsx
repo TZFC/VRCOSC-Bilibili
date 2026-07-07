@@ -24,6 +24,7 @@ const T: Record<string, any> = {
     qrStatusScanned: "已扫码，请在手机上确认...",
     qrStatusExpired: "二维码已过期，点击刷新",
     qrClose: "关闭二维码",
+    firefoxOnlyNotice: "注意：本地浏览器自动扫描目前仅支持 Firefox。如果您使用的是 Chrome、Edge 或其他浏览器，请使用下方的“扫码登录”方式。",
   },
   en: {
     projectSettings: "VRCOSC-Bilibili Project Settings",
@@ -46,6 +47,7 @@ const T: Record<string, any> = {
     qrStatusScanned: "Scanned! Please confirm on your mobile app...",
     qrStatusExpired: "QR code expired. Click to refresh",
     qrClose: "Close",
+    firefoxOnlyNotice: "Note: Automatic local browser scanning only supports Firefox. For Google Chrome, Microsoft Edge, or other browsers, please use the QR Code Login option instead.",
   }
 };
 
@@ -58,6 +60,7 @@ export default function AuthPanel({ authActive, onAuthUpdate, config, onConfigUp
   const [qrUrl, setQrUrl] = useState<string | null>(null);
   const [qrStatus, setQrStatus] = useState<string>(''); // 'none', 'waiting', 'scanned', 'done', 'expired'
   const [showQr, setShowQr] = useState<boolean>(false);
+
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -189,6 +192,13 @@ export default function AuthPanel({ authActive, onAuthUpdate, config, onConfigUp
       {/* Authentication Config Panel */}
       <div className="unity-panel">
         <div className="unity-panel-header">{T[lang].authentication}</div>
+        
+        <div className="flex flex-col gap-2 bg-[var(--bg-darker)] p-3 border border-[var(--border-color)] rounded mb-4 text-xs text-[var(--text-muted)]">
+          <div className="flex items-start gap-2">
+            <span className="text-[var(--accent-blue)] font-bold text-sm leading-none">ℹ</span>
+            <span>{T[lang].firefoxOnlyNotice}</span>
+          </div>
+        </div>
         
         {authActive ? (
           <div className="flex items-center gap-4 bg-[var(--bg-darker)] p-3 border border-[var(--border-color)] rounded mb-4">
