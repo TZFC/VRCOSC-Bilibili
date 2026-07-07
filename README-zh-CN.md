@@ -1,4 +1,4 @@
-﻿# VRCOSC-Bilibili (v3)
+# VRCOSC-Bilibili (v3)
 
 [English (User Guide)](README.md) | [中文 (用户指南)](README-zh-CN.md) | [English (Developer Guide)](README-dev.md) | [中文 (开发者指南)](README-dev-zh-CN.md)
 
@@ -8,7 +8,7 @@
 ## 🚀 快速开始
 
 1. **启动程序**
-   只需从 [Releases](https://github.com/TZFC/VRCOSC-Bilibili/releases) 页面下载 VRCOSC-Bilibili.exe 并双击它即可。完成后，程序会自动在浏览器中打开一个类似 Unity 界面的网页。您全程无需接触命令行！
+   只需下载并解压 VRCOSC-Bilibili 的发布压缩包，然后双击运行 **run.bat**。首次启动时，程序会自动下载并配置轻量级的本地 Python 环境，并自动安装所有依赖项。完成后，程序会自动在浏览器中打开一个类似 Unity 界面的网页。您全程无需手动安装 Python、Git，也无需接触任何命令行！
 
 2. **登录 B 站**
    在主设置界面中，点击 **Auto-Scan Browsers for Login（自动扫描浏览器登录）**。程序将安全地在您安装的浏览器（Chrome、Firefox、Edge 等）中搜索已登录的 B站账号，并展示您的个人资料卡片以供选择。高级用户也可以使用手动方式填写 Cookie。

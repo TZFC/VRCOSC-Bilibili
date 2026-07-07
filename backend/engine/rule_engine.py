@@ -37,7 +37,7 @@ class RuleEngine:
                 price = data.get("price", 0.0)
                 if price >= rule.condition_min_value:
                     matched = True
-            elif event_type == "Guard" or event_type == "Enter":
+            elif event_type in ("Guard", "Enter"):
                 matched = True
 
             if matched:
@@ -69,7 +69,12 @@ class RuleEngine:
             current_val = osc_manager.intended_state.get(addr, 0)
             val = float(current_val) + float(val)
 
-        osc_manager.send_message(addr, val)
+        # Conform /chatbox/input to VRChat OSC guidelines: https://wiki.vrchat.com/wiki/OSC#Chatbox
+        # It requires: /chatbox/input s b b (text: string, send: bool, playSFX: bool)
+        if addr == "/chatbox/input":
+            osc_manager.send_message(addr, [str(val), True, True])
+        else:
+            osc_manager.send_message(addr, val)
 
     def on_osc_message_received(self, address: str, *args):
         """Called when user manually changes a parameter in VRChat."""

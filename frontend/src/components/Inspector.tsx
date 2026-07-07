@@ -24,60 +24,95 @@ export default function Inspector({ rule, onUpdate }: any) {
   if (!localRule) return null;
 
   return (
-    <div className="flex-1 bg-[#3e3e42] p-4 overflow-y-auto">
-      <div className="font-bold text-lg mb-4 border-b border-gray-600 pb-2">Inspector</div>
+    <div className="flex-1 bg-[var(--bg-dark)] p-4 overflow-y-auto">
+      {/* Inspector Header */}
+      <div className="flex items-center justify-between mb-4 border-b border-[var(--border-color)] pb-2 select-none">
+        <span className="font-bold text-xs uppercase tracking-wider text-[var(--text-main)]">Inspector</span>
+        <span className="text-[10px] text-[var(--text-muted)] font-mono">ID: {localRule.id}</span>
+      </div>
       
       <div className="space-y-4">
-        <div className="flex items-center gap-2">
-          <input type="checkbox" name="enabled" checked={localRule.enabled} onChange={handleChange} />
-          <input className="bg-[#282828] text-white p-1 rounded w-full border border-gray-600" name="name" value={localRule.name} onChange={handleChange} />
+        {/* Active & Rule Name Header */}
+        <div className="flex items-center gap-3 bg-[var(--bg-darker)] p-2 border border-[var(--border-color)] rounded">
+          <input type="checkbox" name="enabled" checked={localRule.enabled} onChange={handleChange} className="w-4 h-4 cursor-pointer" />
+          <input className="w-full font-bold text-sm bg-[var(--bg-input)] border-none" name="name" value={localRule.name} onChange={handleChange} placeholder="Rule Name" />
         </div>
 
-        <div className="bg-[#424242] p-2 rounded">
-          <div className="font-bold mb-2">Trigger</div>
-          <div className="grid grid-cols-2 gap-2 text-sm">
-            <span>Event Type:</span>
-            <select className="bg-[#282828] text-white p-1" name="event_type" value={localRule.event_type} onChange={handleChange}>
-              <option>Danmaku</option>
-              <option>Gift</option>
-              <option>SC</option>
-              <option>Guard</option>
-              <option>Enter</option>
-            </select>
+        {/* Trigger settings */}
+        <div className="unity-panel">
+          <div className="unity-panel-header">Trigger Configuration</div>
+          <div className="space-y-2">
+            <div className="unity-inspector-row">
+              <span className="unity-inspector-label">Event Type</span>
+              <div className="unity-inspector-value">
+                <select className="w-full" name="event_type" value={localRule.event_type} onChange={handleChange}>
+                  <option>Danmaku</option>
+                  <option>Gift</option>
+                  <option>SC</option>
+                  <option>Guard</option>
+                  <option>Enter</option>
+                </select>
+              </div>
+            </div>
             
-            <span>Keyword:</span>
-            <input className="bg-[#282828] text-white p-1" name="condition_keyword" value={localRule.condition_keyword} onChange={handleChange} />
+            <div className="unity-inspector-row">
+              <span className="unity-inspector-label">Keyword Filter</span>
+              <div className="unity-inspector-value">
+                <input className="w-full" name="condition_keyword" value={localRule.condition_keyword || ''} onChange={handleChange} placeholder="e.g. hello (Danmaku only)" />
+              </div>
+            </div>
             
-            <span>Min Value:</span>
-            <input className="bg-[#282828] text-white p-1" type="number" name="condition_min_value" value={localRule.condition_min_value} onChange={handleChange} />
+            <div className="unity-inspector-row">
+              <span className="unity-inspector-label">Minimum Value</span>
+              <div className="unity-inspector-value">
+                <input className="w-full" type="number" name="condition_min_value" value={localRule.condition_min_value || 0} onChange={handleChange} placeholder="e.g. 10 (Gifts/SC only)" />
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="bg-[#424242] p-2 rounded">
-          <div className="font-bold mb-2">Action (OSC)</div>
-          <div className="grid grid-cols-2 gap-2 text-sm">
-            <span>Endpoint:</span>
-            <input className="bg-[#282828] text-white p-1" name="osc_endpoint" value={localRule.osc_endpoint} onChange={handleChange} />
+        {/* Action settings */}
+        <div className="unity-panel">
+          <div className="unity-panel-header">Action (OSC Out)</div>
+          <div className="space-y-2">
+            <div className="unity-inspector-row">
+              <span className="unity-inspector-label">OSC Address</span>
+              <div className="unity-inspector-value">
+                <input className="w-full font-mono text-[13px]" name="osc_endpoint" value={localRule.osc_endpoint || ''} onChange={handleChange} placeholder="e.g. /avatar/parameters/Mute" />
+              </div>
+            </div>
             
-            <span>Action Type:</span>
-            <select className="bg-[#282828] text-white p-1" name="action_type" value={localRule.action_type} onChange={handleChange}>
-              <option>Set</option>
-              <option>Toggle</option>
-              <option>Add</option>
-            </select>
+            <div className="unity-inspector-row">
+              <span className="unity-inspector-label">Action Type</span>
+              <div className="unity-inspector-value">
+                <select className="w-full" name="action_type" value={localRule.action_type} onChange={handleChange}>
+                  <option>Set</option>
+                  <option>Toggle</option>
+                  <option>Add</option>
+                </select>
+              </div>
+            </div>
             
-            <span>Value:</span>
-            <input className="bg-[#282828] text-white p-1" name="action_value" value={localRule.action_value} onChange={handleChange} />
+            <div className="unity-inspector-row">
+              <span className="unity-inspector-label">Value</span>
+              <div className="unity-inspector-value">
+                <input className="w-full font-mono text-[13px]" name="action_value" value={localRule.action_value || ''} onChange={handleChange} placeholder="e.g. true, 1.0, test" />
+              </div>
+            </div>
             
-            <span>Sync Mode:</span>
-            <select className="bg-[#282828] text-white p-1" name="sync_mode" value={localRule.sync_mode} onChange={handleChange}>
-              <option>Overwrite</option>
-              <option>Respect</option>
-            </select>
+            <div className="unity-inspector-row">
+              <span className="unity-inspector-label">Sync Mode</span>
+              <div className="unity-inspector-value">
+                <select className="w-full" name="sync_mode" value={localRule.sync_mode} onChange={handleChange}>
+                  <option>Overwrite</option>
+                  <option>Respect</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
 
-        <button onClick={save} className="bg-[#007acc] w-full p-2 rounded mt-4 font-bold hover:bg-blue-600">Save</button>
+        <button onClick={save} className="w-full py-2 bg-[var(--accent-blue)] hover:bg-[var(--accent-blue-hover)] text-white border-none rounded font-bold transition-all text-xs">Save Settings</button>
       </div>
     </div>
   );

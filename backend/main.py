@@ -1,10 +1,11 @@
+# pylint: disable=wrong-import-position
 import asyncio
 import contextlib
 import logging
 import os
 import sys
 import webbrowser
-from typing import List, Optional
+from typing import List
 
 # Fix for uvicorn logging in PyInstaller windowed mode where stdout/stderr are None
 if sys.stdout is None:
@@ -12,6 +13,8 @@ if sys.stdout is None:
 if sys.stderr is None:
     # Log errors to a file for debugging instead of devnull
     sys.stderr = open("vrcosc_bilibili_error.log", "a", encoding="utf-8")
+# Add the current directory of main.py to sys.path for portable python environment support
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import uvicorn
 from auth.bili_auth import (
@@ -23,12 +26,11 @@ from auth.bili_auth import (
     check_qr_code
 )
 from bili_client import bili_client_manager
-from database import AppConfig, AuthProfile, Rule, engine, get_session, init_db
+from database import AppConfig, Rule, engine, get_session, init_db
 from engine.osc_manager import osc_manager
 from engine.rule_engine import rule_engine
 from fastapi import Depends, FastAPI, HTTPException, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from sqlmodel import Session, select
@@ -52,7 +54,7 @@ class ConnectionManager:
         for connection in self.active_connections:
             try:
                 await connection.send_text(message)
-            except:
+            except Exception:
                 pass
 
 
@@ -65,7 +67,7 @@ class WsLogHandler(logging.Handler):
         try:
             loop = asyncio.get_running_loop()
             loop.create_task(ws_manager.broadcast(msg))
-        except:
+        except Exception:
             pass
 
 
@@ -83,7 +85,7 @@ static_dir = os.path.join(base_dir, "static")
 
 
 @contextlib.asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(_app: FastAPI):
     init_db()
     rule_engine.reload_rules()
 
@@ -250,8 +252,13 @@ def import_rules(rules: List[Rule], session: Session = Depends(get_session)):
 
 
 @app.get("/api/auth/scan")
-def scan_browser_auth(session: Session = Depends(get_session)):
+def scan_browser_auth():
+    logger.info("Initializing browser cookie scanning...")
     profiles = get_bilibili_cookies_from_browser()
+    if not profiles:
+        logger.warning("Auto-scan completed: No valid active Bilibili login sessions were found. Please make sure you are logged into Bilibili in your browser.")
+    else:
+        logger.info(f"Auto-scan completed: Successfully found {len(profiles)} active Bilibili profile(s)!")
     return profiles
 
 
@@ -319,6 +326,4 @@ if os.path.exists(static_dir):
     app.mount("/", StaticFiles(directory=static_dir, html=True), name="static")
 
 if __name__ == "__main__":
-    import uvicorn
-
     uvicorn.run(app, host="127.0.0.1", port=8000)

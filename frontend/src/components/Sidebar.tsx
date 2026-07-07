@@ -41,30 +41,47 @@ export default function Sidebar({ rules, onSelect, selectedId, onRefresh }: any)
   };
 
   return (
-    <div className="w-64 bg-[#383838] flex flex-col h-full border-r border-[#282828]">
-      <div className="flex justify-between items-center p-2 bg-[#424242] border-b border-[#282828]">
-        <span className="font-bold text-sm">Hierarchy</span>
-        <div className="flex gap-2">
-          <button onClick={addRule} className="text-xs bg-[#007acc] px-2 py-1 rounded">+</button>
-          <button onClick={exportRules} className="text-xs bg-gray-600 px-2 py-1 rounded">Exp</button>
-          <label className="text-xs bg-gray-600 px-2 py-1 rounded cursor-pointer">
-            Imp
+    <div className="unity-sidebar">
+      {/* Unity Toolbar */}
+      <div className="flex justify-between items-center p-2 bg-[var(--bg-dark)] border-b border-[var(--border-color)]">
+        <span className="font-bold text-xs uppercase tracking-wider text-[var(--text-muted)] select-none">Hierarchy</span>
+        <div className="flex gap-1">
+          <button onClick={addRule} className="text-xs px-2 py-0.5 font-bold" title="Add New Rule">+</button>
+          <button onClick={exportRules} className="text-xs px-1.5 py-0.5" title="Export Rules">Export</button>
+          <label className="text-[13px] px-1.5 py-0.5 bg-[var(--bg-panel)] hover:bg-[var(--bg-hover)] text-[var(--text-active)] border border-[var(--border-color)] rounded cursor-pointer transition-colors duration-150 inline-block font-medium">
+            Import
             <input type="file" className="hidden" accept=".json" onChange={importRules} />
           </label>
         </div>
       </div>
-      <div className="flex-1 overflow-y-auto">
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        {rules.map((r: any) => (
-          <div 
-            key={r.id} 
-            className={`p-2 flex justify-between cursor-pointer text-sm hover:bg-[#007acc] ${selectedId === r.id ? 'bg-[#007acc]' : ''}`}
-            onClick={() => onSelect(r.id)}
-          >
-            <span>{r.name}</span>
-            <button onClick={(e) => { e.stopPropagation(); deleteRule(r.id); }} className="text-red-400 hover:text-red-200">x</button>
+      
+      {/* Hierarchy View list */}
+      <div className="flex-1 overflow-y-auto bg-[var(--bg-darker)]">
+        {rules.length === 0 ? (
+          <div className="p-4 text-xs text-[var(--text-muted)] italic text-center select-none">
+            No rules. Click '+' to create one.
           </div>
-        ))}
+        ) : (
+          rules.map((r: any) => (
+            <div 
+              key={r.id} 
+              className={`unity-list-item group text-xs justify-between ${selectedId === r.id ? 'selected' : ''}`}
+              onClick={() => onSelect(r.id)}
+            >
+              <div className="flex items-center gap-2 truncate">
+                <span className="w-1.5 h-1.5 rounded-full bg-gray-400 opacity-60"></span>
+                <span className="truncate font-medium">{r.name}</span>
+              </div>
+              <button 
+                onClick={(e) => { e.stopPropagation(); deleteRule(r.id); }} 
+                className="opacity-0 group-hover:opacity-100 hover:opacity-100 px-1 py-0.5 bg-transparent hover:bg-red-900/30 text-red-400 hover:text-red-300 border-none rounded text-[10px] font-bold transition-all"
+                style={{ background: 'transparent', border: 'none' }}
+              >
+                ✕
+              </button>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

@@ -1,8 +1,10 @@
 aiohttp
-bilibili-api-python @ git+https://github.com/Nemo2011/bilibili-api.git@dev
+bilibili-api-python>=17.4.1
 browser-cookie3
 python-osc
 fastapi
 uvicorn
 sqlmodel
 pycryptodome
+requests
+websockets

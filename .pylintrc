@@ -1,2 +1,34 @@
 [MASTER]
-disable=C0114,C0115,C0116,W1203,C0301,R0902,R0913,R0917,W0201,W0702,W0718,W0613,W0404,W0611,C0412,C0103,C0121,R1714,W0621,C0411,C0321
+# A comma-separated list of package or module names from where C extensions may
+# be loaded.
+extension-pkg-allow-list=win32crypt
+
+[FORMAT]
+# Maximum number of characters on a single line.
+max-line-length=140
+
+[MESSAGES CONTROL]
+# Disable the message, report, category or checker with the given id(s).
+# missing-docstring: Optional for simple scripts/components
+# singleton-comparison: SQLModel/SQLAlchemy requires '== True' for SQL query generation
+# broad-exception-caught: Needed for robust fallbacks during browser cookie decryption
+# logging-fstring-interpolation: Preferred for modern Python logging style
+# invalid-name: API field mappings (e.g., bili_room_id, DedeUserID) violate snake_case
+# attribute-defined-outside-init: Needed for dynamic object binding (e.g., osc_manager.setup)
+# too-many-*: Design metrics rules that are too pedantic for simple scripts
+disable=
+    missing-module-docstring,
+    missing-class-docstring,
+    missing-function-docstring,
+    singleton-comparison,
+    broad-exception-caught,
+    logging-fstring-interpolation,
+    invalid-name,
+    attribute-defined-outside-init,
+    too-many-instance-attributes,
+    too-few-public-methods,
+    too-many-branches,
+    too-many-arguments,
+    too-many-locals,
+    too-many-statements,
+    too-many-positional-arguments

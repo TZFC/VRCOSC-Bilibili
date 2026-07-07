@@ -51,19 +51,19 @@ function App() {
   }, []);
 
   return (
-    <div className="flex h-screen w-full bg-[#282828] text-[#d4d4d4] overflow-hidden font-sans">
+    <div className="unity-window font-sans">
       <Sidebar rules={rules} onSelect={setSelectedRuleId} selectedId={selectedRuleId} onRefresh={fetchRules} />
-      <div className="flex flex-col flex-1 border-l border-[#383838]">
-        <div className="flex flex-1 h-[60%]">
+      <div className="unity-main-content border-l border-[var(--border-color)]">
+        <div className="flex flex-1 h-[60%] overflow-hidden">
           {selectedRuleId ? (
             <Inspector rule={rules.find(r => r.id === selectedRuleId)} onUpdate={fetchRules} />
           ) : (
-            <div className="flex-1 overflow-auto bg-[#3e3e42]">
+            <div className="flex-1 overflow-auto bg-[var(--bg-dark)]">
               <AuthPanel authActive={authActive} onAuthUpdate={fetchAuth} config={config} onConfigUpdate={fetchConfig} />
             </div>
           )}
         </div>
-        <div className="h-[40%] border-t border-[#383838]">
+        <div className="h-[40%] border-t border-[var(--border-color)] overflow-hidden">
           <Console />
         </div>
       </div>

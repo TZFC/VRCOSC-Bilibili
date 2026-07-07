@@ -17,10 +17,15 @@ export default function Console() {
   }, [logs]);
 
   return (
-    <div className="h-full flex flex-col bg-[#1e1e1e] font-mono text-xs">
-      <div className="bg-[#2d2d2d] p-1 font-bold border-b border-[#383838]">Console</div>
-      <div className="flex-1 overflow-y-auto p-2">
-        {logs.map((l, i) => <div key={i}>{l}</div>)}
+    <div className="h-full flex flex-col bg-[var(--bg-darker)] font-mono text-xs">
+      {/* Console Toolbar */}
+      <div className="bg-[var(--bg-dark)] px-3 py-1.5 font-bold border-b border-[var(--border-color)] flex items-center select-none">
+        <span className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">Console</span>
+      </div>
+      <div className="flex-1 overflow-y-auto p-3 text-[var(--text-main)] space-y-1">
+        {logs.map((l, i) => (
+          <div key={i} className="border-b border-[var(--border-color)]/30 pb-1 last:border-0">{l}</div>
+        ))}
         <div ref={bottomRef} />
       </div>
     </div>

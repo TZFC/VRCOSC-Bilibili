@@ -7,7 +7,8 @@ from sqlmodel import JSON, Column, Field, Session, SQLModel, create_engine, sele
 if getattr(sys, "frozen", False):
     application_path = os.path.dirname(sys.executable)
 else:
-    application_path = os.path.dirname(os.path.abspath(__file__))
+    # Point to project root (parent directory of backend)
+    application_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 
 db_path = os.path.join(application_path, "vrcosc_bilibili_v3.db")
 sqlite_url = f"sqlite:///{db_path}"
