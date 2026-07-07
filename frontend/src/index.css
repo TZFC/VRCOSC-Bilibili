@@ -3,46 +3,46 @@
 @tailwind utilities;
 
 :root {
-  /* Unity Dark Theme by Default */
-  --bg-darker: #1e1e1e;
-  --bg-dark: #2a2a2a;
-  --bg-panel: #383838;
-  --bg-hover: #444444;
-  --bg-input: #202020;
-  --border-color: #2b2b2b;
-  --border-highlight: #4d4d4d;
-  --text-main: #d4d4d4;
+  /* Unity Modern Dark Theme */
+  --bg-darker: #191919;
+  --bg-dark: #232323;
+  --bg-panel: #2e2e2e;
+  --bg-hover: #3d3d3d;
+  --bg-input: #1a1a1a;
+  --border-color: #383838;
+  --border-highlight: #555555;
+  --text-main: #e0e0e0;
   --text-active: #ffffff;
   --text-muted: #aaaaaa;
   --accent-blue: #3a72b0;
-  --accent-blue-hover: #4c8ecf;
+  --accent-blue-hover: #4d8ecf;
   --accent-green: #4f8f50;
-  --accent-yellow: #dca626;
-  --scrollbar-thumb: #555555;
-  --scrollbar-track: #202020;
-  --panel-shadow: 0 1px 3px rgba(0,0,0,0.3);
+  --accent-yellow: #f1b000;
+  --scrollbar-thumb: #4f4f4f;
+  --scrollbar-track: #191919;
+  --panel-shadow: 0 4px 12px rgba(0,0,0,0.4);
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    /* Unity Light Theme */
-    --bg-darker: #d0d0d0;
-    --bg-dark: #e6e6e6;
-    --bg-panel: #f0f0f0;
-    --bg-hover: #dbdbdb;
-    --bg-input: #ffffff;
-    --border-color: #b0b0b0;
-    --border-highlight: #888888;
-    --text-main: #202020;
+    /* High Contrast Modern Light Theme */
+    --bg-darker: #e0e0e0;
+    --bg-dark: #f0f0f0;
+    --bg-panel: #ffffff;
+    --bg-hover: #e5e5e5;
+    --bg-input: #f9f9f9;
+    --border-color: #cccccc;
+    --border-highlight: #999999;
+    --text-main: #222222;
     --text-active: #000000;
     --text-muted: #555555;
     --accent-blue: #3a72b0;
     --accent-blue-hover: #26558e;
     --accent-green: #388e3c;
     --accent-yellow: #f57f17;
-    --scrollbar-thumb: #a0a0a0;
-    --scrollbar-track: #e6e6e6;
-    --panel-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    --scrollbar-thumb: #b8b8b8;
+    --scrollbar-track: #f0f0f0;
+    --panel-shadow: 0 4px 12px rgba(0,0,0,0.08);
   }
 }
 
@@ -71,42 +71,42 @@ body {
   background: var(--border-highlight);
 }
 
-/* Base element overrides for Unity-look consistency */
+/* Form element overrides for high contrast and readability */
 input, select, textarea {
   background-color: var(--bg-input) !important;
   color: var(--text-active) !important;
   border: 1px solid var(--border-color) !important;
-  border-radius: 3px !important;
-  padding: 4px 8px !important;
+  border-radius: 4px !important;
+  padding: 6px 12px !important;
   font-size: 13px !important;
   outline: none !important;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 input:focus, select:focus, textarea:focus {
   border-color: var(--accent-blue) !important;
-  box-shadow: 0 0 2px var(--accent-blue) !important;
+  box-shadow: 0 0 0 2px rgba(58, 114, 176, 0.25) !important;
 }
 
 button {
   background-color: var(--bg-panel) !important;
   color: var(--text-active) !important;
   border: 1px solid var(--border-color) !important;
-  border-radius: 3px !important;
-  padding: 4px 12px !important;
+  border-radius: 4px !important;
+  padding: 6px 16px !important;
   font-size: 13px !important;
   cursor: pointer !important;
-  font-weight: 500 !important;
-  transition: background-color 0.15s, border-color 0.15s;
+  font-weight: 600 !important;
+  transition: background-color 0.15s, border-color 0.15s, transform 0.05s;
 }
 button:hover {
   background-color: var(--bg-hover) !important;
   border-color: var(--border-highlight) !important;
 }
 button:active {
-  background-color: var(--border-color) !important;
+  transform: scale(0.98);
 }
 
-/* Unity styling specific layout helper classes */
+/* Layout Utilities */
 .unity-window {
   display: flex;
   height: 100vh;
@@ -136,35 +136,37 @@ button:active {
 .unity-panel {
   background-color: var(--bg-panel);
   border: 1px solid var(--border-color);
-  border-radius: 4px;
-  padding: 16px;
-  margin-bottom: 16px;
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 20px;
   box-shadow: var(--panel-shadow);
 }
 
 .unity-panel-header {
-  font-weight: bold;
+  font-weight: 700;
   font-size: 12px;
   text-transform: uppercase;
   color: var(--text-muted);
   border-bottom: 1px solid var(--border-color);
-  padding-bottom: 6px;
-  margin-bottom: 14px;
-  letter-spacing: 0.5px;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+  letter-spacing: 0.75px;
 }
 
 .unity-inspector-row {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  gap: 12px;
 }
 
 .unity-inspector-label {
-  width: 160px;
-  color: var(--text-muted);
+  width: 180px;
+  color: var(--text-main);
+  font-weight: 500;
   font-size: 13px;
-  padding-right: 10px;
   user-select: none;
+  text-align: left;
 }
 
 .unity-inspector-value {
@@ -174,7 +176,7 @@ button:active {
 .unity-list-item {
   display: flex;
   align-items: center;
-  padding: 6px 12px;
+  padding: 8px 16px;
   cursor: pointer;
   border-bottom: 1px solid var(--border-color);
   background-color: var(--bg-dark);

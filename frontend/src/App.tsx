@@ -15,6 +15,7 @@ function App() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [rules, setRules] = useState<any[]>([]);
   const [selectedRuleId, setSelectedRuleId] = useState<number | null>(null);
+  const [lang, setLang] = useState<'zh' | 'en'>('zh');
 
   async function fetchConfig() {
     try {
@@ -51,20 +52,37 @@ function App() {
   }, []);
 
   return (
-    <div className="unity-window font-sans">
-      <Sidebar rules={rules} onSelect={setSelectedRuleId} selectedId={selectedRuleId} onRefresh={fetchRules} />
+    <div className="unity-window font-sans text-[var(--text-main)]">
+      <Sidebar 
+        rules={rules} 
+        onSelect={setSelectedRuleId} 
+        selectedId={selectedRuleId} 
+        onRefresh={fetchRules}
+        lang={lang}
+        onLangChange={setLang}
+      />
       <div className="unity-main-content border-l border-[var(--border-color)]">
         <div className="flex flex-1 h-[60%] overflow-hidden">
           {selectedRuleId ? (
-            <Inspector rule={rules.find(r => r.id === selectedRuleId)} onUpdate={fetchRules} />
+            <Inspector 
+              rule={rules.find(r => r.id === selectedRuleId)} 
+              onUpdate={fetchRules}
+              lang={lang}
+            />
           ) : (
             <div className="flex-1 overflow-auto bg-[var(--bg-dark)]">
-              <AuthPanel authActive={authActive} onAuthUpdate={fetchAuth} config={config} onConfigUpdate={fetchConfig} />
+              <AuthPanel 
+                authActive={authActive} 
+                onAuthUpdate={fetchAuth} 
+                config={config} 
+                onConfigUpdate={fetchConfig}
+                lang={lang}
+              />
             </div>
           )}
         </div>
         <div className="h-[40%] border-t border-[var(--border-color)] overflow-hidden">
-          <Console />
+          <Console lang={lang} />
         </div>
       </div>
     </div>

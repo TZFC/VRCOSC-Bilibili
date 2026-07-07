@@ -252,9 +252,9 @@ def import_rules(rules: List[Rule], session: Session = Depends(get_session)):
 
 
 @app.get("/api/auth/scan")
-def scan_browser_auth():
+async def scan_browser_auth():
     logger.info("Initializing browser cookie scanning...")
-    profiles = get_bilibili_cookies_from_browser()
+    profiles = await get_bilibili_cookies_from_browser()
     if not profiles:
         logger.warning("Auto-scan completed: No valid active Bilibili login sessions were found. Please make sure you are logged into Bilibili in your browser.")
     else:
@@ -301,7 +301,7 @@ class ManualAuth(BaseModel):
 
 @app.post("/api/auth/manual")
 async def api_manual_auth(data: ManualAuth, session: Session = Depends(get_session)):
-    profile = verify_and_fetch_profile(data.bili_jct, data.dedeuserid, data.sessdata, data.buvid3)
+    profile = await verify_and_fetch_profile(data.bili_jct, data.dedeuserid, data.sessdata, data.buvid3)
     if profile:
         saved = save_auth_profile(session, profile, set_active=True)
         config = session.exec(select(AppConfig)).first()
