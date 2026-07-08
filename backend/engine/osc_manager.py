@@ -1,5 +1,6 @@
 import asyncio
 import logging
+import time
 from typing import Any, Callable
 
 from pythonosc.dispatcher import Dispatcher
@@ -7,6 +8,10 @@ from pythonosc.osc_server import AsyncIOOSCUDPServer
 from pythonosc.udp_client import SimpleUDPClient
 
 logger = logging.getLogger(__name__)
+
+# Time window (seconds) within which an incoming message matching our last send
+# is considered an echo rather than a genuine user change.
+ECHO_WINDOW_SECONDS = 0.2
 
 
 class OSCManager:
@@ -18,8 +23,14 @@ class OSCManager:
         self.dispatcher.set_default_handler(self._default_handler)
         self.on_message_callback = None
 
-        # Keep track of our intended state to enforce "Overwrite" sync mode
+        # Keep track of our intended state to enforce "Overwrite" sync mode.
+        # Maps OSC address -> value that our app last decided the parameter should be.
         self.intended_state = {}
+
+        # Echo detection: maps OSC address -> (value, timestamp) of last send.
+        # Used to distinguish VRChat echoing our own sent value from a genuine
+        # user-initiated change via the in-game menu.
+        self._last_sent = {}
 
     def setup(
         self,
@@ -62,8 +73,34 @@ class OSCManager:
     def send_message(self, address: str, value: Any):
         if self.client:
             self.intended_state[address] = value
+            self._last_sent[address] = (value, time.monotonic())
             self.client.send_message(address, value)
             logger.debug(f"Sent OSC: {address} -> {value}")
+
+    def is_echo(self, address: str, value: Any) -> bool:
+        """Check whether an incoming OSC message is an echo of our own recent send.
+
+        VRChat re-broadcasts parameter values on port 9001 whenever they change,
+        including changes that *we* initiated by sending to port 9000.  This
+        method returns True when the incoming (address, value) matches a message
+        we sent within the last ECHO_WINDOW_SECONDS, so callers can ignore it.
+        """
+        entry = self._last_sent.get(address)
+        if entry is None:
+            return False
+
+        sent_value, sent_time = entry
+        elapsed = time.monotonic() - sent_time
+
+        if elapsed > ECHO_WINDOW_SECONDS:
+            return False
+
+        # Compare values.  VRChat may convert types (e.g. int ↔ float) so we
+        # do a loose numeric comparison when possible.
+        try:
+            return float(sent_value) == float(value)
+        except (TypeError, ValueError):
+            return sent_value == value
 
 
 osc_manager = OSCManager()

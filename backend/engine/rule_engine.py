@@ -77,29 +77,66 @@ class RuleEngine:
             osc_manager.send_message(addr, val)
 
     def on_osc_message_received(self, address: str, *args):
-        """Called when user manually changes a parameter in VRChat."""
+        """Called when VRChat broadcasts a parameter value on port 9001.
+
+        This fires for *every* parameter change, including echoes of values
+        that we ourselves just sent.  We use osc_manager.is_echo() to
+        distinguish genuine user-initiated changes (via the in-game radial
+        menu or expressions menu) from echoes of our own automation.
+        """
         if not args:
             return
         value = args[0]
 
+        # Ignore echoes of our own sent messages
+        if osc_manager.is_echo(address, value):
+            logger.debug(
+                f"OSC echo ignored for {address} = {value}"
+            )
+            return
+
+        # --- Genuine user-initiated change detected ---
+
         # Find if this address is governed by any rule
-        # If it is, check its sync_mode
         governing_rules = [r for r in self.rules if r.osc_endpoint == address]
 
-        if governing_rules:
-            # For simplicity, use the sync_mode of the first governing rule
-            sync_mode = governing_rules[0].sync_mode
+        if not governing_rules:
+            # No rules govern this address; just track the value for reference
+            osc_manager.intended_state[address] = value
+            logger.debug(
+                f"OSC received (ungoverned): {address} = {value}"
+            )
+            return
 
-            if sync_mode == "Overwrite":
-                intended = osc_manager.intended_state.get(address)
-                if intended is not None and intended != value:
-                    logger.info(
-                        f"OSC state conflict for {address}: App({intended}) != VRChat({value}). Overwriting VRChat."
-                    )
-                    osc_manager.send_message(address, intended)
-            else:  # Respect
-                logger.debug(f"Respecting manual change for {address} -> {value}")
+        # Use the sync_mode of the first governing rule for this address.
+        # (All rules sharing the same address should ideally share the same
+        # sync_mode, but we take the first as authoritative.)
+        sync_mode = governing_rules[0].sync_mode
+
+        if sync_mode == "Respect":
+            # Accept the user's manual change. Future Toggle/Add actions will
+            # use this new value as their base because they read from
+            # intended_state.
+            old_value = osc_manager.intended_state.get(address)
+            osc_manager.intended_state[address] = value
+            logger.info(
+                f"[Respect] User changed {address}: {old_value} → {value}. "
+                f"Automation will continue from new value."
+            )
+        else:  # Overwrite
+            intended = osc_manager.intended_state.get(address)
+            if intended is not None and intended != value:
+                logger.info(
+                    f"[Overwrite] User changed {address} to {value}, "
+                    f"but app intended {intended}. Restoring."
+                )
+                osc_manager.send_message(address, intended)
+            else:
+                # No conflict (we haven't set this address yet, or values match)
                 osc_manager.intended_state[address] = value
+                logger.debug(
+                    f"[Overwrite] No conflict for {address} = {value}"
+                )
 
 
 rule_engine = RuleEngine()

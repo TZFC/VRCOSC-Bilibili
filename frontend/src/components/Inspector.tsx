@@ -20,6 +20,10 @@ const T: Record<string, any> = {
     placeholderMinVal: "例如: 10 (仅限礼物/醒目留言)",
     placeholderOsc: "例如: /avatar/parameters/Mute",
     placeholderVal: "例如: true, 1.0, test",
+    syncHint: {
+      overwrite: "用户在游戏中手动修改参数时，应用会将其恢复为自动化设定的值。",
+      respect: "用户在游戏中手动修改参数时，应用会接受新值，后续自动化将基于该值继续。"
+    },
     options: {
       danmaku: "弹幕 (Danmaku)",
       gift: "礼物 (Gift)",
@@ -51,6 +55,10 @@ const T: Record<string, any> = {
     placeholderMinVal: "e.g. 10 (Gifts/SC only)",
     placeholderOsc: "e.g. /avatar/parameters/Mute",
     placeholderVal: "e.g. true, 1.0, test",
+    syncHint: {
+      overwrite: "When the user manually changes this parameter in-game, the app will restore it to the automation-intended value.",
+      respect: "When the user manually changes this parameter in-game, the app will accept the new value and continue automation from it."
+    },
     options: {
       danmaku: "Danmaku",
       gift: "Gift",
@@ -175,6 +183,11 @@ export default function Inspector({ rule, onUpdate, lang }: any) {
                   <option value="Respect">{T[lang].options.respect}</option>
                 </select>
               </div>
+            </div>
+            <div className="px-2 py-1">
+              <p className="text-[10px] text-[var(--text-muted)] leading-relaxed">
+                {localRule.sync_mode === 'Respect' ? T[lang].syncHint.respect : T[lang].syncHint.overwrite}
+              </p>
             </div>
           </div>
         </div>
