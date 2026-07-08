@@ -23,6 +23,14 @@ class AppConfig(SQLModel, table=True):
     osc_client_port: int = Field(default=9000)
     osc_server_ip: str = Field(default="127.0.0.1")
     osc_server_port: int = Field(default=9001)
+    
+    # Camera step sizes (6 DOF)
+    camera_move_x_step: float = Field(default=0.5)
+    camera_move_y_step: float = Field(default=0.5)
+    camera_move_z_step: float = Field(default=0.5)
+    camera_rotate_x_step: float = Field(default=15.0)
+    camera_rotate_y_step: float = Field(default=15.0)
+    camera_rotate_z_step: float = Field(default=15.0)
 
 
 class Rule(SQLModel, table=True):
@@ -62,8 +70,39 @@ def get_session():
         yield session
 
 
+def migrate_db():
+    import sqlite3
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    
+    # Check what columns exist in appconfig
+    cursor.execute("PRAGMA table_info(appconfig)")
+    columns = [row[1] for row in cursor.fetchall()]
+    
+    new_cols = {
+        "camera_move_x_step": "REAL DEFAULT 0.5",
+        "camera_move_y_step": "REAL DEFAULT 0.5",
+        "camera_move_z_step": "REAL DEFAULT 0.5",
+        "camera_rotate_x_step": "REAL DEFAULT 15.0",
+        "camera_rotate_y_step": "REAL DEFAULT 15.0",
+        "camera_rotate_z_step": "REAL DEFAULT 15.0"
+    }
+    
+    for col, col_type in new_cols.items():
+        if col not in columns:
+            try:
+                cursor.execute(f"ALTER TABLE appconfig ADD COLUMN {col} {col_type}")
+                print(f"Database migration: Added column {col} to appconfig")
+            except Exception as e:
+                print(f"Failed to add column {col}: {e}")
+                
+    conn.commit()
+    conn.close()
+
+
 def init_db():
     create_db_and_tables()
+    migrate_db()
     with Session(engine) as session:
         config = session.exec(select(AppConfig)).first()
         if not config:

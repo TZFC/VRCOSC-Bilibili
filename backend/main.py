@@ -153,6 +153,15 @@ async def update_config(
     config.osc_client_port = config_data.osc_client_port
     config.osc_server_ip = config_data.osc_server_ip.strip()
     config.osc_server_port = config_data.osc_server_port
+    
+    # Save camera steps
+    config.camera_move_x_step = config_data.camera_move_x_step
+    config.camera_move_y_step = config_data.camera_move_y_step
+    config.camera_move_z_step = config_data.camera_move_z_step
+    config.camera_rotate_x_step = config_data.camera_rotate_x_step
+    config.camera_rotate_y_step = config_data.camera_rotate_y_step
+    config.camera_rotate_z_step = config_data.camera_rotate_z_step
+    
     session.add(config)
     session.commit()
 

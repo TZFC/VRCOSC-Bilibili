@@ -1,16 +1,82 @@
 import logging
+import math
 
-from database import Rule, Session, engine
+from database import Rule, Session, engine, AppConfig
 from engine.osc_manager import osc_manager
 from sqlmodel import select
 
 logger = logging.getLogger(__name__)
 
 
+# Dictionary mapping camera commands to English/Chinese danmaku keywords
+CAMERA_COMMANDS = {
+    "rotate_left": ["rotate left", "向左旋转", "左旋"],
+    "rotate_right": ["rotate right", "向右旋转", "右旋"],
+    "tilt_up": ["tilt up", "向上倾斜", "仰角", "抬头"],
+    "tilt_down": ["tilt down", "向下倾斜", "俯角", "低头"],
+    "pivot_left": ["pivot left", "向左偏转", "左偏", "左转"],
+    "pivot_right": ["pivot right", "向右偏转", "右偏", "右转"],
+    "move_left": ["move left", "向左移动", "左移"],
+    "move_right": ["move right", "向右移动", "右移"],
+    "move_up": ["move up", "向上移动", "上移"],
+    "move_down": ["move down", "向下移动", "下移"],
+    "move_forward": ["move forward", "向前移动", "前移", "前进"],
+    "move_backward": ["move backward", "向后移动", "后移", "后退"],
+}
+
+
+def get_camera_axes(pitch_deg: float, yaw_deg: float, roll_deg: float):
+    """Calculate local coordinate axis vectors (Right, Up, Forward) in world space
+    based on Unity's left-handed coordinate system and ZXY Euler rotation order.
+    
+    Coordinate System:
+      - Position (X, Y, Z in meters): +X = Right, +Y = Up, +Z = Forward.
+      - Rotation (Pitch, Yaw, Roll in degrees): ZXY order.
+        +X = Pitch down, +Y = Yaw right, +Z = Roll left.
+    """
+    p = math.radians(pitch_deg)
+    y = math.radians(yaw_deg)
+    r = math.radians(roll_deg)
+    
+    cy = math.cos(y)
+    sy = math.sin(y)
+    cp = math.cos(p)
+    sp = math.sin(p)
+    cr = math.cos(r)
+    sr = math.sin(r)
+    
+    # Right vector (local X axis direction in world coordinates)
+    right = [
+        cy * cr + sy * sp * sr,
+        cp * sr,
+        -sy * cr + cy * sp * sr
+    ]
+    
+    # Up vector (local Y axis direction in world coordinates)
+    up = [
+        -cy * sr + sy * sp * cr,
+        cp * cr,
+        sy * sr + cy * sp * cr
+    ]
+    
+    # Forward vector (local Z axis direction in world coordinates)
+    forward = [
+        sy * cp,
+        -sp,
+        cy * cp
+    ]
+    
+    return right, up, forward
+
+
 class RuleEngine:
     def __init__(self):
         # Cache rules in memory for fast evaluation
         self.rules = []
+        
+        # Track current camera pose: [x, y, z, pitch, yaw, roll]
+        # Updated via VRChat OSC broadcasts on port 9001
+        self.current_camera_pose = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
     def reload_rules(self):
         with Session(engine) as session:
@@ -18,7 +84,26 @@ class RuleEngine:
         logger.info(f"Loaded {len(self.rules)} active rules")
 
     def process_bili_event(self, event_type: str, data: dict):
-        """Evaluate a bilibili event against all rules."""
+        """Evaluate a bilibili event against all rules and check for camera commands."""
+        # 1. Parse danmaku messages for camera control keywords
+        if event_type == "Danmaku":
+            msg = data.get("message", "").strip().lower()
+            matched_cmd = None
+            for cmd, keywords in CAMERA_COMMANDS.items():
+                for kw in keywords:
+                    if kw in msg:
+                        matched_cmd = cmd
+                        break
+                if matched_cmd:
+                    break
+                    
+            if matched_cmd:
+                with Session(engine) as session:
+                    config = session.exec(select(AppConfig)).first()
+                if config:
+                    self.handle_camera_command(matched_cmd, config)
+
+        # 2. Continue with standard rule evaluation
         for rule in self.rules:
             if rule.event_type != event_type:
                 continue
@@ -76,19 +161,91 @@ class RuleEngine:
         else:
             osc_manager.send_message(addr, val)
 
-    def on_osc_message_received(self, address: str, *args):
-        """Called when VRChat broadcasts a parameter value on port 9001.
-
-        This fires for *every* parameter change, including echoes of values
-        that we ourselves just sent.  We use osc_manager.is_echo() to
-        distinguish genuine user-initiated changes (via the in-game radial
-        menu or expressions menu) from echoes of our own automation.
+    def handle_camera_command(self, cmd: str, config: AppConfig):
+        """Execute a relative camera transformation based on the matched command
+        and the step configurations. Re-projects local translation steps to world coordinates.
         """
+        x, y, z, pitch, yaw, roll = self.current_camera_pose
+        
+        # Calculate coordinate axes (in world space) relative to current camera angles
+        right, up, forward = get_camera_axes(pitch, yaw, roll)
+        
+        # Load configuration step sizes (6 DOF)
+        step_move_x = config.camera_move_x_step
+        step_move_y = config.camera_move_y_step
+        step_move_z = config.camera_move_z_step
+        step_rot_x = config.camera_rotate_x_step
+        step_rot_y = config.camera_rotate_y_step
+        step_rot_z = config.camera_rotate_z_step
+        
+        # Apply translation/rotation updates
+        if cmd == "move_left":
+            x -= step_move_x * right[0]
+            y -= step_move_x * right[1]
+            z -= step_move_x * right[2]
+        elif cmd == "move_right":
+            x += step_move_x * right[0]
+            y += step_move_x * right[1]
+            z += step_move_x * right[2]
+        elif cmd == "move_up":
+            x += step_move_y * up[0]
+            y += step_move_y * up[1]
+            z += step_move_y * up[2]
+        elif cmd == "move_down":
+            x -= step_move_y * up[0]
+            y -= step_move_y * up[1]
+            z -= step_move_y * up[2]
+        elif cmd == "move_forward":
+            x += step_move_z * forward[0]
+            y += step_move_z * forward[1]
+            z += step_move_z * forward[2]
+        elif cmd == "move_backward":
+            x -= step_move_z * forward[0]
+            y -= step_move_z * forward[1]
+            z -= step_move_z * forward[2]
+        elif cmd == "tilt_up":
+            pitch -= step_rot_x
+        elif cmd == "tilt_down":
+            pitch += step_rot_x
+        elif cmd == "pivot_left":
+            yaw -= step_rot_y
+        elif cmd == "pivot_right":
+            yaw += step_rot_y
+        elif cmd == "rotate_left":
+            roll += step_rot_z
+        elif cmd == "rotate_right":
+            roll -= step_rot_z
+            
+        # Normalize pitch to prevent gimbal lock / flip over
+        pitch = max(-89.9, min(89.9, pitch))
+        # Normalize yaw and roll to [-180, 180] range
+        yaw = (yaw + 180) % 360 - 180
+        roll = (roll + 180) % 360 - 180
+        
+        new_pose = [x, y, z, pitch, yaw, roll]
+        self.current_camera_pose = new_pose
+        
+        # Send new pose to VRChat via port 9000
+        osc_manager.send_message("/usercamera/Pose", new_pose)
+        logger.info(f"Camera control applied: {cmd} -> new pose: {[round(v, 3) for v in new_pose]}")
+
+    def on_osc_message_received(self, address: str, *args):
+        """Called when VRChat broadcasts a parameter value on port 9001."""
         if not args:
             return
+            
+        # Special handling for VRChat Camera Pose update (read-write pose feedback)
+        # Keeps our local tracked pose directly in sync with VRChat, making sure
+        # manual overrides (e.g. user moving camera in game) are immediately respected.
+        if address == "/usercamera/Pose":
+            if len(args) >= 6:
+                self.current_camera_pose = [float(arg) for arg in args[:6]]
+                logger.debug(f"Updated current camera pose from VRChat: {self.current_camera_pose}")
+            return
+
         value = args[0]
 
-        # Ignore echoes of our own sent messages
+        # Ignore echoes of our own sent messages for standard parameter rules
         if osc_manager.is_echo(address, value):
             logger.debug(
                 f"OSC echo ignored for {address} = {value}"
@@ -109,8 +266,6 @@ class RuleEngine:
             return
 
         # Use the sync_mode of the first governing rule for this address.
-        # (All rules sharing the same address should ideally share the same
-        # sync_mode, but we take the first as authoritative.)
         sync_mode = governing_rules[0].sync_mode
 
         if sync_mode == "Respect":

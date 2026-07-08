@@ -13,7 +13,7 @@ const T: Record<string, any> = {
     oscServerPort: "OSC 服务端端口 (VRC 发送端口)",
     saveConfig: "保存并应用配置",
     configSaved: "配置已保存并应用！",
-    authentication: "2. 身份验证 (Authentication)",
+    authentication: "3. 身份验证 (Authentication)",
     activeProfile: "当前活动账号",
     active: "活动中",
     scanning: "未检测到处于活动状态的账号。正在自动扫描本地浏览器...",
@@ -25,6 +25,13 @@ const T: Record<string, any> = {
     qrStatusExpired: "二维码已过期，点击刷新",
     qrClose: "关闭二维码",
     firefoxOnlyNotice: "注意：本地浏览器自动扫描目前仅支持 Firefox。如果您使用的是 Chrome、Edge 或其他浏览器，请使用下方的“扫码登录”方式。",
+    cameraSettings: "2. 相对相机控制步长设置 (Camera Steps)",
+    cameraMoveXStep: "左右移动步长 (X轴) / 米",
+    cameraMoveYStep: "上下移动步长 (Y轴) / 米",
+    cameraMoveZStep: "前后移动步长 (Z轴) / 米",
+    cameraRotateXStep: "上下倾斜步长 (Pitch) / 度",
+    cameraRotateYStep: "左右偏转步长 (Yaw) / 度",
+    cameraRotateZStep: "左右旋转步长 (Roll) / 度",
   },
   en: {
     projectSettings: "VRCOSC-Bilibili Project Settings",
@@ -36,7 +43,7 @@ const T: Record<string, any> = {
     oscServerPort: "OSC Server Port (VRC Out)",
     saveConfig: "Save & Apply Config",
     configSaved: "Config Saved & Applied!",
-    authentication: "2. Authentication",
+    authentication: "3. Authentication",
     activeProfile: "Active Profile",
     active: "Active",
     scanning: "No active authentication profile. Scanning local browsers...",
@@ -48,6 +55,13 @@ const T: Record<string, any> = {
     qrStatusExpired: "QR code expired. Click to refresh",
     qrClose: "Close",
     firefoxOnlyNotice: "Note: Automatic local browser scanning only supports Firefox. For Google Chrome, Microsoft Edge, or other browsers, please use the QR Code Login option instead.",
+    cameraSettings: "2. Relative Camera Control Steps",
+    cameraMoveXStep: "Move Left/Right Step (X) / m",
+    cameraMoveYStep: "Move Up/Down Step (Y) / m",
+    cameraMoveZStep: "Move Forward/Backward Step (Z) / m",
+    cameraRotateXStep: "Tilt Up/Down Step (Pitch) / °",
+    cameraRotateYStep: "Pivot Left/Right Step (Yaw) / °",
+    cameraRotateZStep: "Rotate Left/Right Step (Roll) / °",
   }
 };
 
@@ -55,7 +69,19 @@ const T: Record<string, any> = {
 export default function AuthPanel({ authActive, onAuthUpdate, config, onConfigUpdate, lang }: any) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [profiles, setProfiles] = useState<any[]>([]);
-  const [localConfig, setLocalConfig] = useState(config || { bili_room_id: 0, osc_client_ip: '127.0.0.1', osc_client_port: 9000, osc_server_ip: '127.0.0.1', osc_server_port: 9001 });
+  const [localConfig, setLocalConfig] = useState(config || {
+    bili_room_id: 0,
+    osc_client_ip: '127.0.0.1',
+    osc_client_port: 9000,
+    osc_server_ip: '127.0.0.1',
+    osc_server_port: 9001,
+    camera_move_x_step: 0.5,
+    camera_move_y_step: 0.5,
+    camera_move_z_step: 0.5,
+    camera_rotate_x_step: 15.0,
+    camera_rotate_y_step: 15.0,
+    camera_rotate_z_step: 15.0
+  });
 
   const [qrUrl, setQrUrl] = useState<string | null>(null);
   const [qrStatus, setQrStatus] = useState<string>(''); // 'none', 'waiting', 'scanned', 'done', 'expired'
@@ -181,6 +207,57 @@ export default function AuthPanel({ authActive, onAuthUpdate, config, onConfigUp
             <span className="unity-inspector-label">{T[lang].oscServerPort}</span>
             <div className="unity-inspector-value">
               <input name="osc_server_port" type="number" value={localConfig.osc_server_port} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
+            </div>
+          </div>
+        </div>
+        <button onClick={saveConfig} className="mt-4 w-full py-2 bg-[var(--accent-blue)] hover:bg-[var(--accent-blue-hover)] text-white border-none rounded font-bold text-xs">
+          {T[lang].saveConfig}
+        </button>
+      </div>
+
+      {/* Camera Steps Config Panel */}
+      <div className="unity-panel">
+        <div className="unity-panel-header">{T[lang].cameraSettings}</div>
+        <div className="space-y-2">
+          <div className="unity-inspector-row">
+            <span className="unity-inspector-label">{T[lang].cameraMoveXStep}</span>
+            <div className="unity-inspector-value">
+              <input name="camera_move_x_step" type="number" step="0.01" value={localConfig.camera_move_x_step} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
+            </div>
+          </div>
+
+          <div className="unity-inspector-row">
+            <span className="unity-inspector-label">{T[lang].cameraMoveYStep}</span>
+            <div className="unity-inspector-value">
+              <input name="camera_move_y_step" type="number" step="0.01" value={localConfig.camera_move_y_step} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
+            </div>
+          </div>
+
+          <div className="unity-inspector-row">
+            <span className="unity-inspector-label">{T[lang].cameraMoveZStep}</span>
+            <div className="unity-inspector-value">
+              <input name="camera_move_z_step" type="number" step="0.01" value={localConfig.camera_move_z_step} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
+            </div>
+          </div>
+
+          <div className="unity-inspector-row">
+            <span className="unity-inspector-label">{T[lang].cameraRotateXStep}</span>
+            <div className="unity-inspector-value">
+              <input name="camera_rotate_x_step" type="number" step="0.1" value={localConfig.camera_rotate_x_step} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
+            </div>
+          </div>
+
+          <div className="unity-inspector-row">
+            <span className="unity-inspector-label">{T[lang].cameraRotateYStep}</span>
+            <div className="unity-inspector-value">
+              <input name="camera_rotate_y_step" type="number" step="0.1" value={localConfig.camera_rotate_y_step} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
+            </div>
+          </div>
+
+          <div className="unity-inspector-row">
+            <span className="unity-inspector-label">{T[lang].cameraRotateZStep}</span>
+            <div className="unity-inspector-value">
+              <input name="camera_rotate_z_step" type="number" step="0.1" value={localConfig.camera_rotate_z_step} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
             </div>
           </div>
         </div>
