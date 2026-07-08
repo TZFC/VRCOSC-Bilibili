@@ -7,7 +7,6 @@ from sqlmodel import JSON, Column, Field, Session, SQLModel, create_engine, sele
 if getattr(sys, "frozen", False):
     application_path = os.path.dirname(sys.executable)
 else:
-    # Point to project root (parent directory of backend)
     application_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 
 db_path = os.path.join(application_path, "vrcosc_bilibili_v3.db")
@@ -24,7 +23,6 @@ class AppConfig(SQLModel, table=True):
     osc_server_ip: str = Field(default="127.0.0.1")
     osc_server_port: int = Field(default=9001)
     
-    # Camera step sizes (6 DOF)
     camera_move_x_step: float = Field(default=0.5)
     camera_move_y_step: float = Field(default=0.5)
     camera_move_z_step: float = Field(default=0.5)
@@ -32,14 +30,12 @@ class AppConfig(SQLModel, table=True):
     camera_rotate_y_step: float = Field(default=15.0)
     camera_rotate_z_step: float = Field(default=15.0)
 
-    # Camera keywords (comma-separated)
-    camera_kw_rotate_left: str = Field(default="rotate left,向左旋转,左旋")
-    camera_kw_rotate_right: str = Field(default="rotate right,向右旋转,右旋")
-    camera_kw_tilt_up: str = Field(default="tilt up,向上倾斜,仰角,抬头")
-    camera_kw_tilt_down: str = Field(default="tilt down,向下倾斜,俯角,低头")
-    camera_kw_pivot_left: str = Field(default="pivot left,向左偏转,左偏,左转")
-    # Wait, look at pivot_right keyword: pivot right, 向右偏转, 右偏, 右转
-    camera_kw_pivot_right: str = Field(default="pivot right,向右偏转,右偏,右转")
+    camera_kw_rotate_left: str = Field(default="rotate left,向左旋转,left rotation")
+    camera_kw_rotate_right: str = Field(default="rotate right,向右旋转,right rotation")
+    camera_kw_tilt_up: str = Field(default="tilt up,向上倾斜,look up,抬头")
+    camera_kw_tilt_down: str = Field(default="tilt down,向下倾斜,look down,低头")
+    camera_kw_pivot_left: str = Field(default="pivot left,向左偏转,left yaw,左转")
+    camera_kw_pivot_right: str = Field(default="pivot right,向右偏转,right yaw,右转")
     camera_kw_move_left: str = Field(default="move left,向左移动,左移")
     camera_kw_move_right: str = Field(default="move right,向右移动,右移")
     camera_kw_move_up: str = Field(default="move up,向上移动,上移")
@@ -52,16 +48,13 @@ class Rule(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str = Field(default="New Rule")
     enabled: bool = Field(default=True)
-    # Triggers
-    event_type: str = Field(default="Danmaku")  # Danmaku, Gift, SC, Guard, Enter
+    event_type: str = Field(default="Danmaku")
     condition_keyword: str = Field(default="")
-    condition_min_value: float = Field(default=0.0)  # Used for Gift price, SC price
-    # Actions
+    condition_min_value: float = Field(default=0.0)
     osc_endpoint: str = Field(default="/avatar/parameters/MyParam")
-    action_type: str = Field(default="Set")  # Set, Add, Toggle
+    action_type: str = Field(default="Set")
     action_value: str = Field(default="true")
-    # Bi-directional sync
-    sync_mode: str = Field(default="Overwrite")  # Overwrite, Respect
+    sync_mode: str = Field(default="Overwrite")
 
 
 class AuthProfile(SQLModel, table=True):
@@ -90,7 +83,6 @@ def migrate_db():
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
-    # Check what columns exist in appconfig
     cursor.execute("PRAGMA table_info(appconfig)")
     columns = [row[1] for row in cursor.fetchall()]
     
@@ -136,3 +128,4 @@ def init_db():
             config = AppConfig()
             session.add(config)
             session.commit()
+

@@ -1,4 +1,4 @@
-﻿# VRCOSC-Bilibili (v3) - 开发者指南
+# VRCOSC-Bilibili (v3) - 开发者指南
 
 [English (User Guide)](README.md) | [中文 (用户指南)](README-zh-CN.md) | [English (Developer Guide)](README-dev.md) | [中文 (开发者指南)](README-dev-zh-CN.md)
 
@@ -10,10 +10,10 @@ v3 版本的重写采用了基于 **Python FastAPI 后端** 和 **React + Vite �
 
 ### 1. 后端 (FastAPI + SQLModel)
 - **API 与 WebSockets (main.py)**: 后端的入口点。它承载了用于 UI 配置的 REST 接口以及用于实时日志流的 WebSocket 接口。它利用 FastAPI 的 @asynccontextmanager async def lifespan(app) 来确保所有后台任务（OSC 连接、Bilibili 连接）在接受 API 请求之前正确启动，并在关闭时干净地终止。
-- **数据库 (database.py)**: 使用 SQLModel 与 SQLite (rcosc_bilibili_v3.db) 提供防崩溃的持久化存储。包含 AppConfig、Rule 和 AuthProfile 的数据表结构。
-- **身份验证 (uth/bili_auth.py)**: 使用 rowser-cookie3 跨多个浏览器提取用户的登录会话，实现无缝登录体验，无需手动获取 token。
-- **规则引擎 (engine/rule_engine.py)**: 根据数据库中的规则评估传入的 B站事件，并决定触发哪些 OSC 消息。
-- **Bilibili 客户端 (ili_client.py)**: 使用 ilibili-api-python 库连接到 B 站直播弹幕 WebSocket。它将原始事件（弹幕、礼物、醒目留言等）转换为结构化的内部事件发送给规则引擎。
+- **数据库 (database.py)**: 使用 SQLModel 与 SQLite (`vrcosc_bilibili_v3.db`) 提供防崩溃的持久化存储。包含 AppConfig、Rule 和 AuthProfile 的数据表结构。它实现了自动化的数据库迁移 (`migrate_db()`)，可以在启动时自动修改 SQLite 数据表结构并注入新增的配置列，防止因版本升级导致的数据丢失或程序崩溃。
+- **身份验证 (auth/bili_auth.py)**: 使用 browser-cookie3 跨多个浏览器提取用户的登录会话，实现无缝登录体验，无需手动获取 token。
+- **规则引擎 (engine/rule_engine.py)**: 根据数据库中的规则评估传入的 B站事件，并决定触发哪些 OSC 消息。同时它还负责解析动态相机控制关键词，并基于从 `/usercamera/Pose` 接收到的坐标与旋转反馈，采用 ZXY 欧拉旋转矩阵的数学公式，将相对视口移动指令（6 自由度）转换并叠加到世界坐标系中。
+- **Bilibili 客户端 (bili_client.py)**: 使用 bilibili-api-python 库连接到 B 站直播弹幕 WebSocket。它将原始事件（弹幕、礼物、醒目留言等）转换为结构化的内部事件发送给规则引擎。
 - **OSC 管理器 (engine/osc_manager.py)**: 封装 python-osc。
   - **单例客户端 (Singleton Client)**: 提前启动一个 OSC 发送客户端，避免了 v1/v2 中多个并发事件同时触发时产生多个客户端的竞态条件。
   - **OSC 服务端 (OSC Server)**: 运行一个异步 UDP 服务器监听 VRChat 参数的本地变化。通过对比 VRChat 的状态和内部记录的状态，实现 **双向同步 (Bi-Directional Sync)** 逻辑（Overwrite 覆盖 或 Respect 尊重）。

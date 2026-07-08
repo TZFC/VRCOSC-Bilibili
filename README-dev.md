@@ -1,4 +1,4 @@
-﻿# VRCOSC-Bilibili (v3) - Developer Guide
+# VRCOSC-Bilibili (v3) - Developer Guide
 
 [English (User Guide)](README.md) | [中文 (用户指南)](README-zh-CN.md) | [English (Developer Guide)](README-dev.md) | [中文 (开发者指南)](README-dev-zh-CN.md)
 
@@ -10,10 +10,10 @@ The v3 rewrite uses a modern, lightweight, and robust architecture based on a **
 
 ### 1. Backend (FastAPI + SQLModel)
 - **API & WebSockets (main.py)**: The entry point for the backend. It hosts REST endpoints for UI configuration and a WebSocket endpoint for real-time log streaming. It utilizes FastAPI's @asynccontextmanager async def lifespan(app) to ensure all background tasks (OSC connections, Bilibili connections) are properly started before accepting API requests and cleanly terminated upon shutdown.
-- **Database (database.py)**: Uses SQLModel with SQLite (rcosc_bilibili_v3.db) for crash-resistant persistence. Contains schemas for AppConfig, Rule, and AuthProfile.
-- **Authentication (uth/bili_auth.py)**: Uses rowser-cookie3 to extract user login sessions across multiple browsers, enabling a seamless login experience without manual token fetching.
-- **Rule Engine (engine/rule_engine.py)**: Evaluates incoming Bilibili events against database rules and determines what OSC messages to fire. 
-- **Bilibili Client (ili_client.py)**: Connects to the Bilibili Live Websocket using the ilibili-api-python library. It translates raw events (Danmaku, Gift, SuperChat) into structured internal events sent to the Rule Engine.
+- **Database (database.py)**: Uses SQLModel with SQLite (`vrcosc_bilibili_v3.db`) for crash-resistant persistence. Contains schemas for AppConfig, Rule, and AuthProfile. It implements automated schema migration (`migrate_db()`) to alter SQLite tables and safely inject missing configuration columns at startup without data loss.
+- **Authentication (auth/bili_auth.py)**: Uses browser-cookie3 to extract user login sessions across multiple browsers, enabling a seamless login experience without manual token fetching.
+- **Rule Engine (engine/rule_engine.py)**: Evaluates incoming Bilibili events against database rules and determines what OSC messages to fire. It also handles dynamic camera command keyword parsing (retrieved from `AppConfig` in DB) and projects local step translations (6 Degrees of Freedom) into world-space coordinates via ZXY Euler rotation matrices relative to the current tracked camera viewpoint.
+- **Bilibili Client (bili_client.py)**: Connects to the Bilibili Live Websocket using the bilibili-api-python library. It translates raw events (Danmaku, Gift, SuperChat) into structured internal events sent to the Rule Engine.
 - **OSC Manager (engine/osc_manager.py)**: Wraps python-osc. 
   - **Singleton Client**: Starts an OSC client upfront, avoiding race conditions that existed in v1/v2 where multiple simultaneous events spawned multiple clients.
   - **OSC Server**: Runs an async UDP server to listen for VRChat parameters changing locally. It implements the **Bi-Directional Sync** logic (Overwrite vs Respect) by comparing VRChat's state to the internal tracked state.

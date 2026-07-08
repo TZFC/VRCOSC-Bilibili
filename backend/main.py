@@ -154,7 +154,6 @@ async def update_config(
     config.osc_server_ip = config_data.osc_server_ip.strip()
     config.osc_server_port = config_data.osc_server_port
     
-    # Save camera steps
     config.camera_move_x_step = config_data.camera_move_x_step
     config.camera_move_y_step = config_data.camera_move_y_step
     config.camera_move_z_step = config_data.camera_move_z_step
@@ -162,7 +161,6 @@ async def update_config(
     config.camera_rotate_y_step = config_data.camera_rotate_y_step
     config.camera_rotate_z_step = config_data.camera_rotate_z_step
     
-    # Save camera keywords
     config.camera_kw_rotate_left = config_data.camera_kw_rotate_left.strip()
     config.camera_kw_rotate_right = config_data.camera_kw_rotate_right.strip()
     config.camera_kw_tilt_up = config_data.camera_kw_tilt_up.strip()
@@ -179,7 +177,6 @@ async def update_config(
     session.add(config)
     session.commit()
 
-    # Reconfigure OSC and Bilibili
     osc_manager.setup(
         config.osc_client_ip,
         config.osc_client_port,
@@ -260,13 +257,12 @@ def export_rules(session: Session = Depends(get_session)):
 
 @app.post("/api/rules/import")
 def import_rules(rules: List[Rule], session: Session = Depends(get_session)):
-    # Clear existing rules
     existing = session.exec(select(Rule)).all()
     for r in existing:
         session.delete(r)
 
     for r in rules:
-        r.id = None  # Let DB auto-increment
+        r.id = None
         session.add(r)
 
     session.commit()

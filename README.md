@@ -44,10 +44,14 @@ VRChat avatars are interactive. If a user manually changes an Avatar Parameter (
 - **Overwrite:** The app will be stubborn and immediately overwrite the user's manual change back to the rule's state.
 - **Respect:** The app will listen to VRChat and accept the user's manual change, staying in sync.
 
-## 📦 Sharing Configs
+## 🎥 Relative Camera Control
 
-Want to share your complex avatar setup with friends? 
-Use the **Exp** (Export) button in the Hierarchy to download your rules as a .json file, and the **Imp** (Import) button to load someone else's!
+The application supports 12 relative camera movement commands (6 Degrees of Freedom) controlled via Bilibili live stream danmaku keywords:
+- **Movements**: Move Left/Right, Move Up/Down, Move Forward/Backward, Tilt Up/Down, Pivot Left/Right, Rotate Left/Right.
+- **Relative to View**: All movements are calculated relative to the current camera looking direction in Unity's left-handed coordinate system.
+- **Manual Override Respect**: If you move the camera manually in-game, the application immediately updates its tracked position and bases the next relative steps on the new location.
+- **Customizable Keywords**: Configure step sizes and trigger keywords for each movement in the **Camera Steps** and **Camera Keywords** panels in the UI. Comma-separated lists of keywords are supported to allow multiple trigger phrases.
+- **Smooth Movement**: Built-in VRChat camera smoothing is fully supported by toggling smooth movement in-game.
 
 ---
 *Note: Make sure OSC is enabled in your VRChat Action Menu (Action Menu > Options > OSC > Enabled).*
