@@ -88,19 +88,35 @@ class RuleEngine:
         # 1. Parse danmaku messages for camera control keywords
         if event_type == "Danmaku":
             msg = data.get("message", "").strip().lower()
-            matched_cmd = None
-            for cmd, keywords in CAMERA_COMMANDS.items():
-                for kw in keywords:
-                    if kw in msg:
-                        matched_cmd = cmd
+            with Session(engine) as session:
+                config = session.exec(select(AppConfig)).first()
+            if config:
+                # Dynamically construct command keywords from config
+                dynamic_commands = {
+                    "rotate_left": [k.strip().lower() for k in getattr(config, "camera_kw_rotate_left", "").split(",") if k.strip()],
+                    "rotate_right": [k.strip().lower() for k in getattr(config, "camera_kw_rotate_right", "").split(",") if k.strip()],
+                    "tilt_up": [k.strip().lower() for k in getattr(config, "camera_kw_tilt_up", "").split(",") if k.strip()],
+                    "tilt_down": [k.strip().lower() for k in getattr(config, "camera_kw_tilt_down", "").split(",") if k.strip()],
+                    "pivot_left": [k.strip().lower() for k in getattr(config, "camera_kw_pivot_left", "").split(",") if k.strip()],
+                    "pivot_right": [k.strip().lower() for k in getattr(config, "camera_kw_pivot_right", "").split(",") if k.strip()],
+                    "move_left": [k.strip().lower() for k in getattr(config, "camera_kw_move_left", "").split(",") if k.strip()],
+                    "move_right": [k.strip().lower() for k in getattr(config, "camera_kw_move_right", "").split(",") if k.strip()],
+                    "move_up": [k.strip().lower() for k in getattr(config, "camera_kw_move_up", "").split(",") if k.strip()],
+                    "move_down": [k.strip().lower() for k in getattr(config, "camera_kw_move_down", "").split(",") if k.strip()],
+                    "move_forward": [k.strip().lower() for k in getattr(config, "camera_kw_move_forward", "").split(",") if k.strip()],
+                    "move_backward": [k.strip().lower() for k in getattr(config, "camera_kw_move_backward", "").split(",") if k.strip()],
+                }
+                
+                matched_cmd = None
+                for cmd, keywords in dynamic_commands.items():
+                    for kw in keywords:
+                        if kw in msg:
+                            matched_cmd = cmd
+                            break
+                    if matched_cmd:
                         break
+                        
                 if matched_cmd:
-                    break
-                    
-            if matched_cmd:
-                with Session(engine) as session:
-                    config = session.exec(select(AppConfig)).first()
-                if config:
                     self.handle_camera_command(matched_cmd, config)
 
         # 2. Continue with standard rule evaluation

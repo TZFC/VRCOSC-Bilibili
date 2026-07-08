@@ -32,6 +32,21 @@ class AppConfig(SQLModel, table=True):
     camera_rotate_y_step: float = Field(default=15.0)
     camera_rotate_z_step: float = Field(default=15.0)
 
+    # Camera keywords (comma-separated)
+    camera_kw_rotate_left: str = Field(default="rotate left,向左旋转,左旋")
+    camera_kw_rotate_right: str = Field(default="rotate right,向右旋转,右旋")
+    camera_kw_tilt_up: str = Field(default="tilt up,向上倾斜,仰角,抬头")
+    camera_kw_tilt_down: str = Field(default="tilt down,向下倾斜,俯角,低头")
+    camera_kw_pivot_left: str = Field(default="pivot left,向左偏转,左偏,左转")
+    # Wait, look at pivot_right keyword: pivot right, 向右偏转, 右偏, 右转
+    camera_kw_pivot_right: str = Field(default="pivot right,向右偏转,右偏,右转")
+    camera_kw_move_left: str = Field(default="move left,向左移动,左移")
+    camera_kw_move_right: str = Field(default="move right,向右移动,右移")
+    camera_kw_move_up: str = Field(default="move up,向上移动,上移")
+    camera_kw_move_down: str = Field(default="move down,向下移动,下移")
+    camera_kw_move_forward: str = Field(default="move forward,向前移动,前移,前进")
+    camera_kw_move_backward: str = Field(default="move backward,向后移动,后移,后退")
+
 
 class Rule(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -85,7 +100,19 @@ def migrate_db():
         "camera_move_z_step": "REAL DEFAULT 0.5",
         "camera_rotate_x_step": "REAL DEFAULT 15.0",
         "camera_rotate_y_step": "REAL DEFAULT 15.0",
-        "camera_rotate_z_step": "REAL DEFAULT 15.0"
+        "camera_rotate_z_step": "REAL DEFAULT 15.0",
+        "camera_kw_rotate_left": "TEXT DEFAULT 'rotate left,向左旋转,左旋'",
+        "camera_kw_rotate_right": "TEXT DEFAULT 'rotate right,向右旋转,右旋'",
+        "camera_kw_tilt_up": "TEXT DEFAULT 'tilt up,向上倾斜,仰角,抬头'",
+        "camera_kw_tilt_down": "TEXT DEFAULT 'tilt down,向下倾斜,俯角,低头'",
+        "camera_kw_pivot_left": "TEXT DEFAULT 'pivot left,向左偏转,左偏,左转'",
+        "camera_kw_pivot_right": "TEXT DEFAULT 'pivot right,向右偏转,右偏,右转'",
+        "camera_kw_move_left": "TEXT DEFAULT 'move left,向左移动,左移'",
+        "camera_kw_move_right": "TEXT DEFAULT 'move right,向右移动,右移'",
+        "camera_kw_move_up": "TEXT DEFAULT 'move up,向上移动,上移'",
+        "camera_kw_move_down": "TEXT DEFAULT 'move down,向下移动,下移'",
+        "camera_kw_move_forward": "TEXT DEFAULT 'move forward,向前移动,前移,前进'",
+        "camera_kw_move_backward": "TEXT DEFAULT 'move backward,向后移动,后移,后退'"
     }
     
     for col, col_type in new_cols.items():

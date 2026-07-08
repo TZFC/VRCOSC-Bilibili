@@ -13,7 +13,7 @@ const T: Record<string, any> = {
     oscServerPort: "OSC 服务端端口 (VRC 发送端口)",
     saveConfig: "保存并应用配置",
     configSaved: "配置已保存并应用！",
-    authentication: "3. 身份验证 (Authentication)",
+    authentication: "4. 身份验证 (Authentication)",
     activeProfile: "当前活动账号",
     active: "活动中",
     scanning: "未检测到处于活动状态的账号。正在自动扫描本地浏览器...",
@@ -32,6 +32,19 @@ const T: Record<string, any> = {
     cameraRotateXStep: "上下倾斜步长 (Pitch) / 度",
     cameraRotateYStep: "左右偏转步长 (Yaw) / 度",
     cameraRotateZStep: "左右旋转步长 (Roll) / 度",
+    cameraKeywords: "3. 相对相机控制指令关键词 (Camera Keywords, 逗号分隔)",
+    rotateLeft: "向左旋转 (Rotate Left)",
+    rotateRight: "向右旋转 (Rotate Right)",
+    tiltUp: "向上倾斜 (Tilt Up)",
+    tiltDown: "向下倾斜 (Tilt Down)",
+    pivotLeft: "向左偏转 (Pivot Left)",
+    pivotRight: "向右偏转 (Pivot Right)",
+    moveLeft: "向左移动 (Move Left)",
+    moveRight: "向右移动 (Move Right)",
+    moveUp: "向上移动 (Move Up)",
+    moveDown: "向下移动 (Move Down)",
+    moveForward: "向前移动 (Move Forward)",
+    moveBackward: "向后移动 (Move Backward)",
   },
   en: {
     projectSettings: "VRCOSC-Bilibili Project Settings",
@@ -43,7 +56,7 @@ const T: Record<string, any> = {
     oscServerPort: "OSC Server Port (VRC Out)",
     saveConfig: "Save & Apply Config",
     configSaved: "Config Saved & Applied!",
-    authentication: "3. Authentication",
+    authentication: "4. Authentication",
     activeProfile: "Active Profile",
     active: "Active",
     scanning: "No active authentication profile. Scanning local browsers...",
@@ -62,6 +75,19 @@ const T: Record<string, any> = {
     cameraRotateXStep: "Tilt Up/Down Step (Pitch) / °",
     cameraRotateYStep: "Pivot Left/Right Step (Yaw) / °",
     cameraRotateZStep: "Rotate Left/Right Step (Roll) / °",
+    cameraKeywords: "3. Relative Camera Control Keywords (comma-separated)",
+    rotateLeft: "Rotate Left",
+    rotateRight: "Rotate Right",
+    tiltUp: "Tilt Up",
+    tiltDown: "Tilt Down",
+    pivotLeft: "Pivot Left",
+    pivotRight: "Pivot Right",
+    moveLeft: "Move Left",
+    moveRight: "Move Right",
+    moveUp: "Move Up",
+    moveDown: "Move Down",
+    moveForward: "Move Forward",
+    moveBackward: "Move Backward",
   }
 };
 
@@ -80,7 +106,19 @@ export default function AuthPanel({ authActive, onAuthUpdate, config, onConfigUp
     camera_move_z_step: 0.5,
     camera_rotate_x_step: 15.0,
     camera_rotate_y_step: 15.0,
-    camera_rotate_z_step: 15.0
+    camera_rotate_z_step: 15.0,
+    camera_kw_rotate_left: "rotate left,向左旋转,左旋",
+    camera_kw_rotate_right: "rotate right,向右旋转,右旋",
+    camera_kw_tilt_up: "tilt up,向上倾斜,仰角,抬头",
+    camera_kw_tilt_down: "tilt down,向下倾斜,俯角,低头",
+    camera_kw_pivot_left: "pivot left,向左偏转,左偏,左转",
+    camera_kw_pivot_right: "pivot right,向右偏转,右偏,右转",
+    camera_kw_move_left: "move left,向左移动,左移",
+    camera_kw_move_right: "move right,向右移动,右移",
+    camera_kw_move_up: "move up,向上移动,上移",
+    camera_kw_move_down: "move down,向下移动,下移",
+    camera_kw_move_forward: "move forward,向前移动,前移,前进",
+    camera_kw_move_backward: "move backward,向后移动,后移,后退"
   });
 
   const [qrUrl, setQrUrl] = useState<string | null>(null);
@@ -258,6 +296,99 @@ export default function AuthPanel({ authActive, onAuthUpdate, config, onConfigUp
             <span className="unity-inspector-label">{T[lang].cameraRotateZStep}</span>
             <div className="unity-inspector-value">
               <input name="camera_rotate_z_step" type="number" step="0.1" value={localConfig.camera_rotate_z_step} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
+            </div>
+          </div>
+        </div>
+        <button onClick={saveConfig} className="mt-4 w-full py-2 bg-[var(--accent-blue)] hover:bg-[var(--accent-blue-hover)] text-white border-none rounded font-bold text-xs">
+          {T[lang].saveConfig}
+        </button>
+      </div>
+
+      {/* Camera Keywords Config Panel */}
+      <div className="unity-panel">
+        <div className="unity-panel-header">{T[lang].cameraKeywords}</div>
+        <div className="space-y-2">
+          <div className="unity-inspector-row">
+            <span className="unity-inspector-label">{T[lang].rotateLeft}</span>
+            <div className="unity-inspector-value">
+              <input name="camera_kw_rotate_left" value={localConfig.camera_kw_rotate_left || ''} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
+            </div>
+          </div>
+
+          <div className="unity-inspector-row">
+            <span className="unity-inspector-label">{T[lang].rotateRight}</span>
+            <div className="unity-inspector-value">
+              <input name="camera_kw_rotate_right" value={localConfig.camera_kw_rotate_right || ''} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
+            </div>
+          </div>
+
+          <div className="unity-inspector-row">
+            <span className="unity-inspector-label">{T[lang].tiltUp}</span>
+            <div className="unity-inspector-value">
+              <input name="camera_kw_tilt_up" value={localConfig.camera_kw_tilt_up || ''} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
+            </div>
+          </div>
+
+          <div className="unity-inspector-row">
+            <span className="unity-inspector-label">{T[lang].tiltDown}</span>
+            <div className="unity-inspector-value">
+              <input name="camera_kw_tilt_down" value={localConfig.camera_kw_tilt_down || ''} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
+            </div>
+          </div>
+
+          <div className="unity-inspector-row">
+            <span className="unity-inspector-label">{T[lang].pivotLeft}</span>
+            <div className="unity-inspector-value">
+              <input name="camera_kw_pivot_left" value={localConfig.camera_kw_pivot_left || ''} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
+            </div>
+          </div>
+
+          <div className="unity-inspector-row">
+            <span className="unity-inspector-label">{T[lang].pivotRight}</span>
+            <div className="unity-inspector-value">
+              <input name="camera_kw_pivot_right" value={localConfig.camera_kw_pivot_right || ''} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
+            </div>
+          </div>
+
+          <div className="unity-inspector-row">
+            <span className="unity-inspector-label">{T[lang].moveLeft}</span>
+            <div className="unity-inspector-value">
+              <input name="camera_kw_move_left" value={localConfig.camera_kw_move_left || ''} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
+            </div>
+          </div>
+
+          <div className="unity-inspector-row">
+            <span className="unity-inspector-label">{T[lang].moveRight}</span>
+            <div className="unity-inspector-value">
+              <input name="camera_kw_move_right" value={localConfig.camera_kw_move_right || ''} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
+            </div>
+          </div>
+
+          <div className="unity-inspector-row">
+            <span className="unity-inspector-label">{T[lang].moveUp}</span>
+            <div className="unity-inspector-value">
+              <input name="camera_kw_move_up" value={localConfig.camera_kw_move_up || ''} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
+            </div>
+          </div>
+
+          <div className="unity-inspector-row">
+            <span className="unity-inspector-label">{T[lang].moveDown}</span>
+            <div className="unity-inspector-value">
+              <input name="camera_kw_move_down" value={localConfig.camera_kw_move_down || ''} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
+            </div>
+          </div>
+
+          <div className="unity-inspector-row">
+            <span className="unity-inspector-label">{T[lang].moveForward}</span>
+            <div className="unity-inspector-value">
+              <input name="camera_kw_move_forward" value={localConfig.camera_kw_move_forward || ''} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
+            </div>
+          </div>
+
+          <div className="unity-inspector-row">
+            <span className="unity-inspector-label">{T[lang].moveBackward}</span>
+            <div className="unity-inspector-value">
+              <input name="camera_kw_move_backward" value={localConfig.camera_kw_move_backward || ''} onChange={handleConfigChange} className="w-full font-mono text-[13px]" />
             </div>
           </div>
         </div>

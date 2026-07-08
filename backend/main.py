@@ -162,6 +162,20 @@ async def update_config(
     config.camera_rotate_y_step = config_data.camera_rotate_y_step
     config.camera_rotate_z_step = config_data.camera_rotate_z_step
     
+    # Save camera keywords
+    config.camera_kw_rotate_left = config_data.camera_kw_rotate_left.strip()
+    config.camera_kw_rotate_right = config_data.camera_kw_rotate_right.strip()
+    config.camera_kw_tilt_up = config_data.camera_kw_tilt_up.strip()
+    config.camera_kw_tilt_down = config_data.camera_kw_tilt_down.strip()
+    config.camera_kw_pivot_left = config_data.camera_kw_pivot_left.strip()
+    config.camera_kw_pivot_right = config_data.camera_kw_pivot_right.strip()
+    config.camera_kw_move_left = config_data.camera_kw_move_left.strip()
+    config.camera_kw_move_right = config_data.camera_kw_move_right.strip()
+    config.camera_kw_move_up = config_data.camera_kw_move_up.strip()
+    config.camera_kw_move_down = config_data.camera_kw_move_down.strip()
+    config.camera_kw_move_forward = config_data.camera_kw_move_forward.strip()
+    config.camera_kw_move_backward = config_data.camera_kw_move_backward.strip()
+    
     session.add(config)
     session.commit()
 
